@@ -30,7 +30,7 @@ import RNPickerSelect from 'react-native-picker-select';
 //     label: 'Срок годности',
 //   },
 // ];
-
+console.log('test')
 const NewPillForm = ({ pill, setPill }) => {
   return (
     <View>
