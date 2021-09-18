@@ -3,8 +3,8 @@ import PillsStore from './PillsStore';
 import CoursesStore from './CoursesStore';
 
 export const stores = {
-    pillsStore: PillsStore,
-    courseStore: CoursesStore,
+  pillsStore: PillsStore,
+  courseStore: CoursesStore,
 };
 
 export const StoreContext = React.createContext(stores);

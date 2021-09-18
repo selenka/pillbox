@@ -1,42 +1,49 @@
-import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-
+import React from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { PRIMARY_DARK, PRIMARY_LIGHT } from '../utils/constants';
 
 const HomeScreen = ({ navigation }) => {
-    return (
-        <View style={styles.buttonContainer}>
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => navigation.navigate('Medicine')}
-            >
-                <Text>Medicine</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => navigation.navigate('Courses')}
-            >
-                <Text>Courses</Text>
-            </TouchableOpacity>
-        </View>
-    );
+  return (
+    <View style={s.buttonContainer}>
+      <TouchableOpacity style={s.buttonDark} onPress={() => navigation.navigate('Medicine')}>
+        <Text style={[s.text, s.textLight]}>Аптечка</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={s.buttonLight} onPress={() => navigation.navigate('Courses')}>
+        <Text style={[s.text, s.textDark]}>Курсы</Text>
+      </TouchableOpacity>
+    </View>
+  );
 };
 
-const styles = StyleSheet.create({
-    buttonContainer: {
-        marginTop: 10,
-        flexDirection: 'row',
-        justifyContent: 'space-around'
-    },
-    button: {
-        padding: 35,
-        borderStyle: 'solid',
-        borderColor: '#52ecd0',
-        borderWidth: 2,
-        borderRadius: 22,
-    },
-    text: {
-        fontSize: 30
-    }
+const s = StyleSheet.create({
+  buttonContainer: {
+    marginTop: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  buttonLight: {
+    padding: 35,
+    color: PRIMARY_LIGHT,
+    borderRadius: 22,
+    backgroundColor: '#fff',
+  },
+  buttonDark: {
+    padding: 35,
+    color: PRIMARY_LIGHT,
+    borderRadius: 22,
+    backgroundColor: PRIMARY_DARK,
+  },
+  text: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    textTransform: 'uppercase',
+  },
+  textLight: {
+    color: PRIMARY_LIGHT,
+  },
+  textDark: {
+    color: PRIMARY_DARK,
+  },
 });
 
 export default HomeScreen;
