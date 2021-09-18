@@ -1,28 +1,32 @@
 import React, { useState } from 'react';
-import { observer } from 'mobx-react-lite';
-import { View, Button, StyleSheet } from 'react-native';
-import { useStore } from '../../store';
-import { PRIMARY_DARK } from '../../utils/constants';
+import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
+import {PRIMARY_DARK, PRIMARY_LIGHT} from '../../utils/constants';
 import NewPillForm from '../../components/NewPillForm';
+import {useStore} from "../../store";
 
 const MedicineItemScreen = ({ navigation }) => {
-  const { pillsStore } = useStore();
+  const { addPill } = useStore();
   const [pill, setPill] = useState({});
+
   return (
     <View style={s.container}>
       <View>
-        <NewPillForm pill={pill} setPill={setPill} />
+        <NewPillForm
+            navigation={navigation}
+            pill={pill}
+            setPill={setPill}
+        />
       </View>
-      <Button
-        title="Добавить"
-        style={s.button}
-        color={PRIMARY_DARK}
-        onPress={() => {
-          pillsStore.addNewPill(pill);
-          setPill({});
-          navigation.goBack();
-        }}
-      />
+        <TouchableOpacity
+            style={s.button}
+            onPress={() => {
+                addPill(pill);
+                setPill({});
+                navigation.goBack();
+            }}
+        >
+            <Text style={s.text}>Добавить</Text>
+        </TouchableOpacity>
     </View>
   );
 };
@@ -40,8 +44,20 @@ const s = StyleSheet.create({
     borderBottomColor: PRIMARY_DARK,
   },
   button: {
-    backgroundColor: PRIMARY_DARK,
+      width: '100%',
+      height: 80,
+      padding: 20,
+      backgroundColor: PRIMARY_DARK,
+      borderWidth: 1,
+      borderColor: PRIMARY_DARK
   },
+  text: {
+      fontWeight: 'bold',
+      fontSize: 20,
+      textTransform: 'uppercase',
+      textAlign: 'center',
+      color: PRIMARY_LIGHT
+  }
 });
 
-export default observer(MedicineItemScreen);
+export default MedicineItemScreen;

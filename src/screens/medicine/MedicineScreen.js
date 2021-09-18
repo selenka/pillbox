@@ -1,47 +1,42 @@
 import React from 'react';
 import FeatherIcon from 'react-native-vector-icons/Feather';
-import { observer } from 'mobx-react-lite';
 import { View, Text, StyleSheet, FlatList, Pressable } from 'react-native';
-import { useStore } from '../../store';
+
 import { PRIMARY_DARK } from '../../utils/constants';
 import AddMedicineButton from "../../components/AddMedicineButton";
 import EmptyMedicinePreview from "../../components/EmptyMedicinePreview";
-
-
-const Item = observer(({ id, label, onDelete }) => {
-  return (
-    <View style={s.item}>
-      <Text numberOfLines={1} style={s.text}>
-        {label}
-      </Text>
-      <Pressable
-        style={{ margin: 5, transform: [{ rotate: '45deg' }] }}
-        onPress={() => onDelete(id)}
-      >
-        <FeatherIcon name="plus" size={30} color={PRIMARY_DARK} />
-      </Pressable>
-    </View>
-  );
-});
+import {useStore} from "../../store";
 
 const MedicineScreen = ({ navigation }) => {
-  const { pillsStore } = useStore();
+  const { pills, deletePill } = useStore();
 
   const renderItem = ({ item }) => {
-    return <Item {...item} onDelete={(id) => pillsStore.removePill(id)} />;
+    return (
+        <View style={s.item}>
+            <Text numberOfLines={1} style={s.text}>
+                {item.label}
+            </Text>
+            <Pressable
+                style={{ margin: 5, transform: [{ rotate: '45deg' }] }}
+                onPress={() => deletePill(item.id)}
+            >
+                <FeatherIcon name="plus" size={30} color={PRIMARY_DARK} />
+            </Pressable>
+        </View>
+    )
   };
 
   return (
     <View style={s.container}>
       <AddMedicineButton onPress={() => navigation.navigate('MedicineItem')} />
-      {pillsStore.pills.length ? (
+      {pills.length ? (
         <FlatList
-          data={pillsStore.pills}
+          data={pills}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />
       ) : (
-        <EmptyMedicinePreview />
+        <EmptyMedicinePreview text="Как-то тут пусто..." page="medicine"/>
       )}
     </View>
   );
@@ -71,4 +66,4 @@ const s = StyleSheet.create({
       },
 });
 
-export default observer(MedicineScreen);
+export default MedicineScreen;

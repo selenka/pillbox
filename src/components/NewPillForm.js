@@ -1,7 +1,9 @@
-import React from 'react';
-import { StyleSheet, TextInput, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import {StyleSheet, TextInput, Text, View, TouchableOpacity, Pressable} from 'react-native';
 import { INPUT_TEXT_COLOR, PRIMARY_DARK } from '../utils/constants';
 import RNPickerSelect from 'react-native-picker-select';
+import Icon from "react-native-vector-icons/SimpleLineIcons";
+import {useStore} from "../store";
 
 // const fields = [
 //   {
@@ -31,7 +33,9 @@ import RNPickerSelect from 'react-native-picker-select';
 //   },
 // ];
 console.log('test')
-const NewPillForm = ({ pill, setPill }) => {
+const NewPillForm = ({ navigation }) => {
+    const { newPill, setNewPill } = useStore()
+
   return (
     <View>
       <Text style={s.label}>Наименование</Text>
@@ -40,16 +44,17 @@ const NewPillForm = ({ pill, setPill }) => {
         returnKeyType="next"
         enablesReturnKeyAutomatically
         onChangeText={(value) => {
-          setPill({ ...pill, label: value });
+            setNewPill({ ...newPill, label: value });
         }}
-        value={pill.label}
+        value={newPill.label}
         placeholder="..."
         style={s.input}
       />
       <Text style={s.label}>Лекарственная форма</Text>
       <RNPickerSelect
         placeholder={{}}
-        onValueChange={(value) => setPill({ ...pill, type: value })}
+        value={newPill.type}
+        onValueChange={(value) => setNewPill({ ...newPill, type: value })}
         items={[
           { label: 'Капсула', value: 'capsule', key: 'key-capsule' },
           { label: 'Таблетка', value: 'pill', key: 'key-pill' },
@@ -59,22 +64,37 @@ const NewPillForm = ({ pill, setPill }) => {
         }}
       />
       <Text style={s.label}>Группа</Text>
-      <RNPickerSelect
-        placeholder={{}}
-        onValueChange={(value) => console.log(value)}
-        items={[
-          { label: 'ЛОР', value: 'capsule', key: 'key-capsule' },
-          { label: 'Таблетка', value: 'pill', key: 'key-pill' },
-        ]}
-        style={{
-          inputIOS: s.input,
-        }}
-      />
+        <View style={s.item}>
+            <TouchableOpacity
+                style={s.select}
+                onPress={() => navigation.navigate('MedicineGroup')}
+            >
+                {
+                    newPill.groups.length
+                        ? <View style={{ flexDirection: 'row' }}>
+                                {newPill.groups.map(g => <Text  key={g.id} style={g.tag}>{g.value}</Text>)}
+                            </View>
+                        : <Text style={{ color: INPUT_TEXT_COLOR }}>Выберите группу</Text>
+                }
+            </TouchableOpacity>
+            <Icon name="arrow-right" style={{ marginBottom: 10}} size={20} color={PRIMARY_DARK} />
+        </View>
     </View>
   );
 };
 
 const s = StyleSheet.create({
+    item: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        borderBottomWidth: 1,
+        borderBottomColor: PRIMARY_DARK,
+        margin: 10,
+    },
+    select: {
+        flexGrow: 1
+    },
   label: {
     fontSize: 16,
     paddingLeft: 10,
@@ -91,6 +111,10 @@ const s = StyleSheet.create({
     borderBottomColor: PRIMARY_DARK,
     paddingRight: 30,
   },
+    tag: {
+        borderWidth: 1,
+        borderColor: PRIMARY_DARK
+    }
 });
 
 export default NewPillForm;
