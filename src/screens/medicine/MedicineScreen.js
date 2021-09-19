@@ -2,7 +2,7 @@ import React from 'react';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import { View, Text, StyleSheet, FlatList, Pressable } from 'react-native';
 
-import { PRIMARY_DARK } from '../../utils/constants';
+import {INPUT_TEXT_COLOR, PRIMARY_DARK} from '../../utils/constants';
 import AddMedicineButton from "../../components/AddMedicineButton";
 import EmptyMedicinePreview from "../../components/EmptyMedicinePreview";
 import {useStore} from "../../store";
@@ -13,9 +13,10 @@ const MedicineScreen = ({ navigation }) => {
   const renderItem = ({ item }) => {
     return (
         <View style={s.item}>
-            <Text numberOfLines={1} style={s.text}>
-                {item.label}
-            </Text>
+            <View>
+                <Text numberOfLines={1} style={s.group}>[{item.groups.map(i => i.value).join(', ')}]</Text>
+                <Text numberOfLines={1} style={s.text}>{item.label}</Text>
+            </View>
             <Pressable
                 style={{ margin: 5, transform: [{ rotate: '45deg' }] }}
                 onPress={() => deletePill(item.id)}
@@ -33,7 +34,7 @@ const MedicineScreen = ({ navigation }) => {
         <FlatList
           data={pills}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) =>String(item.id)}
         />
       ) : (
         <EmptyMedicinePreview text="Как-то тут пусто..." page="medicine"/>
@@ -50,6 +51,7 @@ const s = StyleSheet.create({
       item: {
         display: 'flex',
         flexDirection: 'row',
+        alignItems: 'center',
         justifyContent: 'space-between',
         margin: 15,
         borderBottomColor: PRIMARY_DARK,
@@ -64,6 +66,13 @@ const s = StyleSheet.create({
         overflow: 'hidden',
         textTransform: 'uppercase',
       },
+        group: {
+            fontSize: 12,
+            paddingLeft: 5,
+            marginHorizontal: 16,
+            textTransform: 'uppercase',
+            color: INPUT_TEXT_COLOR
+        }
 });
 
 export default MedicineScreen;

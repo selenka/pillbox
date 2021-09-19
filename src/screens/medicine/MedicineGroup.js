@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { PRIMARY_DARK, PRIMARY_LIGHT} from '../../utils/constants';
 import Checklist from "../../components/checklist";
 import Prompt from "../../components/prompt";
@@ -10,15 +11,21 @@ const updatePillGroups = (pill, item) => {
     let groups = pill.groups || [];
     const itemExists = groups.some(g => g.id === item.id);
     if (itemExists) {
-        groups.map(g => g.id === item.id && item)
+        if (item.checked) {
+            groups.map(g => g.id === item.id && item)
+        } else {
+            groups = groups.filter(g => g.id !== item.id)
+        }
     } else {
         groups.push(item)
     }
     return { groups }
 }
 
-const MedicineGroupScreen = ({ navigation }) => {
+const MedicineGroupScreen = ( ) => {
+    const navigation = useNavigation();
     const { open, setVisible } = useModal()
+    console.log('>>>>navi', navigation)
     const { groups, addGroup, newPill, setNewPill } = useStore()
     return (
         <View style={s.container}>

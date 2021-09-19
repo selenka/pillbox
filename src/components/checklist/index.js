@@ -36,7 +36,7 @@ const Checklist = ({ data = [], list = [], onItemCheck}) => {
                 ? <FlatList
                     data={list}
                     renderItem={renderItem}
-                    keyExtractor={(item) => item.id}
+                    keyExtractor={(item) => String(item.id)}
                 />
                 : <EmptyMedicinePreview text="У вас пока нет групп. Нажмите 'Создать', чтобы добавить новую" page='group' />
             }

@@ -1,41 +1,16 @@
 import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import {StyleSheet, TextInput, Text, View, TouchableOpacity, Pressable} from 'react-native';
-import { INPUT_TEXT_COLOR, PRIMARY_DARK } from '../utils/constants';
+import {INPUT_TEXT_COLOR, PRIMARY_DARK, PRIMARY_LIGHT} from '../utils/constants';
 import RNPickerSelect from 'react-native-picker-select';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import Icon from "react-native-vector-icons/SimpleLineIcons";
+import InputSpinner from "react-native-input-spinner";
 import {useStore} from "../store";
 
-// const fields = [
-//   {
-//     name: 'name',
-//     type: 'text',
-//     label: 'Наименование',
-//   },
-//   {
-//     name: 'type',
-//     type: 'select',
-//     label: 'Тип',
-//   },
-//   {
-//     name: 'group',
-//     type: 'text',
-//     label: 'Группа',
-//   },
-//   {
-//     name: 'quantity',
-//     type: 'select',
-//     label: 'Количество',
-//   },
-//   {
-//     name: 'expire_date',
-//     type: 'select',
-//     label: 'Срок годности',
-//   },
-// ];
-console.log('test')
-const NewPillForm = ({ navigation }) => {
+const NewPillForm = () => {
+    const navigation = useNavigation()
     const { newPill, setNewPill } = useStore()
-
   return (
     <View>
       <Text style={s.label}>Наименование</Text>
@@ -64,7 +39,7 @@ const NewPillForm = ({ navigation }) => {
         }}
       />
       <Text style={s.label}>Группа</Text>
-        <View style={s.item}>
+       <View style={s.item}>
             <TouchableOpacity
                 style={s.select}
                 onPress={() => navigation.navigate('MedicineGroup')}
@@ -79,6 +54,52 @@ const NewPillForm = ({ navigation }) => {
             </TouchableOpacity>
             <Icon name="arrow-right" style={{ marginBottom: 10}} size={20} color={PRIMARY_DARK} />
         </View>
+        <Text style={s.label}>Количество</Text>
+        <View style={{ flexDirection: 'row', paddingTop: 10 }}>
+            <InputSpinner
+                skin='clean'
+                width={150}
+                style={{
+                    flex: 1,
+                    backgroundColor: PRIMARY_LIGHT,
+                    borderWidth: 1,
+                    borderColor: PRIMARY_DARK,
+                    shadowColor: '#fff'
+                }}
+                buttonStyle={{
+                    backgroundColor: PRIMARY_LIGHT,
+                }}
+                min={1}
+                step={1}
+                value={newPill.quantity}
+                onChange={(num) => {
+                    setNewPill({ ...newPill, quantity: num })
+                }}
+            />
+            <RNPickerSelect
+                placeholder={{}}
+                value={newPill.quantityType}
+                onValueChange={(value) => setNewPill({ ...newPill, quantityType: value })}
+                items={[
+                    { label: 'капсула', value: 'capsule', key: 'key-capsule' },
+                    { label: 'таблетка', value: 'pill', key: 'key-pill' },
+                    { label: 'мг', value: 'mg', key: 'key-mg' },
+                    { label: 'мл', value: 'ml', key: 'key-ml' },
+                ]}
+                style={{
+                    viewContainer: { flex: 1 },
+                    inputIOS: s.input,
+                }}
+            />
+        </View>
+        <Text style={s.label}>Срок годности:</Text>
+        <DateTimePicker
+            testID="dateTimePicker"
+            value={newPill.expirationDate || new Date()}
+            mode='date'
+            display="spinner"
+            onChange={(event, date) => setNewPill({ ...newPill, expirationDate: date })}
+        />
     </View>
   );
 };

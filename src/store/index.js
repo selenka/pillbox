@@ -6,21 +6,27 @@ const StoreContext = createContext(null)
 export const useStore = () => {
   return useContext(StoreContext)
 }
+
+export const InitialNewPillState = {
+  label: '',
+  type: 'pill',
+  groups: [],
+  quantity: 0,
+  quantityType: 'pill',
+  expirationDate: new Date()
+}
 let index = 0;
 let groupIndex = 0;
 const useProvideStore = () => {
   const [pills, setPills] = useState([])
   const [groups, setGroups] = useState([])
-  const [newPill, setNewPill] = useState({
-    label: '',
-    type: 'capsule',
-    groups: []
-  })
+  const [newPill, setNewPill] = useState(InitialNewPillState)
 
   const addPill = (pill) => {
     pill.id = index
     setPills([...pills, pill])
     index++
+    setNewPill(InitialNewPillState)
   }
 
   const deletePill = (id) => {
