@@ -1,14 +1,15 @@
 import React from 'react';
 import FeatherIcon from 'react-native-vector-icons/Feather';
-import { View, Text, StyleSheet, FlatList, Pressable } from 'react-native';
+import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { Button, FAB } from 'react-native-paper';
 
-import {INPUT_TEXT_COLOR, PRIMARY_DARK} from '../../utils/constants';
-import AddMedicineButton from "../../components/AddMedicineButton";
+import { INPUT_TEXT_COLOR, PRIMARY_DARK } from '../../utils/constants';
 import EmptyMedicinePreview from "../../components/EmptyMedicinePreview";
-import {useStore} from "../../store";
+import { useStore} from "../../store";
+import AccordionList from "../../components/accordion";
 
 const MedicineScreen = ({ navigation }) => {
-  const { pills, deletePill } = useStore();
+  const { pills, groups, deletePill} = useStore();
 
   const renderItem = ({ item }) => {
     return (
@@ -29,13 +30,18 @@ const MedicineScreen = ({ navigation }) => {
 
   return (
     <View style={s.container}>
-      <AddMedicineButton onPress={() => navigation.navigate('MedicineItem')} />
-      {pills.length ? (
-        <FlatList
-          data={pills}
-          renderItem={renderItem}
-          keyExtractor={(item) =>String(item.id)}
+        <Button icon="plus" mode="text" onPress={() => navigation.navigate('MedicineGroup')}>
+            Управление группами
+        </Button>
+        <FAB
+            style={s.fab}
+            icon='flask-empty-plus-outline'
+            onPress={() => {
+                navigation.navigate('MedicineItem')
+            }}
         />
+      {pills.length ? (
+          <AccordionList sections={groups} data={pills} />
       ) : (
         <EmptyMedicinePreview text="Как-то тут пусто..." page="medicine"/>
       )}
@@ -44,6 +50,13 @@ const MedicineScreen = ({ navigation }) => {
 };
 
 const s = StyleSheet.create({
+    fab: {
+        position: 'absolute',
+        zIndex: 100,
+        margin: 16,
+        right: 0,
+        bottom: 0,
+    },
     container: {
         position: 'relative',
         height: '100%',
@@ -68,8 +81,7 @@ const s = StyleSheet.create({
       },
         group: {
             fontSize: 12,
-            paddingLeft: 5,
-            marginHorizontal: 16,
+            marginHorizontal: 5,
             textTransform: 'uppercase',
             color: INPUT_TEXT_COLOR
         }

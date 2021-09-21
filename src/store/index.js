@@ -7,7 +7,7 @@ export const useStore = () => {
   return useContext(StoreContext)
 }
 
-export const InitialNewPillState = {
+const InitialNewPillState = {
   label: '',
   type: 'pill',
   groups: [],
@@ -20,13 +20,17 @@ let groupIndex = 0;
 const useProvideStore = () => {
   const [pills, setPills] = useState([])
   const [groups, setGroups] = useState([])
-  const [newPill, setNewPill] = useState(InitialNewPillState)
+  const [newPill, setNewPill] = useState({ ...InitialNewPillState})
+
+  console.log('InitialNewPillState', InitialNewPillState)
+  console.log('index', index)
+  console.log('groupIndex', groupIndex)
 
   const addPill = (pill) => {
     pill.id = index
     setPills([...pills, pill])
     index++
-    setNewPill(InitialNewPillState)
+    // setNewPill(InitialNewPillState)
   }
 
   const deletePill = (id) => {
@@ -36,8 +40,8 @@ const useProvideStore = () => {
   const addGroup = (value) => {
     const group = {
       id: groupIndex,
-      checked: false,
-      value
+      label: value,
+      checked: false
     }
     setGroups([...groups, group])
     groupIndex++
@@ -47,17 +51,31 @@ const useProvideStore = () => {
     setGroups(groups.filter(g => g.id !== id))
   }
 
-  const updateGroup = (id, value) => {
-    const item = groups.find(i => i.id === id)
-    item.checked = value
-    const newData = groups.filter(g => g.id !== id)
-    newData.push(item)
-    setGroups(newData)
+  const updateNewPillGroups = (item) => {
+    const newPillState = newPill
+    let pillGroups = newPillState.groups || [];
+    const itemExists = pillGroups.some(g => g.id === item.id);
+    if (itemExists) {
+      if (item.checked) {
+        pillGroups.map(g => g.id === item.id && item)
+      } else {
+        pillGroups.filter(g => g.id !== item.id)
+      }
+    } else {
+      pillGroups.push(item)
+    }
+
+
+    setNewPill({
+      ...newPill,
+      groups: pillGroups
+    })
   }
 
-  console.log('CONTEXT pills', newPill)
+  console.log('CONTEXT pills', pills)
+  console.log('CONTEXT newPill', newPill)
 
-  return { pills, groups, addPill, deletePill, addGroup, deleteGroup, updateGroup, newPill, setNewPill }
+  return { pills, groups, addPill, deletePill, addGroup, deleteGroup, newPill, setNewPill, updateNewPillGroups }
 }
 
 // Use it to wrap content with Store

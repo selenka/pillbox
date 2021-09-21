@@ -2,18 +2,45 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper'
 import { PRIMARY_LIGHT} from '../../utils/constants';
+import Checklist from "../../components/checklist";
 import Prompt from "../../components/prompt";
 import {useModal} from "../../store/modal";
 import {useStore} from "../../store";
-import DefaultList from "../../components/list";
 
-const MedicineGroupScreen = () => {
+const updatePillGroups = (pill, item) => {
+    const newPill = pill;
+    let groups = newPill.groups || [];
+    const itemExists = groups.some(g => g.id === item.id);
+    if (itemExists) {
+        if (item.checked) {
+            groups.map(g => g.id === item.id && item)
+        } else {
+            groups = groups.filter(g => g.id !== item.id)
+        }
+    } else {
+        groups.push(item)
+    }
+    return groups
+}
+
+const MedicineGroupChecklistScreen = () => {
     const { open, setVisible } = useModal()
-    const { groups, addGroup } = useStore()
+    const { groups, addGroup, newPill, setNewPill, updateNewPillGroups } = useStore()
     return (
         <View style={s.container}>
             <View style={{ flex: 2 }}>
-                <DefaultList data={groups}/>
+                <Checklist
+                    data={newPill.groups}
+                    list={groups}
+                    onItemCheck={(item) => {
+                        // const pillGroups = updatePillGroups(newPill, item)
+                        // setNewPill({
+                        //     ...newPill,
+                        //     groups: pillGroups,
+                        // })
+                        updateNewPillGroups(item)
+                    }}
+                />
             </View>
             <Button mode="contained" style={s.button} onPress={() => { setVisible(true) }} contentStyle={s.buttonContent}>
                 Создать
@@ -47,4 +74,4 @@ const s = StyleSheet.create({
     }
 });
 
-export default MedicineGroupScreen;
+export default MedicineGroupChecklistScreen;

@@ -1,108 +1,37 @@
-import React, {useState} from "react";
-import {Alert, Modal, StyleSheet, Text, View, Button, TextInput} from "react-native";
-import {CANCEL_COLOR, INPUT_TEXT_COLOR, PRIMARY_DARK} from "../../utils/constants";
+import * as React from 'react';
+import { Dialog, Portal, Button, TextInput } from 'react-native-paper';
+import {CANCEL_COLOR} from "../../utils/constants";
 
-const Prompt = ({ title, open, setVisible, onConfirm }) => {
-    const [inputValue, setInputValue] = useState('')
+const DialogModal = ({ open, setVisible, title, onConfirm }) => {
+    const [text, setText] = React.useState('');
+
+    const hideDialog = () => setVisible(false);
+
     return (
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={open}
-                onRequestClose={() => {
-                    Alert.alert("Modal has been closed.");
-                    setVisible(!open);
-                }}
-            >
-                <View style={s.centeredView}>
-                    <View style={s.modalView}>
-                        {title && <Text style={s.modalText}>{title}</Text>}
-                        <TextInput
-                            autoFocus={true}
-                            returnKeyType="next"
-                            enablesReturnKeyAutomatically
-                            onChangeText={(value) => { setInputValue(value) }}
-                            style={s.input}
-                        />
-                        <View style={{
-                            width: '100%',
-                            flexDirection: 'row',
-                            justifyContent: 'space-between'
-                        }}>
-                            <Button
-                                onPress={() => setVisible(!open)}
-                                color={CANCEL_COLOR}
-                                title=" Отмена"
-                            />
-                            <Button
-                                onPress={() => {
-                                    onConfirm && onConfirm(inputValue)
-                                    setVisible(!open)
-                                }}
-                                title="Создать"
-                            />
-                        </View>
-                    </View>
-                </View>
-            </Modal>
+        <Portal>
+            <Dialog visible={open} onDismiss={hideDialog}>
+                <Dialog.Title>{title}</Dialog.Title>
+                <Dialog.Content>
+                    <TextInput
+                        mode='flat'
+                        value={text}
+                        style={{ backgroundColor: 'white' }}
+                        onChangeText={text => setText(text)}
+                    />
+                </Dialog.Content>
+                <Dialog.Actions>
+                    <Button color={CANCEL_COLOR} onPress={hideDialog}>Отмена</Button>
+                    <Button onPress={() => {
+                        onConfirm(text)
+                        setText('')
+                        hideDialog()
+                    }}>
+                        Создать
+                    </Button>
+                </Dialog.Actions>
+            </Dialog>
+        </Portal>
     );
 };
 
-const s = StyleSheet.create({
-    centeredView: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 22,
-    },
-    modalView: {
-        margin: 10,
-        width: 250,
-        backgroundColor: "white",
-        padding: 25,
-        alignItems: "center",
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5,
-
-    },
-    button: {
-        borderRadius: 20,
-        padding: 10,
-        elevation: 2
-    },
-    buttonOpen: {
-        backgroundColor: "#f8c0c0",
-    },
-    buttonClose: {
-        backgroundColor: "#2196F3",
-    },
-    textStyle: {
-        color: "white",
-        fontWeight: "bold",
-        textAlign: "center"
-    },
-    modalText: {
-        marginBottom: 15,
-        fontSize: 15,
-        textAlign: "center"
-    },
-    input: {
-        fontSize: 16,
-        width: '100%',
-        margin: 10,
-        color: INPUT_TEXT_COLOR,
-        paddingBottom: 12,
-        paddingHorizontal: 5,
-        borderBottomWidth: 1,
-        borderBottomColor: PRIMARY_DARK,
-        paddingRight: 30,
-    }
-});
-
-export default Prompt;
+export default DialogModal;

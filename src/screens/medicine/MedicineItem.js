@@ -2,18 +2,16 @@ import React, { useEffect } from 'react';
 import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
 import {PRIMARY_DARK, PRIMARY_LIGHT} from '../../utils/constants';
 import NewPillForm from '../../components/NewPillForm';
-import {InitialNewPillState, useStore} from "../../store";
+import { useStore} from "../../store";
 
 const MedicineItemScreen = ({ navigation }) => {
-  const { addPill, newPill, setNewPill } = useStore();
+  const { addPill, newPill } = useStore();
 
   useEffect(() => {
       navigation.addListener('beforeRemove', () => {
-          setNewPill(InitialNewPillState)
+          // setNewPill(InitialNewPillState)
       })
   }, [navigation])
-
-    console.log('navigation', navigation)
 
   return (
     <View style={s.container}>

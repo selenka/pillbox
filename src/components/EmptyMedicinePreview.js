@@ -1,8 +1,9 @@
-import {Text, View} from "react-native";
-import {PREVIEW_IMAGE_COLOR, PREVIEW_TEXT_COLOR} from "../utils/constants";
+import React from "react";
+import { View } from "react-native";
+import { Caption } from 'react-native-paper'
+import { PREVIEW_IMAGE_COLOR } from "../utils/constants";
 import MaterialCommunityIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import SimpleLineIcon from "react-native-vector-icons/SimpleLineIcons";
-import React from "react";
 
 const EmptyMedicinePreview = ({ text, page}) => {
 
@@ -25,16 +26,9 @@ const EmptyMedicinePreview = ({ text, page}) => {
                 alignItems: 'center',
             }}
         >
-            <Text
-                style={{
-                    padding: 20,
-                    textTransform: 'uppercase',
-                    color: PREVIEW_TEXT_COLOR,
-                    textAlign: 'center'
-                }}
-            >
+            <Caption style={{ textAlign: 'center', textTransform: 'uppercase' }}>
                 {text}
-            </Text>
+            </Caption>
             {getIcon(page)}
         </View>
     );

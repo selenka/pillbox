@@ -7,6 +7,16 @@ import EmptyMedicinePreview from "../EmptyMedicinePreview";
 
 const Checklist = ({ data = [], list = [], onItemCheck}) => {
 
+    const mapListToData = () => {
+        return list.map(item => {
+            const dataItem = data.find(d => d.id === item.id)
+            if (dataItem) {
+                item.checked = dataItem.checked
+            }
+            return item
+        })
+    }
+
     const renderItem = ({ item }) => {
         return (
             <View style={s.item}>
@@ -15,6 +25,7 @@ const Checklist = ({ data = [], list = [], onItemCheck}) => {
                     onPress={() => {
                         const newItem = item;
                         newItem.checked = !item.checked
+                        console.log('onItemCheck')
                         onItemCheck(newItem)
                     }}
                 >
@@ -25,7 +36,7 @@ const Checklist = ({ data = [], list = [], onItemCheck}) => {
                     }
                 </Pressable>
                 <Text numberOfLines={1} style={s.text}>
-                    {item.value}
+                    {item.label}
                 </Text>
             </View>
         )
@@ -34,7 +45,7 @@ const Checklist = ({ data = [], list = [], onItemCheck}) => {
         <View >
             {list.length
                 ? <FlatList
-                    data={list}
+                    data={mapListToData()}
                     renderItem={renderItem}
                     keyExtractor={(item) => String(item.id)}
                 />
