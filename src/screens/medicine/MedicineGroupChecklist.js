@@ -8,37 +8,35 @@ import {useModal} from "../../store/modal";
 import {useStore} from "../../store";
 
 const updatePillGroups = (pill, item) => {
-    const newPill = pill;
-    let groups = newPill.groups || [];
-    const itemExists = groups.some(g => g.id === item.id);
+    let pillGroups = pill.groups.concat([]) || [];
+    const itemExists = pillGroups.some(g => g.id === item.id);
     if (itemExists) {
         if (item.checked) {
-            groups.map(g => g.id === item.id && item)
+            pillGroups.map(g => g.id === item.id && item)
         } else {
-            groups = groups.filter(g => g.id !== item.id)
+            pillGroups.filter(g => g.id !== item.id)
         }
     } else {
-        groups.push(item)
+        pillGroups.push(item)
     }
-    return groups
+    return pillGroups
 }
 
 const MedicineGroupChecklistScreen = () => {
     const { open, setVisible } = useModal()
-    const { groups, addGroup, newPill, setNewPill, updateNewPillGroups } = useStore()
+    const { groups, addGroup, newPill, setNewPill } = useStore()
+    const pillGroups = newPill.groups
     return (
         <View style={s.container}>
             <View style={{ flex: 2 }}>
                 <Checklist
-                    data={newPill.groups}
+                    data={pillGroups}
                     list={groups}
                     onItemCheck={(item) => {
-                        // const pillGroups = updatePillGroups(newPill, item)
-                        // setNewPill({
-                        //     ...newPill,
-                        //     groups: pillGroups,
-                        // })
-                        updateNewPillGroups(item)
+                        setNewPill({
+                            ...newPill,
+                            groups: updatePillGroups(newPill, item),
+                        })
                     }}
                 />
             </View>

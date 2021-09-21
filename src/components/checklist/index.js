@@ -45,7 +45,7 @@ const Checklist = ({ data = [], list = [], onItemCheck}) => {
         <View >
             {list.length
                 ? <FlatList
-                    data={mapListToData()}
+                    data={list}
                     renderItem={renderItem}
                     keyExtractor={(item) => String(item.id)}
                 />
