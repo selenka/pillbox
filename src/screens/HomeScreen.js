@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
-import { Text } from 'react-native-paper'
+import { Text } from 'react-native-paper';
 import { PRIMARY_DARK, PRIMARY_LIGHT } from '../utils/constants';
 
 const HomeScreen = ({ navigation }) => {
