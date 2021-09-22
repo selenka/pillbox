@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { Button } from 'react-native-paper';
 import { PRIMARY_DARK, PRIMARY_LIGHT } from '../../utils/constants';
 import NewPillForm from '../../components/NewPillForm';
 import { InitialNewPillState, useStore } from '../../store';
@@ -18,15 +19,17 @@ const MedicineItemScreen = ({ navigation }) => {
       <View>
         <NewPillForm />
       </View>
-      <TouchableOpacity
-        style={s.button}
-        onPress={() => {
-          addPill(newPill);
-          navigation.goBack();
-        }}
+      <Button
+          mode="contained"
+          style={s.addButton}
+          onPress={() => {
+            addPill(newPill);
+            navigation.goBack();
+          }}
+          contentStyle={s.buttonContent}
       >
-        <Text style={s.text}>Добавить</Text>
-      </TouchableOpacity>
+        Добавить
+      </Button>
     </View>
   );
 };
@@ -57,6 +60,12 @@ const s = StyleSheet.create({
     textTransform: 'uppercase',
     textAlign: 'center',
     color: PRIMARY_LIGHT,
+  },
+  addButton: {
+    borderRadius: 0,
+  },
+  buttonContent: {
+    padding: 20,
   },
 });
 

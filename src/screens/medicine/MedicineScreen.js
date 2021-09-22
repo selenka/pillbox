@@ -1,7 +1,6 @@
-import React from 'react';
-import FeatherIcon from 'react-native-vector-icons/Feather';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
-import { Button, FAB } from 'react-native-paper';
+import React, {useState} from 'react';
+import { View, StyleSheet } from 'react-native';
+import { Button, FAB, Searchbar } from 'react-native-paper';
 
 import { INPUT_TEXT_COLOR, PRIMARY_DARK } from '../../utils/constants';
 import EmptyMedicinePreview from '../../components/EmptyMedicinePreview';
@@ -10,12 +9,28 @@ import AccordionList from '../../components/accordion';
 
 const MedicineScreen = ({ navigation }) => {
   const { pills, groups } = useStore();
+  const [searchQuery, setSearchQuery] = useState('')
+
+  const onChangeSearch = (query) => {
+    setSearchQuery(query);
+  }
+
+  const filterData = (data) => {
+    return data.filter((pill) => {
+      return !pill.label.toLowerCase().search(searchQuery.toLowerCase())
+    })
+  }
 
   return (
     <View style={s.container}>
       <Button icon="plus" mode="text" onPress={() => navigation.navigate('MedicineGroup')}>
         Управление группами
       </Button>
+      <Searchbar
+          placeholder='Поиск лекарств'
+          onChangeText={onChangeSearch}
+          value={searchQuery}
+      />
       <FAB
         style={s.fab}
         icon="flask-empty-plus-outline"
@@ -24,7 +39,7 @@ const MedicineScreen = ({ navigation }) => {
         }}
       />
       {pills.length ? (
-        <AccordionList sections={groups} data={pills} />
+        <AccordionList sections={groups} data={filterData(pills)} />
       ) : (
         <EmptyMedicinePreview text="Как-то тут пусто..." page="medicine" />
       )}
