@@ -13,8 +13,6 @@ const useProvideModalStore = () => {
     setOpen(value);
   };
 
-  console.log('CONTEXT modal', open);
-
   return { open, setVisible };
 };
 

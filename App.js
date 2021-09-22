@@ -7,6 +7,7 @@ import MedicineScreen from './src/screens/medicine/MedicineScreen';
 import MedicineItem from './src/screens/medicine/MedicineItem';
 import MedicineGroup from './src/screens/medicine/MedicineGroup';
 import MedicineGroupChecklist from './src/screens/medicine/MedicineGroupChecklist';
+import ViewPillScreen from './src/screens/medicine/ViewPillScreen';
 import CoursesScreen from './src/screens/courses/CoursesScreen';
 import { ProvideStore } from "./src/store";
 import { ProvideModalStore } from "./src/store/modal";
@@ -45,6 +46,11 @@ const App = () => {
                                 name="MedicineGroupChecklist"
                                 options={{ headerTitle: <Title>Выберите группу</Title> }}
                                 component={MedicineGroupChecklist}
+                            />
+                            <HomeStack.Screen
+                                name="ViewPillScreen"
+                                options={({ route }) => ({ headerTitle: <Title>{route.params.name}</Title> })}
+                                component={ViewPillScreen}
                             />
                             <HomeStack.Screen
                                 name="Courses"

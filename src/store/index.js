@@ -47,8 +47,6 @@ const useProvideStore = () => {
     setGroups(groups.filter((g) => g.id !== id));
   };
 
-  console.log('CONTEXT groups', groups);
-
   return { pills, groups, addPill, deletePill, addGroup, deleteGroup, newPill, setNewPill };
 };
 

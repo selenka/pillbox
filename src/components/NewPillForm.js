@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { TextInput, Text, Chip } from 'react-native-paper';
-import { INPUT_TEXT_COLOR, PRIMARY_DARK, PRIMARY_LIGHT } from '../utils/constants';
+import {INPUT_TEXT_COLOR, pillQuantityTypes, pillTypes, PRIMARY_DARK, PRIMARY_LIGHT} from '../utils/constants';
 import RNPickerSelect from 'react-native-picker-select';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
@@ -31,10 +31,7 @@ const NewPillForm = () => {
         placeholder={{}}
         value={newPill.type}
         onValueChange={(value) => setNewPill({ ...newPill, type: value })}
-        items={[
-          { label: 'Капсула', value: 'capsule', key: 'key-capsule' },
-          { label: 'Таблетка', value: 'pill', key: 'key-pill' },
-        ]}
+        items={pillTypes}
         style={{
           inputIOS: s.inputSelect,
           viewContainer: s.viewContainer,
@@ -78,6 +75,7 @@ const NewPillForm = () => {
           step={1}
           value={newPill.quantity}
           onChange={(num) => {
+              console.log('num', num)
             setNewPill({ ...newPill, quantity: num });
           }}
         />
@@ -85,12 +83,7 @@ const NewPillForm = () => {
           placeholder={{}}
           value={newPill.quantityType}
           onValueChange={(value) => setNewPill({ ...newPill, quantityType: value })}
-          items={[
-            { label: 'капсула', value: 'capsule', key: 'key-capsule' },
-            { label: 'таблетка', value: 'pill', key: 'key-pill' },
-            { label: 'мг', value: 'mg', key: 'key-mg' },
-            { label: 'мл', value: 'ml', key: 'key-ml' },
-          ]}
+          items={pillQuantityTypes}
           style={{
             viewContainer: { flex: 1 },
             inputIOS: s.inputSelect,
@@ -100,6 +93,7 @@ const NewPillForm = () => {
       <Text style={s.label}>Срок годности:</Text>
       <DateTimePicker
         testID="dateTimePicker"
+        minimumDate={new Date()}
         value={newPill.expirationDate || new Date()}
         mode="date"
         display="spinner"
