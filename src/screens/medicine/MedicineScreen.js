@@ -15,12 +15,6 @@ const MedicineScreen = ({ navigation }) => {
     setSearchQuery(query);
   }
 
-  const filterData = (data) => {
-    return data.filter((pill) => {
-      return !pill.label.toLowerCase().search(searchQuery.toLowerCase())
-    })
-  }
-
   return (
     <View style={s.container}>
       <Button icon="plus" mode="text" onPress={() => navigation.navigate('MedicineGroup')}>
@@ -39,7 +33,7 @@ const MedicineScreen = ({ navigation }) => {
         }}
       />
       {pills.length ? (
-        <AccordionList sections={groups} data={filterData(pills)} />
+        <AccordionList searchQuery={searchQuery} sections={groups} data={pills} />
       ) : (
         <EmptyMedicinePreview text="Как-то тут пусто..." page="medicine" />
       )}
