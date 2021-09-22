@@ -9,7 +9,7 @@ import { useStore } from '../../store';
 import AccordionList from '../../components/accordion';
 
 const MedicineScreen = ({ navigation }) => {
-  const { pills, groups, deletePill } = useStore();
+  const { pills, groups } = useStore();
 
   return (
     <View style={s.container}>

@@ -15,9 +15,11 @@ export const InitialNewPillState = {
   quantityType: 'pill',
   expirationDate: new Date(),
 };
-let index = nextId('pill');
-let groupIndex = nextId('group');
+
 const useProvideStore = () => {
+  let index = nextId('pill');
+  let groupIndex = nextId('group');
+
   const [pills, setPills] = useState([]);
   const [groups, setGroups] = useState([]);
   const [newPill, setNewPill] = useState(InitialNewPillState);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
-import { TextInput, Text } from 'react-native-paper';
+import { TextInput, Text, Chip } from 'react-native-paper';
 import { INPUT_TEXT_COLOR, PRIMARY_DARK, PRIMARY_LIGHT } from '../utils/constants';
 import RNPickerSelect from 'react-native-picker-select';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -49,9 +49,7 @@ const NewPillForm = () => {
           {newPill.groups.length ? (
             <View style={{ flexDirection: 'row' }}>
               {newPill.groups.map((g) => (
-                <Text key={`group-tag-${g.id}`} style={g.tag}>
-                  {g.label}
-                </Text>
+                  <Chip mode='outlined' key={`group-tag-${g.id}`}>{g.label}</Chip>
               ))}
             </View>
           ) : (
