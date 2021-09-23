@@ -7,11 +7,10 @@ import RNPickerSelect from 'react-native-picker-select';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import InputSpinner from 'react-native-input-spinner';
-import { useStore } from '../store';
 
-const NewPillForm = () => {
+const NewPillForm = ({ newPill, setNewPill }) => {
   const navigation = useNavigation();
-  const { newPill, setNewPill } = useStore();
+
   return (
     <View>
       <TextInput

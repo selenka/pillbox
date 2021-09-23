@@ -5,8 +5,9 @@ import { PRIMARY_DARK, PRIMARY_LIGHT } from '../../utils/constants';
 import NewPillForm from '../../components/NewPillForm';
 import { InitialNewPillState, useStore } from '../../store';
 
-const MedicineItemScreen = ({ navigation }) => {
-  const { addPill, newPill, setNewPill } = useStore();
+const MedicineItemScreen = ({ route, navigation }) => {
+  const { params: { pill, mode } } = route
+  const { pills, addPill, newPill, setNewPill, updatePill } = useStore();
 
   useEffect(() => {
     navigation.addListener('beforeRemove', () => {
@@ -14,22 +15,46 @@ const MedicineItemScreen = ({ navigation }) => {
     });
   }, [navigation]);
 
+  useEffect(() => {
+    if (mode === 'edit') {
+      setNewPill(pills.find(p => p.id === pill.id));
+    }
+  }, [mode, pills])
+
   return (
     <View style={s.container}>
       <View>
-        <NewPillForm />
+        <NewPillForm
+            newPill={newPill}
+            setNewPill={setNewPill}
+        />
       </View>
-      <Button
-          mode="contained"
-          style={s.addButton}
-          onPress={() => {
-            addPill(newPill);
-            navigation.goBack();
-          }}
-          contentStyle={s.buttonContent}
-      >
-        Добавить
-      </Button>
+      {
+        mode === 'edit'
+            ? <Button
+                mode="contained"
+                style={s.addButton}
+                onPress={() => {
+                  updatePill(newPill);
+                  // TODO: should place service call to update pill value and reload pills
+                  navigation.navigate('ViewPillScreen', { name: newPill.label });
+                }}
+                contentStyle={s.buttonContent}
+            >
+              Сохранить
+            </Button>
+            : <Button
+                mode="contained"
+                style={s.addButton}
+                onPress={() => {
+                  addPill(newPill);
+                  navigation.goBack();
+                }}
+                contentStyle={s.buttonContent}
+            >
+              Добавить
+            </Button>
+      }
     </View>
   );
 };

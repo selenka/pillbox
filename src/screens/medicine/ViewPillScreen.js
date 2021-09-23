@@ -1,16 +1,24 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import moment from "moment";
 import { View, StyleSheet } from 'react-native';
 import {Button, List, Chip} from 'react-native-paper';
 import {pillQuantityTypes, pillTypes, PRIMARY_DARK, PRIMARY_LIGHT} from '../../utils/constants';
 import { useStore } from "../../store";
 
+const getPillFromList = (pills, id) => pills.find(p => p.id === id)
+
 const ViewPillScreen = ({ route, navigation }) => {
     const { params: { pill } } = route
-    const { deletePill } =useStore()
+    const { pills, newPill, deletePill } = useStore()
 
-    const quantity = pillQuantityTypes.find(q => q.value === pill.quantityType )
-    const type = pillTypes.find(p => p.value === pill.type )
+    const[ viewPill, setViewPill] = useState(getPillFromList(pills, pill.id))
+
+    useEffect(() => {
+        setViewPill(newPill)
+    }, [newPill])
+
+    const quantity = pillQuantityTypes.find(q => q.value === viewPill.quantityType )
+    const type = pillTypes.find(p => p.value === viewPill.type )
 
     return (
         <View style={s.container}>
@@ -21,15 +29,15 @@ const ViewPillScreen = ({ route, navigation }) => {
                 />
                 <List.Item
                     title="Количество"
-                    description={`${pill.quantity} ${quantity.label}`}
+                    description={`${viewPill.quantity} ${quantity.label}`}
                 />
                 <List.Item
                     title="Срок годности"
-                    description={moment(pill.expirationDate).format("DD-MM-YYYY")}
+                    description={moment(viewPill.expirationDate).format("DD-MM-YYYY")}
                 />
                 <List.Item title="Группы"/>
                 <View style={{ flexDirection: 'row', marginHorizontal: 15 }}>
-                    {pill.groups.map(g => <Chip mode='outlined' key={`view-pill-tag-${g.id}`}>{g.label} </Chip>)}
+                    {viewPill.groups.map(g => <Chip mode='outlined' key={`view-pill-tag-${g.id}`}>{g.label} </Chip>)}
                 </View>
 
             </View>

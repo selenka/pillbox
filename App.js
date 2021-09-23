@@ -1,4 +1,5 @@
 import React from 'react';
+import { Pressable } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Title, Provider as PaperProvider } from 'react-native-paper';
@@ -12,6 +13,8 @@ import CoursesScreen from './src/screens/courses/CoursesScreen';
 import { ProvideStore } from "./src/store";
 import { ProvideModalStore } from "./src/store/modal";
 import theme from "./src/utils/theme";
+
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const HomeStack = createStackNavigator();
 
@@ -49,7 +52,25 @@ const App = () => {
                             />
                             <HomeStack.Screen
                                 name="ViewPillScreen"
-                                options={({ route }) => ({ headerTitle: <Title>{route.params.name}</Title> })}
+                                options={({ route, navigation }) => (
+                                    {
+                                        headerTitle: <Title>{route.params.name}</Title>,
+                                        // eslint-disable-next-line react/display-name
+                                        headerRight: () => (
+                                            <Pressable
+                                                onPress={() => {
+                                                    navigation.navigate('MedicineItem', {
+                                                        mode: 'edit',
+                                                        pill: route.params.pill
+                                                    })
+                                                }}
+                                            >
+                                                <Icon style={{ margin: 5 }} name="pencil" size={30} color={theme.colors.accent} />
+                                            </Pressable>
+                                        ),
+                                    }
+                                )}
+
                                 component={ViewPillScreen}
                             />
                             <HomeStack.Screen

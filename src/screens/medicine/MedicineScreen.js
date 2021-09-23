@@ -29,7 +29,7 @@ const MedicineScreen = ({ navigation }) => {
         style={s.fab}
         icon="flask-empty-plus-outline"
         onPress={() => {
-          navigation.navigate('MedicineItem');
+          navigation.navigate('MedicineItem', { mode: 'new' });
         }}
       />
       {pills.length ? (
