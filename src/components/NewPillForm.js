@@ -84,8 +84,8 @@ const NewPillForm = ({ newPill, setNewPill }) => {
           buttonStyle={{
             backgroundColor: PRIMARY_LIGHT,
           }}
-          min={1}
-          step={1}
+          returnKeyType="next"
+          step={10}
           value={newPill.quantity}
           onChange={(num) => {
             console.log('num', num);

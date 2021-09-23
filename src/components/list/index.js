@@ -3,9 +3,10 @@ import { StyleSheet, View } from 'react-native';
 import { List, Divider, Button } from 'react-native-paper';
 import Swipeable from 'react-native-swipeable';
 import theme from '../../utils/theme';
-import { CANCEL_COLOR } from '../../utils/constants';
+import { CANCEL_COLOR, PREVIEW_IMAGE_COLOR } from '../../utils/constants';
 import EmptyMedicinePreview from '../EmptyMedicinePreview';
 import nextId from 'react-id-generator';
+import SimpleLineIcon from 'react-native-vector-icons/SimpleLineIcons';
 
 let buttonId = nextId('button');
 const DefaultList = ({ data, onEditPress, onDeletePress }) => {
@@ -54,7 +55,13 @@ const DefaultList = ({ data, onEditPress, onDeletePress }) => {
           {data.map((item) => (
             <Fragment key={`fragment-${item.id}`}>
               <Swipeable ref={swipe} key={`swipe-${item.id}`} rightButtons={getButtons(item.id)}>
-                <List.Item key={`default-list-${item.id}`} title={item.label} />
+                <List.Item
+                  key={`default-list-${item.id}`}
+                  title={item.label}
+                  right={() => (
+                    <SimpleLineIcon name="arrow-left" size={30} color={theme.colors.accent} />
+                  )}
+                />
                 <Divider key={`divider-${item.id}`} style={s.divider} />
               </Swipeable>
             </Fragment>

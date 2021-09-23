@@ -40,7 +40,7 @@ const MedicineItemScreen = ({ route, navigation }) => {
           onPress={() => {
             updatePill(newPill);
             // TODO: should place service call to update pill value and reload pills
-            navigation.navigate('ViewPillScreen', { name: newPill.label });
+            navigation.navigate('ViewPillScreen', { name: newPill.label, pill: newPill });
           }}
           contentStyle={s.buttonContent}
         >
