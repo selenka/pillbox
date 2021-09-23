@@ -10,6 +10,7 @@ import MedicineGroup from './src/screens/medicine/MedicineGroup';
 import MedicineGroupChecklist from './src/screens/medicine/MedicineGroupChecklist';
 import ViewPillScreen from './src/screens/medicine/ViewPillScreen';
 import CoursesScreen from './src/screens/courses/CoursesScreen';
+import CourseItem from './src/screens/courses/CourseItem';
 import { ProvideStore } from "./src/store";
 import { ProvideModalStore } from "./src/store/modal";
 import theme from "./src/utils/theme";
@@ -82,6 +83,11 @@ const App = () => {
                                 name="Courses"
                                 options={{ headerTitle: <Title>Курсы</Title> }}
                                 component={CoursesScreen}
+                            />
+                            <HomeStack.Screen
+                                name="CourseItem"
+                                options={{ headerTitle: <Title>Назначение</Title> }}
+                                component={CourseItem}
                             />
                         </HomeStack.Navigator>
                     </NavigationContainer>
