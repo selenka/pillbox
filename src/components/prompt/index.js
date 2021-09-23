@@ -1,16 +1,11 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { Dialog, Portal, Button, TextInput, HelperText } from 'react-native-paper';
 import { CANCEL_COLOR } from '../../utils/constants';
 
-const DialogModal = ({ open, setVisible, title, onConfirm }) => {
-  const [text, setText] = React.useState('');
-  const [valid, setValid] = React.useState(true);
+const DialogModal = ({ mode, open, value, setVisible, title, onConfirm }) => {
+  const [text, setText] = useState('');
 
   const hideDialog = () => setVisible(false);
-
-  const hasErrors = () => {
-    return text.length === 0;
-  };
 
   return (
     <Portal>
@@ -18,16 +13,15 @@ const DialogModal = ({ open, setVisible, title, onConfirm }) => {
         <Dialog.Title>{title}</Dialog.Title>
         <Dialog.Content>
           <TextInput
-            autoFocus={true}
             mode="flat"
-            value={text}
+            error={text && !text.length}
+            defaultValue={text || value}
+            returnKeyType="next"
+            enablesReturnKeyAutomatically
             style={{ backgroundColor: 'white' }}
-            onChangeText={(text) => {
-              setValid(hasErrors);
-              setText(text);
-            }}
+            onChangeText={(value) => setText(value)}
           />
-          <HelperText type="error" visible={!valid}>
+          <HelperText type="error" visible={text && !text.length}>
             Название группы должно содержать как минимум 1 символ
           </HelperText>
         </Dialog.Content>
@@ -36,14 +30,14 @@ const DialogModal = ({ open, setVisible, title, onConfirm }) => {
             Отмена
           </Button>
           <Button
-            disabled={!valid || !text.length}
+            disabled={!text.length}
             onPress={() => {
               onConfirm(text);
               setText('');
               hideDialog();
             }}
           >
-            Создать
+            {mode === 'edit' ? 'Применить' : 'Создать'}
           </Button>
         </Dialog.Actions>
       </Dialog>

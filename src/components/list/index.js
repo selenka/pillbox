@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useRef } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { List, Divider, Button } from 'react-native-paper';
 import Swipeable from 'react-native-swipeable';
@@ -8,41 +8,52 @@ import EmptyMedicinePreview from '../EmptyMedicinePreview';
 import nextId from 'react-id-generator';
 
 let buttonId = nextId('button');
-const DefaultList = ({ data }) => {
-  const rightButtons = [
-    <Button
-      key={buttonId}
-      mode="contained"
-      style={[s.button, { backgroundColor: theme.colors.accent }]}
-      labelStyle={{
-        fontSize: 10,
-        width: 70,
-      }}
-      onPress={() => console.log(1)}
-    >
-      Редакт
-    </Button>,
-    <Button
-      mode="contained"
-      key={buttonId}
-      style={[s.button, { backgroundColor: CANCEL_COLOR }]}
-      labelStyle={{
-        fontSize: 10,
-        width: 70,
-      }}
-      onPress={() => console.log(2)}
-    >
-      Удалить
-    </Button>,
-  ];
-  console.log('Default list data', data);
+const DefaultList = ({ data, onEditPress, onDeletePress }) => {
+  let swipe = useRef(null);
+
+  const getButtons = (id) => {
+    return [
+      <Button
+        key={buttonId}
+        mode="contained"
+        style={[s.button, { backgroundColor: theme.colors.accent }]}
+        labelStyle={{
+          fontSize: 10,
+          width: 70,
+        }}
+        onPress={() => {
+          console.log('onOnpress', id);
+          onEditPress(id);
+          swipe.current.recenter();
+        }}
+      >
+        Редакт
+      </Button>,
+      <Button
+        mode="contained"
+        key={buttonId}
+        style={[s.button, { backgroundColor: CANCEL_COLOR }]}
+        labelStyle={{
+          fontSize: 10,
+          width: 70,
+        }}
+        onPress={() => {
+          onDeletePress(id);
+          swipe.current.recenter();
+        }}
+      >
+        Удалить
+      </Button>,
+    ];
+  };
+
   return (
     <View>
       {data.length ? (
         <List.Section key="default-list-section">
           {data.map((item) => (
             <Fragment key={`fragment-${item.id}`}>
-              <Swipeable key={`swipe-${item.id}`} rightButtons={rightButtons}>
+              <Swipeable ref={swipe} key={`swipe-${item.id}`} rightButtons={getButtons(item.id)}>
                 <List.Item key={`default-list-${item.id}`} title={item.label} />
                 <Divider key={`divider-${item.id}`} style={s.divider} />
               </Swipeable>

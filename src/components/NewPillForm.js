@@ -24,6 +24,7 @@ const NewPillForm = ({ newPill, setNewPill }) => {
         mode="flat"
         autoFocus={true}
         label="Наименование"
+        error={!valid}
         returnKeyType="next"
         enablesReturnKeyAutomatically
         onChangeText={(value) => {

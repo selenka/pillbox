@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 import { PRIMARY_LIGHT } from '../../utils/constants';
@@ -9,11 +9,29 @@ import DefaultList from '../../components/list';
 
 const MedicineGroupScreen = () => {
   const { open, setVisible } = useModal();
-  const { groups, addGroup } = useStore();
+  const { groups, addGroup, updateGroup, deleteGroup } = useStore();
+
+  const [mode, setMode] = useState('view');
+  const [editGroup, setEditGroup] = useState(undefined);
+
+  const onEditGroup = (id) => {
+    console.log('onEditGroup', id);
+    setEditGroup(id);
+    setMode('edit');
+    setVisible(true);
+  };
+
+  const onDeleteGroup = (id) => {
+    deleteGroup(id);
+  };
   return (
     <View style={s.container}>
       <View style={{ flex: 2 }}>
-        <DefaultList data={groups} />
+        <DefaultList
+          data={groups}
+          onEditPress={(id) => onEditGroup(id)}
+          onDeletePress={(id) => onDeleteGroup(id)}
+        />
       </View>
       <Button
         mode="contained"
@@ -26,11 +44,14 @@ const MedicineGroupScreen = () => {
         Создать
       </Button>
       <Prompt
+        mode={mode}
         open={open}
+        value={editGroup ? groups.find((g) => g.id === editGroup).label : ''}
         setVisible={setVisible}
         title="Введите название группы:"
         onConfirm={(value) => {
-          addGroup(value);
+          editGroup ? updateGroup(editGroup, value) : addGroup(value);
+          setEditGroup(undefined);
         }}
       />
     </View>

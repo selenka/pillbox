@@ -49,11 +49,17 @@ const useProvideStore = () => {
     setGroups([...groups, group]);
   };
 
+  const updateGroup = (id, value) => {
+    const item = groups.find((g) => g.id === id);
+    const data = groups.map((g) => (g.id === item.id ? Object.assign({}, g, { label: value }) : g));
+    setGroups(data);
+  };
+
   const deleteGroup = (id) => {
     setGroups(groups.filter((g) => g.id !== id));
   };
 
-  console.log('pills', pills);
+  console.log('groups', groups);
 
   return {
     pills,
@@ -65,6 +71,7 @@ const useProvideStore = () => {
     newPill,
     setNewPill,
     updatePill,
+    updateGroup,
   };
 };
 
