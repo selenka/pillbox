@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Button, FAB, Searchbar } from 'react-native-paper';
 
@@ -9,22 +9,18 @@ import AccordionList from '../../components/accordion';
 
 const MedicineScreen = ({ navigation }) => {
   const { pills, groups } = useStore();
-  const [searchQuery, setSearchQuery] = useState('')
+  const [searchQuery, setSearchQuery] = useState('');
 
   const onChangeSearch = (query) => {
     setSearchQuery(query);
-  }
+  };
 
   return (
     <View style={s.container}>
       <Button icon="plus" mode="text" onPress={() => navigation.navigate('MedicineGroup')}>
         Управление группами
       </Button>
-      <Searchbar
-          placeholder='Поиск лекарств'
-          onChangeText={onChangeSearch}
-          value={searchQuery}
-      />
+      <Searchbar placeholder="Поиск лекарств" onChangeText={onChangeSearch} value={searchQuery} />
       <FAB
         style={s.fab}
         icon="flask-empty-plus-outline"

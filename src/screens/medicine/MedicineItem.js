@@ -6,7 +6,9 @@ import NewPillForm from '../../components/NewPillForm';
 import { InitialNewPillState, useStore } from '../../store';
 
 const MedicineItemScreen = ({ route, navigation }) => {
-  const { params: { pill, mode } } = route
+  const {
+    params: { pill, mode },
+  } = route;
   const { pills, addPill, newPill, setNewPill, updatePill } = useStore();
 
   useEffect(() => {
@@ -17,44 +19,41 @@ const MedicineItemScreen = ({ route, navigation }) => {
 
   useEffect(() => {
     if (mode === 'edit') {
-      setNewPill(pills.find(p => p.id === pill.id));
+      setNewPill(pills.find((p) => p.id === pill.id));
     }
-  }, [mode, pills])
+  }, [mode, pills]);
 
   return (
     <View style={s.container}>
       <View>
-        <NewPillForm
-            newPill={newPill}
-            setNewPill={setNewPill}
-        />
+        <NewPillForm newPill={newPill} setNewPill={setNewPill} />
       </View>
-      {
-        mode === 'edit'
-            ? <Button
-                mode="contained"
-                style={s.addButton}
-                onPress={() => {
-                  updatePill(newPill);
-                  // TODO: should place service call to update pill value and reload pills
-                  navigation.navigate('ViewPillScreen', { name: newPill.label });
-                }}
-                contentStyle={s.buttonContent}
-            >
-              Сохранить
-            </Button>
-            : <Button
-                mode="contained"
-                style={s.addButton}
-                onPress={() => {
-                  addPill(newPill);
-                  navigation.goBack();
-                }}
-                contentStyle={s.buttonContent}
-            >
-              Добавить
-            </Button>
-      }
+      {mode === 'edit' ? (
+        <Button
+          mode="contained"
+          style={s.addButton}
+          onPress={() => {
+            updatePill(newPill);
+            // TODO: should place service call to update pill value and reload pills
+            navigation.navigate('ViewPillScreen', { name: newPill.label });
+          }}
+          contentStyle={s.buttonContent}
+        >
+          Сохранить
+        </Button>
+      ) : (
+        <Button
+          mode="contained"
+          style={s.addButton}
+          onPress={() => {
+            addPill(newPill);
+            navigation.goBack();
+          }}
+          contentStyle={s.buttonContent}
+        >
+          Добавить
+        </Button>
+      )}
     </View>
   );
 };

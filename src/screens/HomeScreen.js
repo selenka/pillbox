@@ -10,7 +10,7 @@ const HomeScreen = ({ navigation }) => {
         <Text style={[s.text, s.textLight]}>Аптечка</Text>
       </TouchableOpacity>
       <TouchableOpacity style={s.buttonLight} onPress={() => navigation.navigate('Courses')}>
-        <Text style={[s.text, s.textDark]}>Курсы</Text>
+        <Text style={[s.text, s.textDark]}>Расписание</Text>
       </TouchableOpacity>
     </View>
   );

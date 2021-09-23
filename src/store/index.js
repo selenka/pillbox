@@ -35,9 +35,9 @@ const useProvideStore = () => {
   };
 
   const updatePill = (pill) => {
-    const data = pills.map(p => (p.id === pill.id ) ? Object.assign({}, p, pill) : p);
-    setPills(data)
-    setNewPill(InitialNewPillState)
+    const data = pills.map((p) => (p.id === pill.id ? Object.assign({}, p, pill) : p));
+    setPills(data);
+    setNewPill(InitialNewPillState);
   };
 
   const addGroup = (value) => {
@@ -53,9 +53,19 @@ const useProvideStore = () => {
     setGroups(groups.filter((g) => g.id !== id));
   };
 
-  console.log('pills', pills)
+  console.log('pills', pills);
 
-  return { pills, groups, addPill, deletePill, addGroup, deleteGroup, newPill, setNewPill, updatePill };
+  return {
+    pills,
+    groups,
+    addPill,
+    deletePill,
+    addGroup,
+    deleteGroup,
+    newPill,
+    setNewPill,
+    updatePill,
+  };
 };
 
 // Use it to wrap content with Store

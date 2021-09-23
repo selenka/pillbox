@@ -2,7 +2,7 @@ import React from 'react';
 import { Pressable } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Title, Provider as PaperProvider } from 'react-native-paper';
+import { Title, Text, Provider as PaperProvider } from 'react-native-paper';
 import HomeScreen from './src/screens/HomeScreen';
 import MedicineScreen from './src/screens/medicine/MedicineScreen';
 import MedicineItem from './src/screens/medicine/MedicineItem';
@@ -27,7 +27,12 @@ const App = () => {
                         <HomeStack.Navigator headerMode="float">
                             <HomeStack.Screen
                                 name="Home"
-                                options={{ headerTitle: <Title>HealMe - Домашняя Аптечка</Title> }}
+                                options={{
+                                    headerTitle:
+                                        <Title style={{ color: theme.colors.disabled}}>
+                                            Heal<Text style={{ color: theme.colors.accent}}>Me</Text> - Домашняя Аптечка
+                                        </Title>
+                                }}
                                 component={HomeScreen}
                             />
                             <HomeStack.Screen

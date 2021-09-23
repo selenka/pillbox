@@ -2,7 +2,13 @@ import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { TextInput, Text, Chip } from 'react-native-paper';
-import {INPUT_TEXT_COLOR, pillQuantityTypes, pillTypes, PRIMARY_DARK, PRIMARY_LIGHT} from '../utils/constants';
+import {
+  INPUT_TEXT_COLOR,
+  pillQuantityTypes,
+  pillTypes,
+  PRIMARY_DARK,
+  PRIMARY_LIGHT,
+} from '../utils/constants';
 import RNPickerSelect from 'react-native-picker-select';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
@@ -45,7 +51,9 @@ const NewPillForm = ({ newPill, setNewPill }) => {
           {newPill.groups.length ? (
             <View style={{ flexDirection: 'row' }}>
               {newPill.groups.map((g) => (
-                  <Chip mode='outlined' key={`group-tag-${g.id}`}>{g.label}</Chip>
+                <Chip mode="outlined" key={`group-tag-${g.id}`}>
+                  {g.label}
+                </Chip>
               ))}
             </View>
           ) : (
@@ -74,7 +82,7 @@ const NewPillForm = ({ newPill, setNewPill }) => {
           step={1}
           value={newPill.quantity}
           onChange={(num) => {
-              console.log('num', num)
+            console.log('num', num);
             setNewPill({ ...newPill, quantity: num });
           }}
         />
