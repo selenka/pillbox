@@ -36,7 +36,7 @@ const DialogModal = ({ open, setVisible, title, onConfirm }) => {
             Отмена
           </Button>
           <Button
-            disabled={!valid}
+            disabled={!valid || !text.length}
             onPress={() => {
               onConfirm(text);
               setText('');

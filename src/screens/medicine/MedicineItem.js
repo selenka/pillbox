@@ -23,6 +23,10 @@ const MedicineItemScreen = ({ route, navigation }) => {
     }
   }, [mode, pills]);
 
+  const isFormValid = () => {
+    return newPill.label.length > 0;
+  };
+
   return (
     <View style={s.container}>
       <View>
@@ -30,6 +34,7 @@ const MedicineItemScreen = ({ route, navigation }) => {
       </View>
       {mode === 'edit' ? (
         <Button
+          disabled={!isFormValid()}
           mode="contained"
           style={s.addButton}
           onPress={() => {
@@ -43,6 +48,7 @@ const MedicineItemScreen = ({ route, navigation }) => {
         </Button>
       ) : (
         <Button
+          disabled={!isFormValid()}
           mode="contained"
           style={s.addButton}
           onPress={() => {

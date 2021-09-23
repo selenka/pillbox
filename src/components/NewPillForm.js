@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
-import { TextInput, Text, Chip } from 'react-native-paper';
+import { TextInput, Text, Chip, HelperText } from 'react-native-paper';
 import {
   INPUT_TEXT_COLOR,
   pillQuantityTypes,
@@ -16,6 +16,7 @@ import InputSpinner from 'react-native-input-spinner';
 
 const NewPillForm = ({ newPill, setNewPill }) => {
   const navigation = useNavigation();
+  const [valid, setValid] = useState(true);
 
   return (
     <View>
@@ -26,11 +27,15 @@ const NewPillForm = ({ newPill, setNewPill }) => {
         returnKeyType="next"
         enablesReturnKeyAutomatically
         onChangeText={(value) => {
+          setValid(value.length > 0);
           setNewPill({ ...newPill, label: value });
         }}
         value={newPill.label}
         style={s.input}
       />
+      <HelperText type="error" visible={!valid}>
+        Название должно состоять минимум из одного символа
+      </HelperText>
       <Text style={s.label}>Лекарственная форма</Text>
       <RNPickerSelect
         placeholder={{}}
