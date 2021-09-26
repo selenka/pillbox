@@ -36,7 +36,7 @@ const s = StyleSheet.create({
   accordion: {
     borderBottomWidth: 1,
     borderBottomColor: theme.colors.primary,
-    borderLeftWidth: 5,
+    borderLeftWidth: 10,
     borderLeftColor: theme.colors.accent,
   },
   title: {

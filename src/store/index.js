@@ -11,7 +11,7 @@ export const InitialNewPillState = {
   label: '',
   type: 'pill',
   groups: [],
-  quantity: 0,
+  quantity: 1, // min
   quantityType: 'pill',
   expirationDate: new Date(),
 };

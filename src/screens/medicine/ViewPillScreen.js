@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import moment from 'moment';
 import { View, StyleSheet } from 'react-native';
 import { Button, List, Chip } from 'react-native-paper';

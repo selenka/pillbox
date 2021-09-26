@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Button, FAB } from 'react-native-paper';
+import { FAB } from 'react-native-paper';
 import EmptyMedicinePreview from '../../components/EmptyMedicinePreview';
 
 const CoursesScreen = ({ navigation }) => {

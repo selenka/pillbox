@@ -7,12 +7,12 @@ import {
   pillQuantityTypes,
   pillTypes,
   PRIMARY_DARK,
-  PRIMARY_LIGHT,
 } from '../utils/constants';
 import RNPickerSelect from 'react-native-picker-select';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import InputSpinner from 'react-native-input-spinner';
+import theme from '../utils/theme';
 
 const NewPillForm = ({ newPill, setNewPill }) => {
   const navigation = useNavigation();
@@ -71,24 +71,26 @@ const NewPillForm = ({ newPill, setNewPill }) => {
       <Text style={s.label}>Количество</Text>
       <View style={{ flexDirection: 'row', paddingTop: 10 }}>
         <InputSpinner
-          skin="clean"
           width={150}
+          rounded={false}
+          showBorder={false}
+          background={'transparent'}
+          textColor={theme.colors.primary}
           style={{
             flex: 1,
             marginLeft: 10,
-            backgroundColor: PRIMARY_LIGHT,
-            borderWidth: 1,
-            borderColor: PRIMARY_DARK,
             shadowColor: '#fff',
+            borderBottomWidth: 1,
           }}
-          buttonStyle={{
-            backgroundColor: PRIMARY_LIGHT,
-          }}
+          colorLeft={'transparent'}
+          colorRight={'transparent'}
+          buttonTextColor={theme.colors.primary}
+          colorPress={theme.colors.accent}
           returnKeyType="next"
-          step={10}
+          step={newPill.quantity === 1 ? 9 : 10}
+          min={1}
           value={newPill.quantity}
           onChange={(num) => {
-            console.log('num', num);
             setNewPill({ ...newPill, quantity: num });
           }}
         />
@@ -98,7 +100,7 @@ const NewPillForm = ({ newPill, setNewPill }) => {
           onValueChange={(value) => setNewPill({ ...newPill, quantityType: value })}
           items={pillQuantityTypes}
           style={{
-            viewContainer: { flex: 1 },
+            viewContainer: { flex: 1, paddingTop: 11, marginLeft: 10 },
             inputIOS: s.inputSelect,
           }}
         />

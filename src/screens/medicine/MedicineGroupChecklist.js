@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 import { PRIMARY_LIGHT } from '../../utils/constants';
 import Checklist from '../../components/checklist';
-import Prompt from '../../components/prompt';
+import Prompt from '../../components/modals/prompt';
 import { useModal } from '../../store/modal';
 import { useStore } from '../../store';
 

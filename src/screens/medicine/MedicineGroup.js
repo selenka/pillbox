@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 import { PRIMARY_LIGHT } from '../../utils/constants';
-import Prompt from '../../components/prompt';
+import Prompt from '../../components/modals/prompt';
 import { useModal } from '../../store/modal';
 import { useStore } from '../../store';
 import DefaultList from '../../components/list';

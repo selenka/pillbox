@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Pressable, StyleSheet } from 'react-native';
-import { Text, Divider, List } from 'react-native-paper';
+import { Divider, List } from 'react-native-paper';
 import AccordionSection from './section';
 import theme from '../../utils/theme';
 
@@ -73,7 +73,7 @@ const s = StyleSheet.create({
     paddingVertical: 10,
   },
   item: {
-    borderLeftWidth: 5,
+    borderLeftWidth: 10,
     borderLeftColor: theme.colors.primary,
   },
   divider: {

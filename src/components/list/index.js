@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { List, Divider, Button } from 'react-native-paper';
 import Swipeable from 'react-native-swipeable';
 import theme from '../../utils/theme';
-import { CANCEL_COLOR, PREVIEW_IMAGE_COLOR } from '../../utils/constants';
+import { CANCEL_COLOR } from '../../utils/constants';
 import EmptyMedicinePreview from '../EmptyMedicinePreview';
 import nextId from 'react-id-generator';
 import SimpleLineIcon from 'react-native-vector-icons/SimpleLineIcons';
