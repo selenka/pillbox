@@ -12,9 +12,10 @@ import ViewPillScreen from './src/screens/medicine/ViewPillScreen';
 import CoursesScreen from './src/screens/courses/CoursesScreen';
 import CourseItem from './src/screens/courses/CourseItem';
 import { ProvideStore } from "./src/store";
+import { ProvideCoursesStore } from "./src/store/courses";
+
 import { ProvideModalStore } from "./src/store/modal";
 import theme from "./src/utils/theme";
-
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const HomeStack = createStackNavigator();
@@ -24,8 +25,9 @@ const App = () => {
         <PaperProvider theme={theme}>
             <ProvideStore>
                 <ProvideModalStore>
-                    <NavigationContainer>
-                        <HomeStack.Navigator headerMode="float">
+                    <ProvideCoursesStore>
+                        <NavigationContainer>
+                            <HomeStack.Navigator headerMode="float">
                             <HomeStack.Screen
                                 name="Home"
                                 options={{
@@ -90,8 +92,9 @@ const App = () => {
                                 component={CourseItem}
                             />
                         </HomeStack.Navigator>
-                    </NavigationContainer>
-                </ProvideModalStore>
+                        </NavigationContainer>
+                    </ProvideCoursesStore>
+                 </ProvideModalStore>
             </ProvideStore>
         </PaperProvider>
     );

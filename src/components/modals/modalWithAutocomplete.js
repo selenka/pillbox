@@ -1,49 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Pressable } from 'react-native';
-import { Dialog, Portal, Button, List, Divider, Title, Text, Chip } from 'react-native-paper';
-import Autocomplete from 'react-native-autocomplete-input';
-import { CANCEL_COLOR, pillQuantityTypes } from '../../utils/constants';
+import React, { useState } from 'react';
+import { View, StyleSheet } from 'react-native';
+import { Dialog, Portal, Button, Title, Text, Chip } from 'react-native-paper';
+import { CANCEL_COLOR } from '../../utils/constants';
 import { useStore } from '../../store';
 import theme from '../../utils/theme';
 import InputSpinner from 'react-native-input-spinner';
-
-const filterData = (data, query) => {
-  if (!data.length || query === '') {
-    return [];
-  }
-  return data.filter((pill) => {
-    return !pill.label.toLowerCase().search(query.toLowerCase());
-  });
-};
-
-const compareQuery = (item, text) => {
-  if (!item.length) {
-    return [];
-  }
-  return item[0].label.toLowerCase() === text.toLowerCase().trim();
-};
-
-const getQuantityTypeLabel = (item) => {
-  const type = pillQuantityTypes.find((i) => i.value === item.quantityType);
-  return type ? type.label : '';
-};
+import AutocompleteInput from '../AutocompleteInput';
+import { getQuantityTypeLabel } from '../../utils/helpers';
 
 const ModalWithAutocomplete = ({ open, setVisible }) => {
-  const [query, setQuery] = useState('');
-  const [filteredPills, setFilteredPills] = useState([]);
   const [selectedItem, setSelectedItem] = useState(undefined);
   const [takenQty, setTakenQty] = useState(1);
   const { pills } = useStore();
 
-  useEffect(() => {
-    setFilteredPills(filterData(pills, query));
-  }, [query]);
-
   const hideDialog = () => {
-    setQuery('');
-    setFilteredPills([]);
     setSelectedItem(undefined);
-    setVisible(false);
+    setTimeout(() => {
+      setVisible(false);
+    }, 100);
   };
 
   return (
@@ -51,34 +25,10 @@ const ModalWithAutocomplete = ({ open, setVisible }) => {
       <Dialog style={{ zIndex: 1000 }} visible={open} onDismiss={hideDialog}>
         <Title style={s.title}>Я хочу принять</Title>
         <Dialog.Content>
-          <Autocomplete
-            autoCorrect={false}
-            hideResults={false}
+          <AutocompleteInput
+            data={pills}
             placeholder="например: аспирин"
-            inputContainerStyle={s.inputContainerStyle}
-            data={
-              filteredPills.length === 1 && compareQuery(filteredPills, query)
-                ? [] // Close suggestion list in case pill title matches query
-                : filteredPills
-            }
-            value={query}
-            onChangeText={(text) => setQuery(text)}
-            flatListProps={{
-              keyboardShouldPersistTaps: 'always',
-              keyExtractor: (pill) => String(pill.id),
-              renderItem: ({ item }) => (
-                <Pressable
-                  key={`pressable-${item.id}`}
-                  onPress={() => {
-                    setQuery(item.label);
-                    setSelectedItem(item);
-                  }}
-                >
-                  <List.Item key={item.id} title={item.label} />
-                  <Divider key={`divider-${item.id}`} style={s.divider} />
-                </Pressable>
-              ),
-            }}
+            setSelectedItem={(item) => setSelectedItem(item)}
           />
           <View style={{ flexDirection: 'row' }}>
             <InputSpinner
@@ -102,7 +52,7 @@ const ModalWithAutocomplete = ({ open, setVisible }) => {
               max={selectedItem && selectedItem.quantity}
               value={selectedItem && selectedItem.quantity}
               onChange={(num) => {
-                setTakenQty(num)
+                setTakenQty(num);
               }}
             />
             <View style={s.qtyContainerLeft}>
@@ -127,7 +77,7 @@ const ModalWithAutocomplete = ({ open, setVisible }) => {
             onPress={() => {
               // onConfirm(text);
               // setText('');
-              alert(`Лекарство ${selectedItem.label} в количестве ${takenQty}`)
+              alert(`Лекарство ${selectedItem.label} в количестве ${takenQty}`);
               hideDialog();
             }}
           >
@@ -145,13 +95,6 @@ const s = StyleSheet.create({
   title: {
     marginHorizontal: 25,
     marginVertical: 10,
-  },
-  inputContainerStyle: {
-    borderTopWidth: 0,
-    borderRightWidth: 0,
-    borderLeftWidth: 0,
-    borderBottomWidth: 1,
-    borderBottomColor: theme.colors.primary,
   },
   divider: {
     marginRight: 10,

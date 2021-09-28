@@ -28,3 +28,45 @@ export const pillQuantityTypes = [
   { label: 'капли', value: 'drop ', key: 'key-type-drop' },
   { label: 'другое', value: 'other ', key: 'key-type-other' },
 ];
+
+export const days = [
+  { value: 'monday', label: 'пн' },
+  { value: 'tuesday', label: 'вт' },
+  { value: 'wednesday', label: 'ср' },
+  { value: 'thursday', label: 'чт' },
+  { value: 'friday', label: 'пт' },
+  { value: 'saturday', label: 'сб' },
+  { value: 'sunday', label: 'вс' },
+];
+
+export const frequency = [
+  { value: 'days', label: 'день' },
+  { value: 'weekly', label: 'неделя' },
+  { value: 'monthly', label: 'месяц' },
+  { value: 'yearly', label: 'год' },
+];
+
+export const durationIntervalTypes = [
+  { label: 'неделя', value: 'week ', key: 'key-type-week' },
+  { label: 'месяц', value: 'month ', key: 'key-type-month' },
+  { label: 'год', value: 'year ', key: 'key-type-year' },
+];
+
+export const pillsQuantity = [...Array(10).keys()].map((i) => ({
+  value: String(i),
+  label: String(i),
+  key: `key-${i}`,
+}));
+
+export const pillsFractionsQuantity = [
+  { label: '0', value: 'fraction_zero ', key: 'key-type-fraction_zero' },
+  { label: '1/2', value: 'fraction_half ', key: 'key-type-fraction_half' },
+  { label: '1/4', value: 'fraction_quarter ', key: 'key-type-fraction_quarter' },
+];
+
+export const dosagePeriodDuration = [
+  { label: 'день(-ня)', value: 'day(s) ', key: 'duration_days' },
+  { label: 'неделя(и)', value: 'week(s) ', key: 'duration_weeks' },
+  { label: 'месяц(ев)', value: 'month(s) ', key: 'duration_months' },
+  { label: 'год(а)', value: 'year(s) ', key: 'duration_years' },
+];

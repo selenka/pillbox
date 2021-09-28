@@ -2,12 +2,7 @@ import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { TextInput, Text, Chip, HelperText } from 'react-native-paper';
-import {
-  INPUT_TEXT_COLOR,
-  pillQuantityTypes,
-  pillTypes,
-  PRIMARY_DARK,
-} from '../utils/constants';
+import { INPUT_TEXT_COLOR, pillQuantityTypes, pillTypes, PRIMARY_DARK } from '../utils/constants';
 import RNPickerSelect from 'react-native-picker-select';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';

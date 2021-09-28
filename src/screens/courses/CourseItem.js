@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import { PRIMARY_DARK, PRIMARY_LIGHT } from '../../utils/constants';
+import NewCourseForm from '../../components/NewCourseForm';
 
 // название лекарства ( из списка аптечки )
 // дозировка
@@ -18,7 +19,9 @@ const CourseItem = ({ route, navigation }) => {
 
   return (
     <View style={s.container}>
-      <View></View>
+      <View>
+        <NewCourseForm />
+      </View>
       <Button
         mode="contained"
         style={s.addButton}
