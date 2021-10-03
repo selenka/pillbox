@@ -49,14 +49,14 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <View style={s.mainContainer}>
-      <View style={s.buttonContainer}>
-        <TouchableOpacity style={s.buttonDark} onPress={() => navigation.navigate('Medicine')}>
-          <Text style={[s.text, s.textLight]}>Аптечка</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={s.buttonLight} onPress={() => navigation.navigate('Courses')}>
-          <Text style={[s.text, s.textDark]}>Расписание</Text>
-        </TouchableOpacity>
-      </View>
+      {/*<View style={s.buttonContainer}>*/}
+      {/*  <TouchableOpacity style={s.buttonDark} onPress={() => navigation.navigate('Medicine')}>*/}
+      {/*    <Text style={[s.text, s.textLight]}>Аптечка</Text>*/}
+      {/*  </TouchableOpacity>*/}
+      {/*  <TouchableOpacity style={s.buttonLight} onPress={() => navigation.navigate('Courses')}>*/}
+      {/*    <Text style={[s.text, s.textDark]}>Расписание</Text>*/}
+      {/*  </TouchableOpacity>*/}
+      {/*</View>*/}
       <View style={s.mainButtonContainer}>
         <TouchableOpacity style={[s.mainButton, size]} onPress={() => onTakePillPress()}>
           <Icon name="pill" size={100} color={theme.colors.accent} />

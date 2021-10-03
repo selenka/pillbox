@@ -1,5 +1,7 @@
-export const PRIMARY_DARK = '#2b2a2a';
-export const ACCENT_COLOR = '#f1c40f';
+export const PRIMARY_DARK = '#384B56';
+export const ACCENT_COLOR = '#308FFF';
+export const BACKGROUND_COLOR = '#FFFFFF'
+export const FORM_COLOR = '#EEEEEE'
 
 export const PRIMARY_LIGHT = '#eaeef3';
 export const PREVIEW_TEXT_COLOR = '#bdbdbd';
