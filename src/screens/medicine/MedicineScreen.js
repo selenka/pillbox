@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Button, FAB, Searchbar } from 'react-native-paper';
+import { Divider, FAB, Searchbar } from 'react-native-paper';
 
 import { INPUT_TEXT_COLOR, PRIMARY_DARK } from '../../utils/constants';
 import EmptyMedicinePreview from '../../components/EmptyMedicinePreview';
 import { useStore } from '../../store';
 import AccordionList from '../../components/accordion';
+import { Styles } from '../../utils/styles';
 
 const MedicineScreen = ({ navigation }) => {
   const { pills, groups } = useStore();
@@ -17,15 +18,13 @@ const MedicineScreen = ({ navigation }) => {
 
   return (
     <View style={s.container}>
-      <Button icon="plus" mode="text" onPress={() => navigation.navigate('MedicineGroup')}>
-        Управление группами
-      </Button>
+      <Divider />
       <Searchbar placeholder="Поиск лекарств" onChangeText={onChangeSearch} value={searchQuery} />
       <FAB
-        style={s.fab}
+        style={Styles.fab}
         icon="flask-empty-plus-outline"
         onPress={() => {
-          navigation.navigate('MedicineItem', { mode: 'new' });
+          navigation.navigate('Medicine', { screen: 'MedicineItem', params: { mode: 'new' } });
         }}
       />
       {pills.length ? (
@@ -38,13 +37,6 @@ const MedicineScreen = ({ navigation }) => {
 };
 
 const s = StyleSheet.create({
-  fab: {
-    position: 'absolute',
-    zIndex: 100,
-    margin: 16,
-    right: 0,
-    bottom: 0,
-  },
   container: {
     position: 'relative',
     height: '100%',

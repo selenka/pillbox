@@ -4,6 +4,8 @@ import { View, StyleSheet } from 'react-native';
 import { Button, List, Chip } from 'react-native-paper';
 import { pillQuantityTypes, pillTypes, PRIMARY_DARK, PRIMARY_LIGHT } from '../../utils/constants';
 import { useStore } from '../../store';
+import { Styles } from '../../utils/styles';
+import theme from '../../utils/theme';
 
 const ViewPillScreen = ({ route, navigation }) => {
   const {
@@ -34,12 +36,14 @@ const ViewPillScreen = ({ route, navigation }) => {
       </View>
       <Button
         mode="contained"
-        style={s.addButton}
+        style={Styles.accentButton}
         onPress={() => {
           deletePill(pill.id);
           navigation.goBack();
         }}
-        contentStyle={s.buttonContent}
+        contentStyle={Styles.mainScreenButton}
+        labelStyle={{ color: theme.colors.background }}
+
       >
         Удалить
       </Button>
@@ -52,6 +56,7 @@ const s = StyleSheet.create({
     display: 'flex',
     height: '100%',
     justifyContent: 'space-between',
+    paddingBottom: 25
   },
   form: {
     height: 30,

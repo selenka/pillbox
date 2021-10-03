@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Button } from 'react-native-paper';
 import { PRIMARY_LIGHT } from '../../utils/constants';
 import Checklist from '../../components/checklist';
 import Prompt from '../../components/modals/prompt';
@@ -31,9 +30,6 @@ const MedicineGroupChecklistScreen = () => {
 
   return (
     <View style={s.container}>
-      <Button icon="plus" mode="text" onPress={() => setVisible(true)}>
-        Создать группу
-      </Button>
       <View style={{ flex: 2 }}>
         <Checklist
           data={newPill.groups}

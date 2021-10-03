@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { NativeModules, LayoutAnimation, View, TouchableOpacity, StyleSheet } from 'react-native';
-import { Text } from 'react-native-paper';
+import SafeAreaView from 'react-native-safe-area-view';
+import { NativeModules, LayoutAnimation, View, StyleSheet } from 'react-native';
 import { PRIMARY_DARK, PRIMARY_LIGHT } from '../utils/constants';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import theme from '../utils/theme';
-import ModalWithAutocomplete from '../components/modals/modalWithAutocomplete';
 import { useModal } from '../store/modal';
 import Notification from '../components/Notification';
 import { useStore } from '../store';
+import { Agenda } from 'react-native-calendars';
 
 const { UIManager } = NativeModules;
 
@@ -49,6 +48,18 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <View style={s.mainContainer}>
+      <Agenda
+        // items={{
+        //   '2021-10-03': [{name: 'item 1 - any js object'}],
+        //   '2021-10-04': [{name: 'item 2 - any js object', height: 80}],
+        //   '2021-10-06': [{name: 'item 3 - any js object'}, {name: 'any js object'}]
+        // }}
+        showClosingKnob={true}
+        renderEmptyData = {() => {return (<View />);}}
+        theme={{
+          selectedDayBackgroundColor: theme.colors.accent
+        }}
+      />
       {/*<View style={s.buttonContainer}>*/}
       {/*  <TouchableOpacity style={s.buttonDark} onPress={() => navigation.navigate('Medicine')}>*/}
       {/*    <Text style={[s.text, s.textLight]}>Аптечка</Text>*/}
@@ -57,12 +68,12 @@ const HomeScreen = ({ navigation }) => {
       {/*    <Text style={[s.text, s.textDark]}>Расписание</Text>*/}
       {/*  </TouchableOpacity>*/}
       {/*</View>*/}
-      <View style={s.mainButtonContainer}>
-        <TouchableOpacity style={[s.mainButton, size]} onPress={() => onTakePillPress()}>
-          <Icon name="pill" size={100} color={theme.colors.accent} />
-        </TouchableOpacity>
-        <ModalWithAutocomplete open={open} setVisible={setVisible} />
-      </View>
+      {/*<View style={s.mainButtonContainer}>*/}
+      {/*  <TouchableOpacity style={[s.mainButton, size]} onPress={() => onTakePillPress()}>*/}
+      {/*    <Icon name="pill" size={100} color={theme.colors.accent} />*/}
+      {/*  </TouchableOpacity>*/}
+      {/*  <ModalWithAutocomplete open={open} setVisible={setVisible} />*/}
+      {/*</View>*/}
       <Notification />
     </View>
   );

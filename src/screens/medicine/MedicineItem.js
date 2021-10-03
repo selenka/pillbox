@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
-import { PRIMARY_DARK, PRIMARY_LIGHT } from '../../utils/constants';
 import NewPillForm from '../../components/NewPillForm';
 import { InitialNewPillState, useStore } from '../../store';
+import { Styles } from '../../utils/styles';
+import theme from '../../utils/theme';
 
 const MedicineItemScreen = ({ route, navigation }) => {
   const {
@@ -18,7 +19,7 @@ const MedicineItemScreen = ({ route, navigation }) => {
   }, [navigation]);
 
   useEffect(() => {
-    if (mode === 'edit') {
+    if (mode === 'edit' && pill) {
       setNewPill(pills.find((p) => p.id === pill.id));
     }
   }, [mode, pills]);
@@ -27,6 +28,8 @@ const MedicineItemScreen = ({ route, navigation }) => {
     return newPill.label.length > 0;
   };
 
+  const disabled = !isFormValid()
+
   return (
     <View style={s.container}>
       <View>
@@ -34,15 +37,22 @@ const MedicineItemScreen = ({ route, navigation }) => {
       </View>
       {mode === 'edit' ? (
         <Button
-          disabled={!isFormValid()}
+          disabled={disabled}
           mode="contained"
-          style={s.addButton}
+          style={[
+            Styles.accentButton,
+            disabled && Styles.disabledButton
+          ]}
+          contentStyle={Styles.mainScreenButton}
+          labelStyle={{ color: theme.colors.background }}
           onPress={() => {
             updatePill(newPill);
             // TODO: should place service call to update pill value and reload pills
-            navigation.navigate('ViewPillScreen', { name: newPill.label, pill: newPill });
+            navigation.navigate('Medicine', {
+              screen: 'ViewPillScreen',
+              params: { name: newPill.label, pill: newPill }
+            });
           }}
-          contentStyle={s.buttonContent}
         >
           Сохранить
         </Button>
@@ -50,12 +60,16 @@ const MedicineItemScreen = ({ route, navigation }) => {
         <Button
           disabled={!isFormValid()}
           mode="contained"
-          style={s.addButton}
+          style={[
+            Styles.accentButton,
+            disabled && Styles.disabledButton
+          ]}
+          labelStyle={{ color: theme.colors.background }}
+          contentStyle={Styles.mainScreenButton}
           onPress={() => {
             addPill(newPill);
             navigation.goBack();
           }}
-          contentStyle={s.buttonContent}
         >
           Добавить
         </Button>
@@ -69,33 +83,7 @@ const s = StyleSheet.create({
     display: 'flex',
     height: '100%',
     justifyContent: 'space-between',
-  },
-  form: {
-    height: 30,
-    margin: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: PRIMARY_DARK,
-  },
-  button: {
-    width: '100%',
-    height: 80,
-    padding: 20,
-    backgroundColor: PRIMARY_DARK,
-    borderWidth: 1,
-    borderColor: PRIMARY_DARK,
-  },
-  text: {
-    fontWeight: 'bold',
-    fontSize: 20,
-    textTransform: 'uppercase',
-    textAlign: 'center',
-    color: PRIMARY_LIGHT,
-  },
-  addButton: {
-    borderRadius: 0,
-  },
-  buttonContent: {
-    padding: 20,
+    paddingBottom: 25,
   },
 });
 

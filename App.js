@@ -1,9 +1,10 @@
 import React from 'react';
-import { Pressable } from 'react-native';
+import { Pressable, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { Title, Text, Provider as PaperProvider } from 'react-native-paper';
+import { Title, Subheading, Text, Provider as PaperProvider } from 'react-native-paper';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HomeScreen from './src/screens/HomeScreen';
 import MedicineScreen from './src/screens/medicine/MedicineScreen';
 import MedicineItem from './src/screens/medicine/MedicineItem';
@@ -15,28 +16,30 @@ import CourseItem from './src/screens/courses/CourseItem';
 import { ProvideStore } from "./src/store";
 import { ProvideCoursesStore } from "./src/store/courses";
 
-import { ProvideModalStore } from "./src/store/modal";
+import { ProvideModalStore, useModal } from './src/store/modal';
 import theme from "./src/utils/theme";
 import Icon from 'react-native-vector-icons/AntDesign';
 
+const Stack = createStackNavigator();
+
 const HomeStack = createStackNavigator();
+const MedicineMainStack = createStackNavigator();
 const MedicineStack = createStackNavigator();
 const CoursesStack = createStackNavigator();
 
 const Tab = createMaterialBottomTabNavigator();
 
-
 const HomeStackScreen = () => {
     return (
-        <HomeStack.Navigator headerMode="float">
+        <HomeStack.Navigator>
             <HomeStack.Screen
                 name="Home"
                 options={{
-                    headerTitle:
-                        <Title style={{ color: theme.colors.disabled}}>
-                          <Text style={{ color: theme.colors.accent}}>Heal</Text>
-                          <Text style={{ color: theme.colors.primary}}>Me</Text> - Домашняя Аптечка
-                        </Title>
+                  headerTitle:
+                    <Title style={{ color: theme.colors.disabled}}>
+                      <Text style={{ color: theme.colors.accent}}>Heal</Text>
+                      <Text style={{ color: theme.colors.primary}}>Me</Text> - Домашняя Аптечка
+                    </Title>
                 }}
                 component={HomeScreen}
             />
@@ -44,27 +47,74 @@ const HomeStackScreen = () => {
     );
 };
 
-const MedicineStackScreen = () => {
+const MainMedicineStackScreen = () => {
   return (
-    <MedicineStack.Navigator headerMode="float">
-      <MedicineStack.Screen
-        name="Medicine"
-        options={{ headerTitle: <Title>Аптечка</Title> }}
+    <MedicineMainStack.Navigator>
+      <MedicineMainStack.Screen
+        name="Home"
+        options={({  navigation }) => (
+          {
+            headerTitle: <Title>Аптечка</Title>,
+            // eslint-disable-next-line react/display-name
+            headerRight: () =>(
+              <Button title='Группы' onPress={() => (
+                navigation.navigate('Medicine', { screen: 'MedicineGroup' })
+              )}/>
+            )
+          }
+        )}
         component={MedicineScreen}
       />
+    </MedicineMainStack.Navigator>
+  );
+};
+
+const MedicineStackScreen = () => {
+  const { setVisible } = useModal()
+
+  return (
+    <MedicineStack.Navigator
+      screenOptions={{
+        ...TransitionPresets.ModalSlideFromBottomIOS,
+      }}
+    >
+      {/*<MedicineStack.Screen*/}
+      {/*  name="Medicine"*/}
+      {/*  options={{*/}
+      {/*    headerTitle: <Title>Аптечка</Title>,*/}
+      {/*  }}*/}
+      {/*  component={MedicineScreen}*/}
+      {/*/>*/}
       <MedicineStack.Screen
         name="MedicineItem"
-        options={{ headerTitle: <Title>Лекарство</Title> }}
+        options={{
+          headerTitle: <Title>Лекарство</Title>,
+          headerBackTitle: <Subheading>Аптечка</Subheading>,
+        }}
         component={MedicineItem}
       />
       <MedicineStack.Screen
         name="MedicineGroup"
-        options={{ headerTitle: <Title>Группа</Title> }}
+        options={{
+          headerTitle: <Title>Группа</Title>,
+          headerBackTitle: <Subheading>Назад</Subheading>,
+        }}
         component={MedicineGroup}
       />
       <MedicineStack.Screen
         name="MedicineGroupChecklist"
-        options={{ headerTitle: <Title>Выберите группу</Title> }}
+        options={() => (
+          {
+            headerTitle: <Title>Выберите группу</Title>,
+            headerBackTitle: <Subheading>Назад</Subheading>,
+            // eslint-disable-next-line react/display-name
+            headerRight: () =>(
+              <Pressable onPress={() => setVisible(true)}>
+                <Icon style={{ margin: 5 }} name="plus" size={25} color={theme.colors.accent} />
+              </Pressable>
+            )
+          }
+        )}
         component={MedicineGroupChecklist}
       />
       <MedicineStack.Screen
@@ -76,13 +126,16 @@ const MedicineStackScreen = () => {
             headerRight: () => (
               <Pressable
                 onPress={() => {
-                  navigation.navigate('MedicineItem', {
-                    mode: 'edit',
-                    pill: route.params.pill
+                  navigation.navigate('Medicine', {
+                    screen: 'MedicineItem',
+                    params: {
+                      mode: 'edit',
+                      pill: route.params.pill
+                    }
                   })
                 }}
               >
-                <Icon style={{ margin: 5 }} name="pencil" size={30} color={theme.colors.accent} />
+                <Icon style={{ margin: 5 }} name="edit" size={30} color={theme.colors.accent} />
               </Pressable>
             ),
           }
@@ -111,48 +164,70 @@ const CoursesStackScreen = () => {
   );
 }
 
+const Tabs = () => {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen
+        name="HomeTab"
+        options={{
+          tabBarLabel: 'Главная',
+          tabBarIcon: ({ color }) => (
+            <Icon name="home" color={color} size={25} />
+          ),
+        }}
+        component={HomeStackScreen}
+      />
+      <Tab.Screen
+        name="MedicineTab"
+        options={{
+          tabBarLabel: 'Аптечка',
+          tabBarIcon: ({ color }) => (
+            <Icon name="medicinebox" color={color} size={25} />
+          ),
+        }}
+        component={MainMedicineStackScreen}
+      />
+      <Tab.Screen
+        name="CoursesTab"
+        options={{
+          tabBarLabel: 'Расписание',
+          tabBarIcon: ({ color }) => (
+            <Icon name="clockcircleo" color={color} size={24} />
+          ),
+        }}
+        component={CoursesStackScreen}
+      />
+    </Tab.Navigator>
+  )
+}
+
 const App = () => {
     return (
         <PaperProvider theme={theme}>
             <ProvideStore>
                 <ProvideModalStore>
                     <ProvideCoursesStore>
+                      <SafeAreaProvider>
                         <NavigationContainer theme={theme}>
-                          <Tab.Navigator
-                            // screenOptions={{ tabBarLabel: false }}
+                          <Stack.Navigator
+                            initialRouteName='Home'
+                            screenOptions={{
+                              ...TransitionPresets.ModalSlideFromBottomIOS,
+                            }}
                           >
-                            <Tab.Screen
+                            <Stack.Screen
                               name="Home"
-                              options={{
-                                tabBarLabel: 'Главная',
-                                tabBarIcon: ({ color }) => (
-                                  <Icon name="home" color={color} size={25} />
-                                ),
-                              }}
-                              component={HomeStackScreen}
+                              component={Tabs}
+                              options={{ headerShown: false }}
                             />
-                            <Tab.Screen
+                            <Stack.Screen
                               name="Medicine"
-                              options={{
-                                tabBarLabel: 'Аптечка',
-                                tabBarIcon: ({ color }) => (
-                                  <Icon name="medicinebox" color={color} size={25} />
-                                ),
-                              }}
+                              options={{ headerShown: false }}
                               component={MedicineStackScreen}
                             />
-                            <Tab.Screen
-                              name="Courses"
-                              options={{
-                                tabBarLabel: 'Расписание',
-                                tabBarIcon: ({ color }) => (
-                                  <Icon name="clockcircleo" color={color} size={24} />
-                                ),
-                              }}
-                              component={CoursesStackScreen}
-                            />
-                          </Tab.Navigator>
+                          </Stack.Navigator>
                         </NavigationContainer>
+                      </SafeAreaProvider>
                     </ProvideCoursesStore>
                  </ProvideModalStore>
             </ProvideStore>

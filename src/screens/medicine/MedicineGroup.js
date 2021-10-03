@@ -6,6 +6,8 @@ import Prompt from '../../components/modals/prompt';
 import { useModal } from '../../store/modal';
 import { useStore } from '../../store';
 import DefaultList from '../../components/list';
+import { Styles } from '../../utils/styles';
+import theme from '../../utils/theme';
 
 const MedicineGroupScreen = () => {
   const { open, setVisible } = useModal();
@@ -35,11 +37,13 @@ const MedicineGroupScreen = () => {
       </View>
       <Button
         mode="contained"
-        style={s.button}
+        style={Styles.accentButton}
         onPress={() => {
           setVisible(true);
         }}
-        contentStyle={s.buttonContent}
+        contentStyle={Styles.mainScreenButton}
+        labelStyle={{ color: theme.colors.background }}
+
       >
         Создать
       </Button>
@@ -61,6 +65,7 @@ const MedicineGroupScreen = () => {
 const s = StyleSheet.create({
   container: {
     flex: 1,
+    paddingBottom: 25,
   },
   button: {
     borderRadius: 0,

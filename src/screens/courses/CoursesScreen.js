@@ -1,11 +1,12 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { FAB } from 'react-native-paper';
+import SafeAreaView from 'react-native-safe-area-view';
 import EmptyMedicinePreview from '../../components/EmptyMedicinePreview';
 
 const CoursesScreen = ({ navigation }) => {
   return (
-    <View style={s.container}>
+    <SafeAreaView style={s.container}>
       <FAB
         style={s.fab}
         icon="alarm-plus"
@@ -17,7 +18,7 @@ const CoursesScreen = ({ navigation }) => {
         text="Пусто...У вас пока нет назначеных курсов приема. Наш диагноз - Вы здоровы! Но все-таки не забывайте надевать маску в общественных местах"
         page="courses"
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

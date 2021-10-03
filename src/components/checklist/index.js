@@ -34,13 +34,13 @@ const Checklist = ({ data = [], list = [], onItemCheck }) => {
         }}
       >
         {item.checked ? (
-          <Icon key={`checked-${item.id}`} name="check-circle" size={30} color={PRIMARY_DARK} />
+          <Icon key={`checked-${item.id}`} name="check-circle" size={30} color={theme.colors.accent} />
         ) : (
           <Icon
             key={`unchecked-${item.id}`}
             name="radio-button-unchecked"
             size={30}
-            color={PRIMARY_DARK}
+            color={theme.colors.accent}
           />
         )}
       </Pressable>
