@@ -59,8 +59,6 @@ const useProvideStore = () => {
     setGroups(groups.filter((g) => g.id !== id));
   };
 
-  console.log('groups', groups);
-
   return {
     pills,
     groups,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import { PRIMARY_DARK, PRIMARY_LIGHT } from '../../utils/constants';
@@ -7,7 +7,7 @@ import { Styles } from '../../utils/styles';
 import theme from '../../utils/theme';
 import AutocompleteInput from '../../components/AutocompleteInput';
 import { useStore } from '../../store';
-import { useCourses } from '../../store/courses';
+import { useCourses, InitialNewCourseState } from '../../store/courses';
 
 const CourseItem = ({ route, navigation }) => {
   const { pills } = useStore();
@@ -17,6 +17,15 @@ const CourseItem = ({ route, navigation }) => {
   } = route;
 
   console.log('CourseItem mode', mode);
+
+  useEffect(() => {
+    navigation.addListener('beforeRemove', () => {
+      setNewCourse(InitialNewCourseState);
+    });
+  }, [navigation]);
+
+  // disable button if no pill is selected
+  const disabled = !newCourse.pill;
 
   return (
     <View style={s.container}>
@@ -34,11 +43,9 @@ const CourseItem = ({ route, navigation }) => {
         {newCourse.pill && <NewCourseForm />}
       </View>
       <Button
+        disabled={disabled}
         mode="contained"
-        style={[
-          Styles.accentButton,
-          // disabled && Styles.disabledButton
-        ]}
+        style={[Styles.accentButton, disabled && Styles.disabledButton]}
         labelStyle={{ color: theme.colors.background }}
         contentStyle={Styles.mainScreenButton}
         onPress={() => {

@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 import nextId from 'react-id-generator';
+import moment from 'moment';
 
 const CoursesContext = createContext(null);
 
@@ -7,8 +8,15 @@ export const useCourses = () => {
   return useContext(CoursesContext);
 };
 
-const InitialNewCourseState = {
+export const InitialNewCourseState = {
   pill: undefined,
+  timers: [
+    {
+      id: 1,
+      time: moment(new Date()).hours(9).minutes(0).toDate(),
+      meal: 'any_meal',
+    },
+  ],
   scheduleType: 'days',
   scheduleDays: null,
   frequency: 'days',

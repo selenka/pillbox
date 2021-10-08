@@ -1,12 +1,13 @@
 import React from 'react';
 import moment from 'moment';
-import { View } from 'react-native';
-import { Text } from 'react-native-paper';
+import { TouchableOpacity, View } from 'react-native';
+import { Chip, Text } from 'react-native-paper';
 import {
   ACCENT_COLOR,
   days,
   dosagePeriodDuration,
   frequency,
+  INPUT_TEXT_COLOR,
   pillsQuantity,
 } from '../utils/constants';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -18,8 +19,10 @@ import { getQuantityTypeLabel } from '../utils/helpers';
 import { useCourses } from '../store/courses';
 import { Styles } from '../utils/styles';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
+import { useNavigation } from '@react-navigation/native';
 
 const NewCourseForm = () => {
+  const navigation = useNavigation();
   const { newCourse, setNewCourse } = useCourses();
 
   // console.log('newCourse', newCourse);
@@ -64,7 +67,23 @@ const NewCourseForm = () => {
           <Text style={{ paddingTop: 20, paddingLeft: 10 }}>раз(а) в сутки</Text>
         </View>
       </View>
-
+      <TouchableOpacity
+        style={[Styles.navigationSelect, { paddingHorizontal: 10, marginTop: 20 }]}
+        onPress={() => navigation.navigate('CourseItemTimers')}
+      >
+        {newCourse.timers.length ? (
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingVertical: 5 }}>
+            {newCourse.timers.map((t) => (
+              <Chip mode="outlined" key={`timer-tag-${t.id}`}>
+                {moment(t.time).format('LT')}
+              </Chip>
+            ))}
+          </View>
+        ) : (
+          <Text style={{ color: INPUT_TEXT_COLOR }}>Выберите время</Text>
+        )}
+        <Icon name="arrow-right" size={20} color={ACCENT_COLOR} />
+      </TouchableOpacity>
       <View style={{ marginTop: 20 }}>
         <View>
           <ButtonGroup

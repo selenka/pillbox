@@ -13,12 +13,14 @@ import MedicineGroupChecklist from './src/screens/medicine/MedicineGroupChecklis
 import ViewPillScreen from './src/screens/medicine/ViewPillScreen';
 import CoursesScreen from './src/screens/courses/CoursesScreen';
 import CourseItem from './src/screens/courses/CourseItem';
+import CourseItemTimers from './src/screens/courses/CourseItemTimers';
 import { ProvideStore } from "./src/store";
-import { ProvideCoursesStore } from "./src/store/courses";
 
+import { ProvideCoursesStore, useCourses } from './src/store/courses';
 import { ProvideModalStore, useModal } from './src/store/modal';
 import theme from "./src/utils/theme";
 import Icon from 'react-native-vector-icons/AntDesign';
+import moment from 'moment';
 
 const Stack = createStackNavigator();
 
@@ -158,6 +160,7 @@ const MedicineStackScreen = () => {
 }
 
 const CoursesStackScreen = () => {
+  const { newCourse, setNewCourse } = useCourses()
   return (
     <CoursesStack.Navigator
       screenOptions={{
@@ -171,6 +174,32 @@ const CoursesStackScreen = () => {
             headerBackTitle: <Subheading>Расписание</Subheading>,
           }}
           component={CourseItem}
+      />
+      <CoursesStack.Screen
+        name="CourseItemTimers"
+        options={() => (
+          {
+            headerTitle: <Title>Напоминания</Title>,
+            headerBackTitle: <Subheading>Назад</Subheading>,
+            // eslint-disable-next-line react/display-name
+            headerRight: () => (
+              <Pressable
+                onPress={() => {
+                  let timers = newCourse.timers.map((t) => ({ ...t }));
+                  timers.push({
+                    id: timers[timers.length - 1].id + 1,
+                    time: moment(new Date()).hours(9).minutes(0).toDate(),
+                    meal: 'any_meal'
+                  })
+                  setNewCourse({ ...newCourse, timers})
+                }}
+              >
+                <Icon style={{ margin: 5 }} name="plus" size={30} color={theme.colors.accent} />
+              </Pressable>
+            ),
+          }
+        )}
+        component={CourseItemTimers}
       />
     </CoursesStack.Navigator>
   );
