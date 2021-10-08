@@ -43,7 +43,6 @@ const ViewPillScreen = ({ route, navigation }) => {
         }}
         contentStyle={Styles.mainScreenButton}
         labelStyle={{ color: theme.colors.background }}
-
       >
         Удалить
       </Button>
@@ -56,7 +55,7 @@ const s = StyleSheet.create({
     display: 'flex',
     height: '100%',
     justifyContent: 'space-between',
-    paddingBottom: 25
+    paddingBottom: 25,
   },
   form: {
     height: 30,

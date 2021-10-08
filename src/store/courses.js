@@ -10,9 +10,10 @@ export const useCourses = () => {
 const InitialNewCourseState = {
   pill: undefined,
   scheduleType: 'days',
+  scheduleDays: null,
+  frequency: 'days',
   frequencyNumber: 1,
   dosage: 1,
-  dosageFraction: 0,
   dosageTimesPerDay: 1,
   dosageEndPeriodType: 'till_date',
   dosageEndPeriodDate: new Date(),

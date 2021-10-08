@@ -28,7 +28,7 @@ const MedicineItemScreen = ({ route, navigation }) => {
     return newPill.label.length > 0;
   };
 
-  const disabled = !isFormValid()
+  const disabled = !isFormValid();
 
   return (
     <View style={s.container}>
@@ -39,10 +39,7 @@ const MedicineItemScreen = ({ route, navigation }) => {
         <Button
           disabled={disabled}
           mode="contained"
-          style={[
-            Styles.accentButton,
-            disabled && Styles.disabledButton
-          ]}
+          style={[Styles.accentButton, disabled && Styles.disabledButton]}
           contentStyle={Styles.mainScreenButton}
           labelStyle={{ color: theme.colors.background }}
           onPress={() => {
@@ -50,7 +47,7 @@ const MedicineItemScreen = ({ route, navigation }) => {
             // TODO: should place service call to update pill value and reload pills
             navigation.navigate('Medicine', {
               screen: 'ViewPillScreen',
-              params: { name: newPill.label, pill: newPill }
+              params: { name: newPill.label, pill: newPill },
             });
           }}
         >
@@ -60,10 +57,7 @@ const MedicineItemScreen = ({ route, navigation }) => {
         <Button
           disabled={!isFormValid()}
           mode="contained"
-          style={[
-            Styles.accentButton,
-            disabled && Styles.disabledButton
-          ]}
+          style={[Styles.accentButton, disabled && Styles.disabledButton]}
           labelStyle={{ color: theme.colors.background }}
           contentStyle={Styles.mainScreenButton}
           onPress={() => {

@@ -34,7 +34,7 @@ const AccordionList = ({ searchQuery, data, sections }) => {
   const onListItemPress = (item) => {
     navigation.navigate('Medicine', {
       screen: 'ViewPillScreen',
-      params: { name: item.label, pill: item }
+      params: { name: item.label, pill: item },
     });
   };
 

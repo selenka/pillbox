@@ -25,6 +25,7 @@ const Stack = createStackNavigator();
 const HomeStack = createStackNavigator();
 const MedicineMainStack = createStackNavigator();
 const MedicineStack = createStackNavigator();
+const MainCoursesStack = createStackNavigator();
 const CoursesStack = createStackNavigator();
 
 const Tab = createMaterialBottomTabNavigator();
@@ -51,7 +52,7 @@ const MainMedicineStackScreen = () => {
   return (
     <MedicineMainStack.Navigator>
       <MedicineMainStack.Screen
-        name="Home"
+        name="MedicineHome"
         options={({  navigation }) => (
           {
             headerTitle: <Title>Аптечка</Title>,
@@ -69,6 +70,22 @@ const MainMedicineStackScreen = () => {
   );
 };
 
+const MainCoursesStackScreen = () => {
+  return (
+    <MainCoursesStack.Navigator>
+      <MainCoursesStack.Screen
+        name="CoursesHome"
+        options={() => (
+          {
+            headerTitle: <Title>Расписание</Title>,
+          }
+        )}
+        component={CoursesScreen}
+      />
+    </MainCoursesStack.Navigator>
+  );
+};
+
 const MedicineStackScreen = () => {
   const { setVisible } = useModal()
 
@@ -78,13 +95,6 @@ const MedicineStackScreen = () => {
         ...TransitionPresets.ModalSlideFromBottomIOS,
       }}
     >
-      {/*<MedicineStack.Screen*/}
-      {/*  name="Medicine"*/}
-      {/*  options={{*/}
-      {/*    headerTitle: <Title>Аптечка</Title>,*/}
-      {/*  }}*/}
-      {/*  component={MedicineScreen}*/}
-      {/*/>*/}
       <MedicineStack.Screen
         name="MedicineItem"
         options={{
@@ -149,15 +159,17 @@ const MedicineStackScreen = () => {
 
 const CoursesStackScreen = () => {
   return (
-    <CoursesStack.Navigator>
-      <CoursesStack.Screen
-          name="Courses"
-          options={{ headerTitle: <Title>Курсы</Title> }}
-          component={CoursesScreen}
-      />
+    <CoursesStack.Navigator
+      screenOptions={{
+        ...TransitionPresets.ModalSlideFromBottomIOS,
+      }}
+    >
       <CoursesStack.Screen
           name="CourseItem"
-          options={{ headerTitle: <Title>Назначение</Title> }}
+          options={{
+            headerTitle: <Title>Назначение</Title>,
+            headerBackTitle: <Subheading>Расписание</Subheading>,
+          }}
           component={CourseItem}
       />
     </CoursesStack.Navigator>
@@ -195,7 +207,7 @@ const Tabs = () => {
             <Icon name="clockcircleo" color={color} size={24} />
           ),
         }}
-        component={CoursesStackScreen}
+        component={MainCoursesStackScreen}
       />
     </Tab.Navigator>
   )
@@ -224,6 +236,11 @@ const App = () => {
                               name="Medicine"
                               options={{ headerShown: false }}
                               component={MedicineStackScreen}
+                            />
+                            <Stack.Screen
+                              name="Courses"
+                              options={{ headerShown: false }}
+                              component={CoursesStackScreen}
                             />
                           </Stack.Navigator>
                         </NavigationContainer>

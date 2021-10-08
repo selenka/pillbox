@@ -17,8 +17,8 @@ const DialogModal = ({ mode, open, value, setVisible, title, onConfirm }) => {
           <TextInput
             mode="flat"
             defaultValue={text || value}
-            underlineColor='transparent'
-            outlineColor='transparent'
+            underlineColor="transparent"
+            outlineColor="transparent"
             returnKeyType="next"
             enablesReturnKeyAutomatically
             onChangeText={(value) => setText(value)}
@@ -33,10 +33,7 @@ const DialogModal = ({ mode, open, value, setVisible, title, onConfirm }) => {
             Отмена
           </Button>
           <Button
-            style={[
-              Styles.accentButton,
-              !text.length && Styles.disabledButton
-            ]}
+            style={[Styles.accentButton, !text.length && Styles.disabledButton]}
             labelStyle={{ color: theme.colors.background }}
             disabled={!text.length}
             onPress={() => {

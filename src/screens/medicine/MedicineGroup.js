@@ -43,7 +43,6 @@ const MedicineGroupScreen = () => {
         }}
         contentStyle={Styles.mainScreenButton}
         labelStyle={{ color: theme.colors.background }}
-
       >
         Создать
       </Button>

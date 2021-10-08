@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import SafeAreaView from 'react-native-safe-area-view';
 import { NativeModules, LayoutAnimation, View, StyleSheet } from 'react-native';
 import { PRIMARY_DARK, PRIMARY_LIGHT } from '../utils/constants';
 import theme from '../utils/theme';
@@ -13,8 +12,8 @@ const { UIManager } = NativeModules;
 UIManager.setLayoutAnimationEnabledExperimental &&
   UIManager.setLayoutAnimationEnabledExperimental(true);
 
-const HomeScreen = ({ navigation }) => {
-  const { open, setVisible, setNotification } = useModal();
+const HomeScreen = () => {
+  const { setVisible, setNotification } = useModal();
   const { pills } = useStore();
   const [size, setSize] = useState({
     width: 200,
@@ -55,9 +54,11 @@ const HomeScreen = ({ navigation }) => {
         //   '2021-10-06': [{name: 'item 3 - any js object'}, {name: 'any js object'}]
         // }}
         showClosingKnob={true}
-        renderEmptyData = {() => {return (<View />);}}
+        renderEmptyData={() => {
+          return <View />;
+        }}
         theme={{
-          selectedDayBackgroundColor: theme.colors.accent
+          selectedDayBackgroundColor: theme.colors.accent,
         }}
       />
       {/*<View style={s.buttonContainer}>*/}

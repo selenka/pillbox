@@ -34,7 +34,12 @@ const Checklist = ({ data = [], list = [], onItemCheck }) => {
         }}
       >
         {item.checked ? (
-          <Icon key={`checked-${item.id}`} name="check-circle" size={30} color={theme.colors.accent} />
+          <Icon
+            key={`checked-${item.id}`}
+            name="check-circle"
+            size={30}
+            color={theme.colors.accent}
+          />
         ) : (
           <Icon
             key={`unchecked-${item.id}`}

@@ -1,5 +1,11 @@
 import { DefaultTheme } from 'react-native-paper';
-import { PRIMARY_DARK, PRIMARY_LIGHT, ACCENT_COLOR, CANCEL_COLOR, BACKGROUND_COLOR } from './constants';
+import {
+  PRIMARY_DARK,
+  PRIMARY_LIGHT,
+  ACCENT_COLOR,
+  CANCEL_COLOR,
+  BACKGROUND_COLOR,
+} from './constants';
 
 const theme = {
   ...DefaultTheme,

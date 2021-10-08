@@ -20,7 +20,7 @@ const ButtonGroup = ({
     } else {
       multiple ? setSelection([]) : setSelected(buttons[0].value);
     }
-  }, [defaultSelection]);
+  }, []);
 
   const getActiveSelection = (value) => {
     let item;
@@ -50,7 +50,7 @@ const ButtonGroup = ({
             mode={getActiveSelection(b.value)}
             onPress={() => {
               multiple ? handleMultiple(b.value) : setSelected(b.value);
-              onButtonToggle && onButtonToggle(b);
+              multiple ? onButtonToggle(selection) : onButtonToggle(b.value);
             }}
             style={[
               s.button,
@@ -89,11 +89,12 @@ const s = StyleSheet.create({
   },
   selectedButton: {
     borderRightWidth: 1,
-    borderRightColor: theme.colors.primaryLight,
+    borderRightColor: theme.colors.accent,
+    backgroundColor: theme.colors.accent,
   },
   selectedFirstButton: {
     borderRightWidth: 1,
-    borderRightColor: theme.colors.primaryLight,
+    borderRightColor: theme.colors.accent,
   },
   selectedLastButton: {
     borderRightWidth: 0,

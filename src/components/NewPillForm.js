@@ -21,8 +21,8 @@ const NewPillForm = ({ newPill, setNewPill }) => {
         mode="flat"
         autoFocus={true}
         error={!valid}
-        underlineColor='transparent'
-        outlineColor='transparent'
+        underlineColor="transparent"
+        outlineColor="transparent"
         returnKeyType="next"
         enablesReturnKeyAutomatically
         onChangeText={(value) => {
@@ -36,32 +36,35 @@ const NewPillForm = ({ newPill, setNewPill }) => {
       {/*  Название должно состоять минимум из одного символа*/}
       {/*</HelperText>*/}
       <Text style={Styles.label}>Лекарственная форма</Text>
-      <RNPickerSelect
-        placeholder={{}}
-        value={newPill.type}
-        onValueChange={(value) => setNewPill({ ...newPill, type: value })}
-        items={pillTypes}
-        style={{
-          inputIOS: Styles.inputPickerSelect,
-        }}
-      />
+      <View style={Styles.navigationSelect}>
+        <RNPickerSelect
+          placeholder={{}}
+          value={newPill.type}
+          onValueChange={(value) => setNewPill({ ...newPill, type: value })}
+          items={pillTypes}
+          style={{
+            inputIOS: Styles.inputPickerSelect,
+          }}
+        />
+        <Icon style={{ marginRight: 10 }} name="arrow-right" size={20} color={ACCENT_COLOR} />
+      </View>
       <Text style={Styles.label}>Группа</Text>
       <TouchableOpacity
-        style={Styles.navigationSelect}
+        style={[Styles.navigationSelect, { paddingHorizontal: 10 }]}
         onPress={() => navigation.navigate('MedicineGroupChecklist')}
       >
-          {newPill.groups.length ? (
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingVertical: 5 }}>
-              {newPill.groups.map((g) => (
-                <Chip mode="outlined" key={`group-tag-${g.id}`}>
-                  {g.label}
-                </Chip>
-              ))}
-            </View>
-          ) : (
-            <Text style={{ color: INPUT_TEXT_COLOR }}>Выберите группу</Text>
-          )}
-          <Icon name="arrow-right" size={20} color={ACCENT_COLOR} />
+        {newPill.groups.length ? (
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingVertical: 5 }}>
+            {newPill.groups.map((g) => (
+              <Chip mode="outlined" key={`group-tag-${g.id}`}>
+                {g.label}
+              </Chip>
+            ))}
+          </View>
+        ) : (
+          <Text style={{ color: INPUT_TEXT_COLOR }}>Выберите группу</Text>
+        )}
+        <Icon name="arrow-right" size={20} color={ACCENT_COLOR} />
       </TouchableOpacity>
       <Text style={Styles.label}>Количество</Text>
       <View style={{ flexDirection: 'row', paddingTop: 10 }}>
@@ -77,16 +80,19 @@ const NewPillForm = ({ newPill, setNewPill }) => {
             setNewPill({ ...newPill, quantity: num });
           }}
         />
-        <RNPickerSelect
-          placeholder={{}}
-          value={newPill.quantityType}
-          onValueChange={(value) => setNewPill({ ...newPill, quantityType: value })}
-          items={pillQuantityTypes}
-          style={{
-            inputIOS: Styles.inputPickerSelect,
-            viewContainer: { flex: 1, margin: 5 },
-          }}
-        />
+        <View style={[Styles.navigationSelect, { flex: 1, marginLeft: 10 }]}>
+          <RNPickerSelect
+            placeholder={{}}
+            value={newPill.quantityType}
+            onValueChange={(value) => setNewPill({ ...newPill, quantityType: value })}
+            items={pillQuantityTypes}
+            style={{
+              inputIOS: Styles.inputPickerSelect,
+              viewContainer: { flex: 1, margin: 5 },
+            }}
+          />
+          <Icon style={{ marginRight: 10 }} name="arrow-right" size={20} color={ACCENT_COLOR} />
+        </View>
       </View>
       <Text style={Styles.label}>Срок годности:</Text>
       <DateTimePicker

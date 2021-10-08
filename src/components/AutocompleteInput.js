@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Autocomplete from 'react-native-autocomplete-input';
 import { Pressable, StyleSheet } from 'react-native';
 import { Divider, List, TextInput } from 'react-native-paper';
+import { Styles } from '../utils/styles';
 
 const filterData = (data, query) => {
   if (!data.length || query === '') {
@@ -50,9 +51,11 @@ const AutocompleteInput = ({ data, setSelectedItem, placeholder }) => {
         <TextInput
           {...props}
           mode="flat"
+          underlineColor="transparent"
+          outlineColor="transparent"
           returnKeyType="next"
           enablesReturnKeyAutomatically
-          style={s.input}
+          style={Styles.input}
         />
       )}
       flatListProps={{
@@ -78,9 +81,6 @@ const AutocompleteInput = ({ data, setSelectedItem, placeholder }) => {
 export default AutocompleteInput;
 
 const s = StyleSheet.create({
-  input: {
-    backgroundColor: 'transparent',
-  },
   inputContainerStyle: {
     borderWidth: 0,
   },

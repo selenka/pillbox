@@ -23,7 +23,7 @@ export const Styles = StyleSheet.create({
     borderTopEndRadius: 6,
     borderTopStartRadius: 6,
     borderBottomStartRadius: 6,
-    borderBottomEndRadius: 6
+    borderBottomEndRadius: 6,
   },
   inputPickerSelect: {
     height: INPUT_HEIGHT,
@@ -41,17 +41,16 @@ export const Styles = StyleSheet.create({
     minHeight: INPUT_HEIGHT,
     backgroundColor: FORM_COLOR,
     borderRadius: 6,
-    paddingHorizontal: 10,
   },
   accentButton: {
     margin: 10,
     backgroundColor: ACCENT_COLOR,
-    color: BACKGROUND_COLOR
+    color: BACKGROUND_COLOR,
   },
   mainScreenButton: {
-   padding: 10
+    padding: 10,
   },
   disabledButton: {
-    opacity: 0.7
-  }
+    opacity: 0.7,
+  },
 });

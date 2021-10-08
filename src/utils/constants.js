@@ -1,7 +1,7 @@
 export const PRIMARY_DARK = '#384B56';
 export const ACCENT_COLOR = '#308FFF';
-export const BACKGROUND_COLOR = '#FFFFFF'
-export const FORM_COLOR = '#EEEEEE'
+export const BACKGROUND_COLOR = '#FFFFFF';
+export const FORM_COLOR = '#EEEEEE';
 
 export const PRIMARY_LIGHT = '#eaeef3';
 export const PREVIEW_TEXT_COLOR = '#bdbdbd';
@@ -59,12 +59,6 @@ export const pillsQuantity = [...Array(10).keys()].map((i) => ({
   label: String(i),
   key: `key-${i}`,
 }));
-
-export const pillsFractionsQuantity = [
-  { label: '0', value: 'fraction_zero ', key: 'key-type-fraction_zero' },
-  { label: '1/2', value: 'fraction_half ', key: 'key-type-fraction_half' },
-  { label: '1/4', value: 'fraction_quarter ', key: 'key-type-fraction_quarter' },
-];
 
 export const dosagePeriodDuration = [
   { label: 'день(-ня)', value: 'day(s) ', key: 'duration_days' },

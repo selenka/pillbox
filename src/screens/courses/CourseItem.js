@@ -3,32 +3,48 @@ import { StyleSheet, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import { PRIMARY_DARK, PRIMARY_LIGHT } from '../../utils/constants';
 import NewCourseForm from '../../components/NewCourseForm';
-
-// название лекарства ( из списка аптечки )
-// дозировка
-// дни приема mon - sun
-// время приема и напоминание
-// repeat - once/daily/weekdays/weekly/montly/ yearly
-// последний день приема или курс 2табл в сутки 14 дней.
-// switch  - автоматически удалять таблетки из курса в аптечке
+import { Styles } from '../../utils/styles';
+import theme from '../../utils/theme';
+import AutocompleteInput from '../../components/AutocompleteInput';
+import { useStore } from '../../store';
+import { useCourses } from '../../store/courses';
 
 const CourseItem = ({ route, navigation }) => {
+  const { pills } = useStore();
+  const { newCourse, setNewCourse } = useCourses();
   const {
     params: { mode },
   } = route;
 
+  console.log('CourseItem mode', mode);
+
   return (
     <View style={s.container}>
-      <View>
-        <NewCourseForm />
+      <View style={s.mainContainer}>
+        <AutocompleteInput
+          data={pills}
+          placeholder="Выберите лекарство из списка"
+          setSelectedItem={(item) =>
+            setNewCourse({
+              ...newCourse,
+              pill: item,
+            })
+          }
+        />
+        {newCourse.pill && <NewCourseForm />}
       </View>
       <Button
         mode="contained"
-        style={s.addButton}
+        style={[
+          Styles.accentButton,
+          // disabled && Styles.disabledButton
+        ]}
+        labelStyle={{ color: theme.colors.background }}
+        contentStyle={Styles.mainScreenButton}
         onPress={() => {
+          // addPill(newPill);
           navigation.goBack();
         }}
-        contentStyle={s.buttonContent}
       >
         Добавить
       </Button>
@@ -42,6 +58,11 @@ const s = StyleSheet.create({
     display: 'flex',
     height: '100%',
     justifyContent: 'space-between',
+    paddingBottom: 25,
+  },
+  mainContainer: {
+    paddingHorizontal: 20,
+    paddingVertical: 20,
   },
   form: {
     height: 30,
