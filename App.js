@@ -14,7 +14,7 @@ import ViewPillScreen from './src/screens/medicine/ViewPillScreen';
 import CoursesScreen from './src/screens/courses/CoursesScreen';
 import CourseItem from './src/screens/courses/CourseItem';
 import CourseItemTimers from './src/screens/courses/CourseItemTimers';
-import { ProvideStore } from "./src/store";
+import { ProvideStore } from "./src/store/medicine";
 
 import { ProvideCoursesStore, useCourses } from './src/store/courses';
 import { ProvideModalStore, useModal } from './src/store/modal';
@@ -186,9 +186,10 @@ const CoursesStackScreen = () => {
               <Pressable
                 onPress={() => {
                   let timers = newCourse.timers.map((t) => ({ ...t }));
+                  const lastTimer = timers[timers.length - 1]
                   timers.push({
-                    id: timers[timers.length - 1].id + 1,
-                    time: moment(new Date()).hours(9).minutes(0).toDate(),
+                    id: lastTimer.id + 1,
+                    time: moment(lastTimer.time).add(3, 'hours').toDate(),
                     meal: 'any_meal'
                   })
                   setNewCourse({ ...newCourse, timers})

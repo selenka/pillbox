@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
-import NewPillForm from '../../components/NewPillForm';
+import NewPillForm from './components/NewPillForm';
 import { InitialNewPillState, useMedicine } from '../../store/medicine';
 import { Styles } from '../../utils/styles';
 import theme from '../../utils/theme';

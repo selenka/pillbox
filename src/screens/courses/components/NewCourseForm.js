@@ -9,15 +9,15 @@ import {
   frequency,
   INPUT_TEXT_COLOR,
   pillsQuantity,
-} from '../utils/constants';
+} from '../../../utils/constants';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import ButtonGroup from './ButtonGroup';
-import theme from '../utils/theme';
+import ButtonGroup from '../../../components/ButtonGroup';
+import theme from '../../../utils/theme';
 import InputSpinner from 'react-native-input-spinner';
 import RNPickerSelect from 'react-native-picker-select';
-import { getQuantityTypeLabel } from '../utils/helpers';
-import { useCourses } from '../store/courses';
-import { Styles } from '../utils/styles';
+import { getQuantityTypeLabel } from '../../../utils/helpers';
+import { useCourses } from '../../../store/courses';
+import { Styles } from '../../../utils/styles';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import { useNavigation } from '@react-navigation/native';
 
@@ -30,7 +30,7 @@ const NewCourseForm = () => {
   return (
     <View>
       <View style={{ flexDirection: 'row', paddingVertical: 10 }}>
-        <View style={{ flex: 1, justifyContent: 'center' }}>
+        <View style={{ marginRight: 10, justifyContent: 'center' }}>
           <Text>Принимать по</Text>
         </View>
         <InputSpinner
@@ -45,30 +45,16 @@ const NewCourseForm = () => {
             setNewCourse({ ...newCourse, dosage: num });
           }}
         />
-        <View style={{ flex: 1, justifyContent: 'center', marginLeft: 20 }}>
+        <View style={{ justifyContent: 'center', marginLeft: 20 }}>
           <Text>{newCourse.pill && getQuantityTypeLabel(newCourse.pill)}</Text>
         </View>
       </View>
       <View style={{ flexDirection: 'row' }}>
-        <View style={[Styles.navigationSelect, { flex: 1 }]}>
-          <RNPickerSelect
-            placeholder={{}}
-            value={newCourse.dosageTimesPerDay}
-            onValueChange={(value) => setNewCourse({ ...newCourse, dosageTimesPerDay: value })}
-            items={pillsQuantity}
-            style={{
-              inputIOS: Styles.inputPickerSelect,
-              viewContainer: { flex: 1, margin: 5 },
-            }}
-          />
-          <Icon style={{ marginRight: 10 }} name="arrow-right" size={20} color={ACCENT_COLOR} />
-        </View>
-        <View style={{ flex: 1 }}>
-          <Text style={{ paddingTop: 20, paddingLeft: 10 }}>раз(а) в сутки</Text>
-        </View>
+        <Text style={{ }}>{newCourse.timers.length}</Text>
+        <Text style={{ paddingLeft: 5 }}>раз(а) в сутки:</Text>
       </View>
       <TouchableOpacity
-        style={[Styles.navigationSelect, { paddingHorizontal: 10, marginTop: 20 }]}
+        style={[Styles.navigationSelect, { paddingHorizontal: 10, marginTop: 10 }]}
         onPress={() => navigation.navigate('CourseItemTimers')}
       >
         {newCourse.timers.length ? (

@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View, TouchableOpacity } from 'react-native';
 import { TextInput, Text, Chip } from 'react-native-paper';
-import { ACCENT_COLOR, INPUT_TEXT_COLOR, pillQuantityTypes, pillTypes } from '../utils/constants';
+import { ACCENT_COLOR, INPUT_TEXT_COLOR, pillQuantityTypes, pillTypes } from '../../../utils/constants';
 import RNPickerSelect from 'react-native-picker-select';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import InputSpinner from 'react-native-input-spinner';
-import theme from '../utils/theme';
-import { Styles } from '../utils/styles';
+import theme from '../../../utils/theme';
+import { Styles } from '../../../utils/styles';
 
 const NewPillForm = ({ newPill, setNewPill }) => {
   const navigation = useNavigation();

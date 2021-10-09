@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import { PRIMARY_DARK, PRIMARY_LIGHT } from '../../utils/constants';
-import NewCourseForm from '../../components/NewCourseForm';
+import NewCourseForm from './components/NewCourseForm';
 import { Styles } from '../../utils/styles';
 import theme from '../../utils/theme';
 import AutocompleteInput from '../../components/AutocompleteInput';
