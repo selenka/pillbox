@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
-import { ACCENT_COLOR, BACKGROUND_COLOR, FORM_COLOR, PRIMARY_DARK } from './constants';
-// import { PRIMARY_DARK, PRIMARY_LIGHT } from './constants';
+import { FORM_COLOR, PRIMARY_DARK } from './constants';
+import theme from './theme';
 
 const INPUT_HEIGHT = 45;
 
@@ -44,8 +44,13 @@ export const Styles = StyleSheet.create({
   },
   accentButton: {
     margin: 10,
-    backgroundColor: ACCENT_COLOR,
-    color: BACKGROUND_COLOR,
+    backgroundColor: theme.colors.accent,
+    color: theme.colors.background,
+  },
+  cancelButton: {
+    margin: 10,
+    backgroundColor: theme.colors.error,
+    color: theme.colors.background,
   },
   mainScreenButton: {
     padding: 10,

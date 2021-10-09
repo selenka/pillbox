@@ -21,6 +21,7 @@ import { ProvideModalStore, useModal } from './src/store/modal';
 import theme from "./src/utils/theme";
 import Icon from 'react-native-vector-icons/AntDesign';
 import moment from 'moment';
+import ViewCourseScreen from './src/screens/courses/ViewCourseScreen';
 
 const Stack = createStackNavigator();
 
@@ -201,6 +202,32 @@ const CoursesStackScreen = () => {
           }
         )}
         component={CourseItemTimers}
+      />
+      <CoursesStack.Screen
+        name="ViewCourseScreen"
+        options={({ route, navigation }) => (
+          {
+            headerTitle: <Title>{route.params.name}</Title>,
+            // eslint-disable-next-line react/display-name
+            headerRight: () => (
+              <Pressable
+                onPress={() => {
+                  navigation.navigate('Courses', {
+                    screen: 'CourseItem',
+                    params: {
+                      mode: 'edit',
+                      course: route.params.course
+                    }
+                  })
+                }}
+              >
+                <Icon style={{ margin: 5 }} name="edit" size={30} color={theme.colors.accent} />
+              </Pressable>
+            ),
+          }
+        )}
+
+        component={ViewCourseScreen}
       />
     </CoursesStack.Navigator>
   );

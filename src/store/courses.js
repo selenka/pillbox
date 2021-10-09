@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState } from 'react';
 import nextId from 'react-id-generator';
 import moment from 'moment';
+import { InitialNewPillState } from './medicine';
 
 const CoursesContext = createContext(null);
 
@@ -22,7 +23,6 @@ export const InitialNewCourseState = {
   frequency: 'days',
   frequencyNumber: 1,
   dosage: 1,
-  dosageTimesPerDay: 1,
   dosageEndPeriodType: 'till_date',
   dosageEndPeriodDate: new Date(),
   dosageEndPeriodDurationNumber: 1,
@@ -45,7 +45,17 @@ const useProvideCoursesStore = () => {
     setNewCourse(InitialNewCourseState);
   };
 
-  return { courses, addCourse, newCourse, setNewCourse };
+  const deleteCourse = (id) => {
+    setCourses(courses.filter((c) => c.id !== id));
+  };
+
+  const updateCourse = (course) => {
+    const data = courses.map((c) => (c.id === c.id ? Object.assign({}, c, course) : c));
+    setCourses(data);
+    setNewCourse(InitialNewCourseState);
+  }
+
+  return { courses, addCourse, deleteCourse, updateCourse, newCourse, setNewCourse };
 };
 
 // Use it to wrap content with Store

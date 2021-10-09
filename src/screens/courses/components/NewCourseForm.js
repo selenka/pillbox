@@ -16,16 +16,12 @@ import theme from '../../../utils/theme';
 import InputSpinner from 'react-native-input-spinner';
 import RNPickerSelect from 'react-native-picker-select';
 import { getQuantityTypeLabel } from '../../../utils/helpers';
-import { useCourses } from '../../../store/courses';
 import { Styles } from '../../../utils/styles';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import { useNavigation } from '@react-navigation/native';
 
-const NewCourseForm = () => {
+const NewCourseForm = ({ newCourse, setNewCourse }) => {
   const navigation = useNavigation();
-  const { newCourse, setNewCourse } = useCourses();
-
-  // console.log('newCourse', newCourse);
 
   return (
     <View>
@@ -160,7 +156,6 @@ const NewCourseForm = () => {
           { value: 'during_period', label: 'Длительность' },
         ]}
         onButtonToggle={(item) => {
-          console.log('item', item);
           setNewCourse({
             ...newCourse,
             dosageEndPeriodType: item,

@@ -36,7 +36,7 @@ const ViewPillScreen = ({ route, navigation }) => {
       </View>
       <Button
         mode="contained"
-        style={Styles.accentButton}
+        style={Styles.cancelButton}
         onPress={() => {
           deletePill(pill.id);
           navigation.goBack();
