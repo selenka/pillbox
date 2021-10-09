@@ -4,7 +4,7 @@ import { PRIMARY_DARK, PRIMARY_LIGHT } from '../utils/constants';
 import theme from '../utils/theme';
 import { useModal } from '../store/modal';
 import Notification from '../components/Notification';
-import { useStore } from '../store';
+import { useMedicine } from '../store/medicine';
 import { Agenda } from 'react-native-calendars';
 
 const { UIManager } = NativeModules;
@@ -14,7 +14,7 @@ UIManager.setLayoutAnimationEnabledExperimental &&
 
 const HomeScreen = () => {
   const { setVisible, setNotification } = useModal();
-  const { pills } = useStore();
+  const { pills } = useMedicine();
   const [size, setSize] = useState({
     width: 200,
     height: 200,

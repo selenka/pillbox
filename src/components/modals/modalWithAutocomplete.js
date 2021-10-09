@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Dialog, Portal, Button, Title, Text, Chip } from 'react-native-paper';
 import { CANCEL_COLOR } from '../../utils/constants';
-import { useStore } from '../../store';
+import { useMedicine } from '../../store/medicine';
 import theme from '../../utils/theme';
 import InputSpinner from 'react-native-input-spinner';
 import AutocompleteInput from '../AutocompleteInput';
@@ -11,7 +11,7 @@ import { getQuantityTypeLabel } from '../../utils/helpers';
 const ModalWithAutocomplete = ({ open, setVisible }) => {
   const [selectedItem, setSelectedItem] = useState(undefined);
   const [takenQty, setTakenQty] = useState(1);
-  const { pills } = useStore();
+  const { pills } = useMedicine();
 
   const hideDialog = () => {
     setSelectedItem(undefined);

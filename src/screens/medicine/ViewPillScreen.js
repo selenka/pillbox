@@ -3,7 +3,7 @@ import moment from 'moment';
 import { View, StyleSheet } from 'react-native';
 import { Button, List, Chip } from 'react-native-paper';
 import { pillQuantityTypes, pillTypes, PRIMARY_DARK, PRIMARY_LIGHT } from '../../utils/constants';
-import { useStore } from '../../store';
+import { useMedicine } from '../../store/medicine';
 import { Styles } from '../../utils/styles';
 import theme from '../../utils/theme';
 
@@ -11,7 +11,7 @@ const ViewPillScreen = ({ route, navigation }) => {
   const {
     params: { pill },
   } = route;
-  const { deletePill } = useStore();
+  const { deletePill } = useMedicine();
 
   const quantity = pillQuantityTypes.find((q) => q.value === pill.quantityType);
   const type = pillTypes.find((p) => p.value === pill.type);

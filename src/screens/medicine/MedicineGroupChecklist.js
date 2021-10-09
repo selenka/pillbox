@@ -4,7 +4,7 @@ import { PRIMARY_LIGHT } from '../../utils/constants';
 import Checklist from '../../components/checklist';
 import Prompt from '../../components/modals/prompt';
 import { useModal } from '../../store/modal';
-import { useStore } from '../../store';
+import { useMedicine } from '../../store/medicine';
 
 const updatePillGroups = (pill, item) => {
   let pillGroups = pill.groups.map((a) => ({ ...a })) || [];
@@ -23,7 +23,7 @@ const updatePillGroups = (pill, item) => {
 
 const MedicineGroupChecklistScreen = () => {
   const { open, setVisible } = useModal();
-  const { groups, addGroup, newPill, setNewPill } = useStore();
+  const { groups, addGroup, newPill, setNewPill } = useMedicine();
 
   // clone general groups list
   const checklist = groups.map((a) => ({ ...a }));

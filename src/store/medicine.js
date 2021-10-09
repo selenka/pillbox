@@ -3,7 +3,7 @@ import nextId from 'react-id-generator';
 
 const StoreContext = createContext(null);
 
-export const useStore = () => {
+export const useMedicine = () => {
   return useContext(StoreContext);
 };
 

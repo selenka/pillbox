@@ -4,14 +4,14 @@ import { Button } from 'react-native-paper';
 import { PRIMARY_LIGHT } from '../../utils/constants';
 import Prompt from '../../components/modals/prompt';
 import { useModal } from '../../store/modal';
-import { useStore } from '../../store';
+import { useMedicine } from '../../store/medicine';
 import DefaultList from '../../components/list';
 import { Styles } from '../../utils/styles';
 import theme from '../../utils/theme';
 
 const MedicineGroupScreen = () => {
   const { open, setVisible } = useModal();
-  const { groups, addGroup, updateGroup, deleteGroup } = useStore();
+  const { groups, addGroup, updateGroup, deleteGroup } = useMedicine();
 
   const [mode, setMode] = useState('view');
   const [editGroup, setEditGroup] = useState(undefined);

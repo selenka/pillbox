@@ -1,5 +1,4 @@
 import React, { useRef } from 'react';
-import moment from 'moment';
 import { View, StyleSheet } from 'react-native';
 import Swipeable from 'react-native-swipeable';
 import { useCourses } from '../../store/courses';
@@ -47,7 +46,6 @@ const Timer = ({ index, timer, handleTimerChange }) => {
         <View style={{ flex: 1, justifyContent: 'center', marginLeft: 10 }}>
           <DateTimePicker
             testID="dateTimePicker"
-            minimumDate={moment(new Date()).toDate()}
             value={timer.time}
             mode="time"
             onChange={(event, time) => handleTimerChange(timer.id, { time })}

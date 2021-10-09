@@ -6,11 +6,11 @@ import NewCourseForm from '../../components/NewCourseForm';
 import { Styles } from '../../utils/styles';
 import theme from '../../utils/theme';
 import AutocompleteInput from '../../components/AutocompleteInput';
-import { useStore } from '../../store';
+import { useMedicine } from '../../store/medicine';
 import { useCourses, InitialNewCourseState } from '../../store/courses';
 
 const CourseItem = ({ route, navigation }) => {
-  const { pills } = useStore();
+  const { pills } = useMedicine();
   const { newCourse, setNewCourse } = useCourses();
   const {
     params: { mode },

@@ -4,12 +4,12 @@ import { Divider, FAB, Searchbar } from 'react-native-paper';
 
 import { INPUT_TEXT_COLOR, PRIMARY_DARK } from '../../utils/constants';
 import EmptyMedicinePreview from '../../components/EmptyMedicinePreview';
-import { useStore } from '../../store';
+import { useMedicine } from '../../store/medicine';
 import AccordionList from '../../components/accordion';
 import { Styles } from '../../utils/styles';
 
 const MedicineScreen = ({ navigation }) => {
-  const { pills, groups } = useStore();
+  const { pills, groups } = useMedicine();
   const [searchQuery, setSearchQuery] = useState('');
 
   const onChangeSearch = (query) => {
