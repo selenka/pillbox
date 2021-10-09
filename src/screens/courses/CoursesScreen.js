@@ -6,11 +6,14 @@ import EmptyMedicinePreview from '../../components/EmptyMedicinePreview';
 import { Styles } from '../../utils/styles';
 import { useCourses } from '../../store/courses';
 import theme from '../../utils/theme';
-import { pillQuantityTypes } from '../../utils/constants';
 import { getQuantityTypeLabel } from '../../utils/helpers';
+import { useMedicine } from '../../store/medicine';
+import { useModal } from '../../store/modal';
 
 const CoursesScreen = ({ navigation }) => {
   const { courses } = useCourses()
+  const { pills } = useMedicine()
+  const { setNotification } = useModal()
 
   const onListItemPress = (item) => {
     navigation.navigate('Courses', {
@@ -25,7 +28,14 @@ const CoursesScreen = ({ navigation }) => {
         style={Styles.fab}
         icon="alarm-plus"
         onPress={() => {
-          navigation.navigate('Courses', { screen: 'CourseItem', params: { mode: 'new' } });
+          if (pills.length) {
+            navigation.navigate('Courses', { screen: 'CourseItem', params: { mode: 'new' } });
+          } else {
+            setNotification({
+              open: true,
+              text: 'Ваша аптечка пустая',
+            });
+          }
         }}
       />
       {courses.length ? (

@@ -22,6 +22,7 @@ import theme from "./src/utils/theme";
 import Icon from 'react-native-vector-icons/AntDesign';
 import moment from 'moment';
 import ViewCourseScreen from './src/screens/courses/ViewCourseScreen';
+import Notification from './src/components/Notification';
 
 const Stack = createStackNavigator();
 
@@ -301,6 +302,7 @@ const App = () => {
                             />
                           </Stack.Navigator>
                         </NavigationContainer>
+                        <Notification />
                       </SafeAreaProvider>
                     </ProvideCoursesStore>
                  </ProvideModalStore>

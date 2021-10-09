@@ -3,7 +3,6 @@ import { NativeModules, LayoutAnimation, View, StyleSheet } from 'react-native';
 import { PRIMARY_DARK, PRIMARY_LIGHT } from '../utils/constants';
 import theme from '../utils/theme';
 import { useModal } from '../store/modal';
-import Notification from '../components/Notification';
 import { useMedicine } from '../store/medicine';
 import { Agenda } from 'react-native-calendars';
 
@@ -75,7 +74,6 @@ const HomeScreen = () => {
       {/*  </TouchableOpacity>*/}
       {/*  <ModalWithAutocomplete open={open} setVisible={setVisible} />*/}
       {/*</View>*/}
-      <Notification />
     </View>
   );
 };

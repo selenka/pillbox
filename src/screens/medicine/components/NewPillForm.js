@@ -9,6 +9,7 @@ import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import InputSpinner from 'react-native-input-spinner';
 import theme from '../../../utils/theme';
 import { Styles } from '../../../utils/styles';
+import moment from 'moment';
 
 const NewPillForm = ({ newPill, setNewPill }) => {
   const navigation = useNavigation();
@@ -98,7 +99,7 @@ const NewPillForm = ({ newPill, setNewPill }) => {
       <DateTimePicker
         testID="dateTimePicker"
         minimumDate={new Date()}
-        value={newPill.expirationDate || new Date()}
+        value={moment(newPill.expirationDate).toDate()}
         mode="date"
         display="spinner"
         onChange={(event, date) => setNewPill({ ...newPill, expirationDate: date })}
