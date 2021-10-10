@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { NativeModules, LayoutAnimation, View, StyleSheet, Text } from 'react-native';
+import { NativeModules, LayoutAnimation, View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { PRIMARY_DARK, PRIMARY_LIGHT } from '../utils/constants';
 import theme from '../utils/theme';
 import { useModal } from '../store/modal';
 import { useMedicine } from '../store/medicine';
 import Calendar from '../components/calendar';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const { UIManager } = NativeModules;
 
@@ -15,8 +16,8 @@ const HomeScreen = () => {
   const { setVisible, setNotification } = useModal();
   const { pills } = useMedicine();
   const [size, setSize] = useState({
-    width: 200,
-    height: 200,
+    width: 100,
+    height: 100,
   });
 
   const onTakePillPress = () => {
@@ -47,16 +48,15 @@ const HomeScreen = () => {
   return (
     <View style={s.mainContainer}>
       <Calendar />
-      <View style={{ paddingVertical: 50 }}>
-        <Text>Missed</Text>
-      </View>
 
-      {/*<View style={s.mainButtonContainer}>*/}
-      {/*  <TouchableOpacity style={[s.mainButton, size]} onPress={() => onTakePillPress()}>*/}
-      {/*    <Icon name="pill" size={100} color={theme.colors.accent} />*/}
-      {/*  </TouchableOpacity>*/}
-      {/*  <ModalWithAutocomplete open={open} setVisible={setVisible} />*/}
-      {/*</View>*/}
+      <View style={s.mainButtonContainer}>
+        {/*<TouchableOpacity style={[s.mainButton, size]} onPress={() => onTakePillPress()}>*/}
+        {/*  <View style={s.mainButtonInner}>*/}
+        {/*    <Icon name="pill" size={50} color={theme.colors.accent} />*/}
+        {/*  </View>*/}
+        {/*</TouchableOpacity>*/}
+        {/*<ModalWithAutocomplete open={open} setVisible={setVisible} />*/}
+      </View>
     </View>
   );
 };
@@ -72,17 +72,24 @@ const s = StyleSheet.create({
     justifyContent: 'space-around',
   },
   mainButtonContainer: {
-    flex: 1,
+    // flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-end',
   },
   mainButton: {
+    margin: 20,
     borderWidth: 2,
-    borderColor: theme.colors.primary,
-    borderRadius: 100,
+    borderColor: '#d7d4d4',
+    borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
+  },
+  mainButtonInner: {
+    borderWidth: 2,
+    borderColor: '#d7d4d4',
+    borderRadius: 50,
+    padding: 10,
   },
   buttonLight: {
     padding: 35,

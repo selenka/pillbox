@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Pressable, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { Title, Subheading, Text, Provider as PaperProvider } from 'react-native-paper';
+import { Title, Subheading, Text, Provider as PaperProvider, FAB, Portal } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HomeScreen from './src/screens/HomeScreen';
 import MedicineScreen from './src/screens/medicine/MedicineScreen';
@@ -19,10 +19,11 @@ import { ProvideStore } from "./src/store/medicine";
 import { ProvideCoursesStore, useCourses } from './src/store/courses';
 import { ProvideModalStore, useModal } from './src/store/modal';
 import theme from "./src/utils/theme";
-import Icon from 'react-native-vector-icons/AntDesign';
+import Icon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import ViewCourseScreen from './src/screens/courses/ViewCourseScreen';
 import Notification from './src/components/Notification';
+import FABgroup from './src/components/FABgroup';
 
 const Stack = createStackNavigator();
 
@@ -252,7 +253,7 @@ const Tabs = () => {
         options={{
           tabBarLabel: 'Аптечка',
           tabBarIcon: ({ color }) => (
-            <Icon name="medicinebox" color={color} size={25} />
+            <Icon name="ios-medkit-outline" color={color} size={25} />
           ),
         }}
         component={MainMedicineStackScreen}
@@ -262,7 +263,7 @@ const Tabs = () => {
         options={{
           tabBarLabel: 'Расписание',
           tabBarIcon: ({ color }) => (
-            <Icon name="clockcircleo" color={color} size={24} />
+            <Icon name="time-outline" color={color} size={24} />
           ),
         }}
         component={MainCoursesStackScreen}
@@ -272,13 +273,14 @@ const Tabs = () => {
 }
 
 const App = () => {
+  const ref = useRef(null);
     return (
         <PaperProvider theme={theme}>
             <ProvideStore>
                 <ProvideModalStore>
                     <ProvideCoursesStore>
                       <SafeAreaProvider>
-                        <NavigationContainer theme={theme}>
+                        <NavigationContainer ref={ref} theme={theme}>
                           <Stack.Navigator
                             initialRouteName='Home'
                             screenOptions={{
@@ -302,6 +304,7 @@ const App = () => {
                             />
                           </Stack.Navigator>
                         </NavigationContainer>
+                        <FABgroup appRef={ref}/>
                         <Notification />
                       </SafeAreaProvider>
                     </ProvideCoursesStore>

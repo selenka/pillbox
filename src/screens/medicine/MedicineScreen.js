@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Divider, FAB, Searchbar } from 'react-native-paper';
+import { Divider, Searchbar } from 'react-native-paper';
 
 import { INPUT_TEXT_COLOR, PRIMARY_DARK } from '../../utils/constants';
 import EmptyMedicinePreview from '../../components/EmptyMedicinePreview';
 import { useMedicine } from '../../store/medicine';
 import AccordionList from '../../components/accordion';
-import { Styles } from '../../utils/styles';
 
-const MedicineScreen = ({ navigation }) => {
+const MedicineScreen = () => {
   const { pills, groups } = useMedicine();
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -20,13 +19,6 @@ const MedicineScreen = ({ navigation }) => {
     <View style={s.container}>
       <Divider />
       <Searchbar placeholder="Поиск лекарств" onChangeText={onChangeSearch} value={searchQuery} />
-      <FAB
-        style={Styles.fab}
-        icon="flask-empty-plus-outline"
-        onPress={() => {
-          navigation.navigate('Medicine', { screen: 'MedicineItem', params: { mode: 'new' } });
-        }}
-      />
       {pills.length ? (
         <AccordionList searchQuery={searchQuery} sections={groups} data={pills} />
       ) : (
