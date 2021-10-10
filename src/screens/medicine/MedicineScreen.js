@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { Divider, Searchbar } from 'react-native-paper';
 
 import { INPUT_TEXT_COLOR, PRIMARY_DARK } from '../../utils/constants';
-import EmptyMedicinePreview from '../../components/EmptyMedicinePreview';
+import EmptyPreview from '../../components/EmptyPreview';
 import { useMedicine } from '../../store/medicine';
 import AccordionList from '../../components/accordion';
 
@@ -22,7 +22,7 @@ const MedicineScreen = () => {
       {pills.length ? (
         <AccordionList searchQuery={searchQuery} sections={groups} data={pills} />
       ) : (
-        <EmptyMedicinePreview text="Как-то тут пусто..." page="medicine" />
+        <EmptyPreview text="Как-то тут пусто..." page="medicine" />
       )}
     </View>
   );

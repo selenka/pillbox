@@ -6,13 +6,15 @@ import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIc
 import SimpleLineIcon from 'react-native-vector-icons/SimpleLineIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
-const EmptyMedicinePreview = ({ text, page }) => {
+const EmptyPreview = ({ text, page }) => {
   const getIcon = (page) => {
     switch (page) {
       case 'group':
         return <SimpleLineIcon name="flag" size={200} color={PREVIEW_IMAGE_COLOR} />;
       case 'courses':
         return <FontAwesome5 name="head-side-mask" size={200} color={PREVIEW_IMAGE_COLOR} />;
+      case 'calendar':
+        return <FontAwesome5 name="pills" size={200} color={PREVIEW_IMAGE_COLOR} />;
       case 'medicine':
       default:
         return (
@@ -30,10 +32,12 @@ const EmptyMedicinePreview = ({ text, page }) => {
         alignItems: 'center',
       }}
     >
-      <Caption style={{ textAlign: 'center', textTransform: 'uppercase' }}>{text}</Caption>
+      {text && (
+        <Caption style={{ textAlign: 'center', textTransform: 'uppercase' }}>{text}</Caption>
+      )}
       {getIcon(page)}
     </View>
   );
 };
 
-export default EmptyMedicinePreview;
+export default EmptyPreview;

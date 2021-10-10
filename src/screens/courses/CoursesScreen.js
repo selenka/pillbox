@@ -2,7 +2,7 @@ import React from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { Divider, List } from 'react-native-paper';
 // import SafeAreaView from 'react-native-safe-area-view';
-import EmptyMedicinePreview from '../../components/EmptyMedicinePreview';
+import EmptyPreview from '../../components/EmptyPreview';
 import { useCourses } from '../../store/courses';
 import theme from '../../utils/theme';
 import { getQuantityTypeLabel } from '../../utils/helpers';
@@ -40,10 +40,7 @@ const CoursesScreen = ({ navigation }) => {
           })}
         </List.Section>
       ) : (
-        <EmptyMedicinePreview
-          text="Пусто...У вас пока нет назначеных курсов приема."
-          page="courses"
-        />
+        <EmptyPreview text="Пусто...У вас пока нет назначеных курсов приема." page="courses" />
       )}
     </View>
   );

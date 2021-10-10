@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { NativeModules, LayoutAnimation, View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import {
+  NativeModules,
+  LayoutAnimation,
+  View,
+  StyleSheet,
+} from 'react-native';
 import { PRIMARY_DARK, PRIMARY_LIGHT } from '../utils/constants';
-import theme from '../utils/theme';
 import { useModal } from '../store/modal';
 import { useMedicine } from '../store/medicine';
 import Calendar from '../components/calendar';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const { UIManager } = NativeModules;
 

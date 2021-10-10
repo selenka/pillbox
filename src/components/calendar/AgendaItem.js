@@ -2,9 +2,10 @@ import React, { useCallback } from 'react';
 import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { isEmpty } from 'lodash';
 import { Text, Title, Button } from 'react-native-paper';
-import { FORM_COLOR } from '../../utils/constants';
 import StatusIcon from '../StatusIcon';
 import moment from 'moment';
+import theme from '../../utils/theme';
+import EmptyPreview from '../EmptyPreview';
 
 export const AgendaItem = React.memo(function AgendaItem(props) {
   // console.warn('item rendered', Date.now());
@@ -32,10 +33,12 @@ export const AgendaItem = React.memo(function AgendaItem(props) {
     Alert.alert(item.title);
   }, []);
 
+  console.log('item', item);
   if (isEmpty(item)) {
     return (
       <View style={styles.emptyItem}>
-        <Text style={styles.emptyItemText}>No Events Planned Today</Text>
+        <Title style={styles.emptyItemText}>Нет назначенных курсов приема</Title>
+        <EmptyPreview page="calendar" />
       </View>
     );
   }
@@ -48,11 +51,13 @@ export const AgendaItem = React.memo(function AgendaItem(props) {
           <Status item={item} />
         </Text>
       </View>
-      <Title>{item.title}</Title>
+      <Title style={[styles.titleItem, item.taken && styles.statusTaken]}>{item.title}</Title>
       <View style={styles.itemButtonContainer}>
-        <Button mode="outlined" onPress={buttonPressed}>
-          Принять
-        </Button>
+        {!item.taken && (
+          <Button mode="outlined" onPress={buttonPressed}>
+            Принять
+          </Button>
+        )}
       </View>
     </TouchableOpacity>
   );
@@ -64,11 +69,20 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
     marginBottom: 15,
     borderRadius: 6,
-    backgroundColor: FORM_COLOR,
+    backgroundColor: theme.colors.background,
+    borderWidth: 1,
+    borderColor: theme.colors.accent,
     flexDirection: 'row',
+    alignItems: 'center',
   },
   rightBlock: {
     paddingRight: 10,
+  },
+  titleItem: {
+    color: theme.colors.primary,
+  },
+  statusTaken: {
+    opacity: 0.4,
   },
   itemHourText: {
     color: 'black',
@@ -82,16 +96,16 @@ const styles = StyleSheet.create({
   itemButtonContainer: {
     flex: 1,
     alignItems: 'flex-end',
+    justifyContent: 'center',
   },
   emptyItem: {
-    paddingLeft: 20,
-    height: 52,
+    flex: 1,
+    height: '100%',
+    margin: 20,
+    paddingLeft: 15,
     justifyContent: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: 'lightgrey',
   },
   emptyItemText: {
-    color: 'lightgrey',
-    fontSize: 14,
+    color: theme.colors.accent,
   },
 });

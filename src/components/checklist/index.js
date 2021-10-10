@@ -3,7 +3,7 @@ import { Pressable, View, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { PRIMARY_DARK } from '../../utils/constants';
-import EmptyMedicinePreview from '../EmptyMedicinePreview';
+import EmptyPreview from '../EmptyPreview';
 import { Divider, List } from 'react-native-paper';
 import theme from '../../utils/theme';
 
@@ -67,7 +67,7 @@ const Checklist = ({ data = [], list = [], onItemCheck }) => {
           ))}
         </List.Section>
       ) : (
-        <EmptyMedicinePreview
+        <EmptyPreview
           text="У вас пока нет групп. Нажмите 'Создать', чтобы добавить новую"
           page="group"
         />

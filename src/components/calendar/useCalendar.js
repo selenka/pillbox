@@ -74,8 +74,6 @@ const useCalendar = () => {
       // NOTE: only mark dates with data
       if (item.data && item.data.length > 0 && !isEmpty(item.data[0])) {
         result[item.date] = { marked: true };
-      } else {
-        result[item.date] = { disabled: true };
       }
     });
     return result;
@@ -83,7 +81,16 @@ const useCalendar = () => {
 
   const updateEventData = useCallback(
     (day) => {
-      const event = ITEMS.filter((item) => item.date === day);
+      let event = ITEMS.filter((item) => item.date === day);
+      if (!event.length) {
+        // set empty object to show 'No Items' inside Agenda List
+        event = [
+          {
+            date: day,
+            data: [{}],
+          },
+        ];
+      }
       setEvents(event);
     },
     [setEvents]
