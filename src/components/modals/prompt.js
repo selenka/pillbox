@@ -19,7 +19,7 @@ const DialogModal = ({ mode, open, value, setVisible, title, onConfirm }) => {
             defaultValue={text || value}
             underlineColor="transparent"
             outlineColor="transparent"
-            returnKeyType="next"
+            returnKeyType="done"
             enablesReturnKeyAutomatically
             onChangeText={(value) => setText(value)}
             style={Styles.input}

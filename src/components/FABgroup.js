@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { FAB, Portal } from 'react-native-paper';
 import { useMedicine } from '../store/medicine';
 import { useModal } from '../store/modal';
@@ -6,18 +6,21 @@ import { useModal } from '../store/modal';
 const FABgroup = ({ appRef }) => {
   const navigation = appRef.current;
   const { pills } = useMedicine();
-  const { setNotification } = useModal();
+  const { fab, setNotification } = useModal();
 
-  const [state, setState] = React.useState({ open: false });
+  const [state, setState] = useState({ open: false });
 
-  const onStateChange = ({ open }) => setState({ open });
+  const onStateChange = ({ open }) => setState({ ...state, open });
+
 
   const { open } = state;
+
 
   return (
     <Portal>
       <FAB.Group
         style={{ paddingBottom: 100 }}
+        visible={fab}
         open={open}
         icon={open ? 'close' : 'plus'}
         actions={[

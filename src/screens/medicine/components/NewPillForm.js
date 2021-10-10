@@ -25,11 +25,11 @@ const NewPillForm = ({ newPill, setNewPill }) => {
       <Text style={Styles.label}>Название</Text>
       <TextInput
         mode="flat"
-        autoFocus={true}
+        // autoFocus={true}
         error={!valid}
         underlineColor="transparent"
         outlineColor="transparent"
-        returnKeyType="next"
+        returnKeyType="done"
         enablesReturnKeyAutomatically
         onChangeText={(value) => {
           setValid(value.length > 0);

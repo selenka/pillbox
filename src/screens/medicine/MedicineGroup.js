@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 import { PRIMARY_LIGHT } from '../../utils/constants';
@@ -9,15 +9,20 @@ import DefaultList from '../../components/list';
 import { Styles } from '../../utils/styles';
 import theme from '../../utils/theme';
 
-const MedicineGroupScreen = () => {
-  const { open, setVisible } = useModal();
+const MedicineGroupScreen = ({ navigation }) => {
+  const { open, setVisible, setFABVisible } = useModal();
   const { groups, addGroup, updateGroup, deleteGroup } = useMedicine();
 
   const [mode, setMode] = useState('view');
   const [editGroup, setEditGroup] = useState(undefined);
 
+  useEffect(() => {
+    navigation.addListener('beforeRemove', () => {
+      setFABVisible(true)
+    });
+  }, [navigation]);
+
   const onEditGroup = (id) => {
-    console.log('onEditGroup', id);
     setEditGroup(id);
     setMode('edit');
     setVisible(true);

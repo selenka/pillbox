@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { Divider, List } from 'react-native-paper';
 // import SafeAreaView from 'react-native-safe-area-view';
@@ -6,9 +6,11 @@ import EmptyPreview from '../../components/EmptyPreview';
 import { useCourses } from '../../store/courses';
 import theme from '../../utils/theme';
 import { getQuantityTypeLabel } from '../../utils/helpers';
+import { useModal } from '../../store/modal';
 
 const CoursesScreen = ({ navigation }) => {
   const { courses } = useCourses();
+  const { setFABVisible } = useModal()
 
   const onListItemPress = (item) => {
     navigation.navigate('Courses', {
@@ -16,6 +18,10 @@ const CoursesScreen = ({ navigation }) => {
       params: { name: item.pill.label, course: item },
     });
   };
+
+  useEffect(() => {
+    setFABVisible(true)
+  }, [])
 
   return (
     <View style={s.container}>

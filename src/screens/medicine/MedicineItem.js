@@ -5,16 +5,23 @@ import NewPillForm from './components/NewPillForm';
 import { InitialNewPillState, useMedicine } from '../../store/medicine';
 import { Styles } from '../../utils/styles';
 import theme from '../../utils/theme';
+import { useModal } from '../../store/modal';
 
 const MedicineItemScreen = ({ route, navigation }) => {
   const {
     params: { pill, mode },
   } = route;
+  const { setFABVisible } = useModal()
   const { pills, addPill, newPill, setNewPill, updatePill } = useMedicine();
+
+  useEffect(() => {
+    setFABVisible(false)
+  }, [])
 
   useEffect(() => {
     navigation.addListener('beforeRemove', () => {
       setNewPill(InitialNewPillState);
+      setFABVisible(true)
     });
   }, [navigation]);
 

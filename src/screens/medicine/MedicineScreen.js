@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Divider, Searchbar } from 'react-native-paper';
 
@@ -6,10 +6,16 @@ import { INPUT_TEXT_COLOR, PRIMARY_DARK } from '../../utils/constants';
 import EmptyPreview from '../../components/EmptyPreview';
 import { useMedicine } from '../../store/medicine';
 import AccordionList from '../../components/accordion';
+import { useModal } from '../../store/modal';
 
 const MedicineScreen = () => {
   const { pills, groups } = useMedicine();
+  const { setFABVisible } = useModal()
   const [searchQuery, setSearchQuery] = useState('');
+
+  useEffect(() => {
+    setFABVisible(true)
+  }, [])
 
   const onChangeSearch = (query) => {
     setSearchQuery(query);

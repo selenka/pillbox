@@ -8,8 +8,10 @@ import theme from '../../utils/theme';
 import AutocompleteInput from '../../components/AutocompleteInput';
 import { useMedicine } from '../../store/medicine';
 import { useCourses, InitialNewCourseState } from '../../store/courses';
+import { useModal } from '../../store/modal';
 
 const CourseItem = ({ route, navigation }) => {
+  const { setFABVisible } = useModal()
   const { pills } = useMedicine();
   const { courses, newCourse, setNewCourse, addCourse, updateCourse } = useCourses();
   const {
@@ -17,8 +19,13 @@ const CourseItem = ({ route, navigation }) => {
   } = route;
 
   useEffect(() => {
+    setFABVisible(false)
+  }, [])
+
+  useEffect(() => {
     navigation.addListener('beforeRemove', () => {
       setNewCourse(InitialNewCourseState);
+      setFABVisible(true)
     });
   }, [navigation]);
 
@@ -39,6 +46,7 @@ const CourseItem = ({ route, navigation }) => {
             mode="flat"
             editable={false}
             value={course.pill.label}
+            returnKeyType='done'
             underlineColor="transparent"
             outlineColor="transparent"
             style={Styles.input}

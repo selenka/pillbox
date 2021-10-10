@@ -9,15 +9,21 @@ export const useModal = () => {
 const useProvideModalStore = () => {
   const [open, setOpen] = useState(false);
   const [notify, setNotify] = useState({ open: false, text: '' });
+  const [fab, setFab] = useState(true);
 
   const setVisible = (value) => {
     setOpen(value);
   };
+
   const setNotification = (value) => {
     setNotify(value);
   };
 
-  return { open, notify, setNotification, setVisible };
+  const setFABVisible = (value) => {
+    setFab(value);
+  };
+
+  return { open, notify, fab, setNotification, setFABVisible, setVisible };
 };
 
 // Use it to wrap content with Store

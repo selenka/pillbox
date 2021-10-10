@@ -53,7 +53,7 @@ const AutocompleteInput = ({ data, setSelectedItem, placeholder }) => {
           mode="flat"
           underlineColor="transparent"
           outlineColor="transparent"
-          returnKeyType="next"
+          returnKeyType="done"
           enablesReturnKeyAutomatically
           style={Styles.input}
         />

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef }  from 'react';
 import { Pressable, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
@@ -54,6 +54,7 @@ const HomeStackScreen = () => {
 };
 
 const MainMedicineStackScreen = () => {
+  const { setFABVisible } = useModal()
   return (
     <MedicineMainStack.Navigator>
       <MedicineMainStack.Screen
@@ -63,9 +64,10 @@ const MainMedicineStackScreen = () => {
             headerTitle: <Title>Аптечка</Title>,
             // eslint-disable-next-line react/display-name
             headerRight: () =>(
-              <Button title='Группы' onPress={() => (
+              <Button title='Группы' onPress={() => {
+                setFABVisible(false)
                 navigation.navigate('Medicine', { screen: 'MedicineGroup' })
-              )}/>
+              }}/>
             )
           }
         )}

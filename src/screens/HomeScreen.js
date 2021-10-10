@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   NativeModules,
   LayoutAnimation,
@@ -16,12 +16,16 @@ UIManager.setLayoutAnimationEnabledExperimental &&
   UIManager.setLayoutAnimationEnabledExperimental(true);
 
 const HomeScreen = () => {
-  const { setVisible, setNotification } = useModal();
+  const { setVisible, setNotification, setFABVisible } = useModal();
   const { pills } = useMedicine();
   const [size, setSize] = useState({
     width: 100,
     height: 100,
   });
+
+  useEffect(() => {
+    setFABVisible(true)
+  }, [])
 
   const onTakePillPress = () => {
     // Animate the update
