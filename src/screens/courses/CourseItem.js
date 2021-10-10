@@ -28,35 +28,34 @@ const CourseItem = ({ route, navigation }) => {
     }
   }, [mode, courses]);
 
-
   // disable button if no pill is selected
   const disabled = !newCourse.pill;
 
   return (
     <View style={s.container}>
       <View style={s.mainContainer}>
-        {
-          mode === 'edit'
-          ? <TextInput
-              mode="flat"
-              editable={false}
-              value={course.pill.label}
-              underlineColor="transparent"
-              outlineColor="transparent"
-              style={Styles.input}
-            />
-            : <AutocompleteInput
-              data={pills}
-              placeholder="Выберите лекарство из списка"
-              setSelectedItem={(item) =>
-                setNewCourse({
-                  ...newCourse,
-                  pill: item,
-                })
-              }
-            />
-        }
-        {newCourse.pill && <NewCourseForm newCourse={newCourse} setNewCourse={setNewCourse}/>}
+        {mode === 'edit' ? (
+          <TextInput
+            mode="flat"
+            editable={false}
+            value={course.pill.label}
+            underlineColor="transparent"
+            outlineColor="transparent"
+            style={Styles.input}
+          />
+        ) : (
+          <AutocompleteInput
+            data={pills}
+            placeholder="Выберите лекарство из списка"
+            setSelectedItem={(item) =>
+              setNewCourse({
+                ...newCourse,
+                pill: item,
+              })
+            }
+          />
+        )}
+        {newCourse.pill && <NewCourseForm newCourse={newCourse} setNewCourse={setNewCourse} />}
       </View>
       {mode === 'edit' ? (
         <Button

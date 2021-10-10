@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { NativeModules, LayoutAnimation, View, StyleSheet } from 'react-native';
+import { NativeModules, LayoutAnimation, View, StyleSheet, Text } from 'react-native';
 import { PRIMARY_DARK, PRIMARY_LIGHT } from '../utils/constants';
 import theme from '../utils/theme';
 import { useModal } from '../store/modal';
 import { useMedicine } from '../store/medicine';
-import { Agenda } from 'react-native-calendars';
+import Calendar from '../components/calendar';
 
 const { UIManager } = NativeModules;
 
@@ -46,28 +46,11 @@ const HomeScreen = () => {
 
   return (
     <View style={s.mainContainer}>
-      <Agenda
-        // items={{
-        //   '2021-10-03': [{name: 'item 1 - any js object'}],
-        //   '2021-10-04': [{name: 'item 2 - any js object', height: 80}],
-        //   '2021-10-06': [{name: 'item 3 - any js object'}, {name: 'any js object'}]
-        // }}
-        showClosingKnob={true}
-        renderEmptyData={() => {
-          return <View />;
-        }}
-        theme={{
-          selectedDayBackgroundColor: theme.colors.accent,
-        }}
-      />
-      {/*<View style={s.buttonContainer}>*/}
-      {/*  <TouchableOpacity style={s.buttonDark} onPress={() => navigation.navigate('Medicine')}>*/}
-      {/*    <Text style={[s.text, s.textLight]}>Аптечка</Text>*/}
-      {/*  </TouchableOpacity>*/}
-      {/*  <TouchableOpacity style={s.buttonLight} onPress={() => navigation.navigate('Courses')}>*/}
-      {/*    <Text style={[s.text, s.textDark]}>Расписание</Text>*/}
-      {/*  </TouchableOpacity>*/}
-      {/*</View>*/}
+      <Calendar />
+      <View style={{ paddingVertical: 50 }}>
+        <Text>Missed</Text>
+      </View>
+
       {/*<View style={s.mainButtonContainer}>*/}
       {/*  <TouchableOpacity style={[s.mainButton, size]} onPress={() => onTakePillPress()}>*/}
       {/*    <Icon name="pill" size={100} color={theme.colors.accent} />*/}

@@ -2,7 +2,7 @@ import React from 'react';
 // import moment from 'moment';
 import { View, StyleSheet } from 'react-native';
 import { Button, List, Chip } from 'react-native-paper';
-import {  PRIMARY_DARK, PRIMARY_LIGHT } from '../../utils/constants';
+import { PRIMARY_DARK, PRIMARY_LIGHT } from '../../utils/constants';
 import { Styles } from '../../utils/styles';
 import theme from '../../utils/theme';
 import { getQuantityTypeLabel } from '../../utils/helpers';
@@ -18,7 +18,10 @@ const ViewPillScreen = ({ route, navigation }) => {
   return (
     <View style={s.container}>
       <View>
-        <List.Item title="Дозировка" description={`${course.dosage} ${getQuantityTypeLabel(course.pill)}`} />
+        <List.Item
+          title="Дозировка"
+          description={`${course.dosage} ${getQuantityTypeLabel(course.pill)}`}
+        />
         <List.Item title="Напоминания" description={!course.timers.length && '---'} />
         <View style={{ flexDirection: 'row', marginHorizontal: 15 }}>
           {course.timers.map((t) => (
@@ -30,13 +33,10 @@ const ViewPillScreen = ({ route, navigation }) => {
         <List.Item
           title="Расписание"
           description={
-            course.scheduleType === 'days'
-              ? ''
-              : `${course.frequencyNumber} ${course.frequency}`
+            course.scheduleType === 'days' ? '' : `${course.frequencyNumber} ${course.frequency}`
           }
         />
-        {
-          course.scheduleDays &&
+        {course.scheduleDays && (
           <View style={{ flexDirection: 'row', marginHorizontal: 15 }}>
             {course.scheduleDays.map((day) => (
               <Chip mode="outlined" key={`view-day-tag-${day}`}>
@@ -44,8 +44,11 @@ const ViewPillScreen = ({ route, navigation }) => {
               </Chip>
             ))}
           </View>
-        }
-        <List.Item title="Начало приема" description={moment(course.startDate).format('DD-MM-YYYY')} />
+        )}
+        <List.Item
+          title="Начало приема"
+          description={moment(course.startDate).format('DD-MM-YYYY')}
+        />
         <List.Item
           title="Длительность"
           description={

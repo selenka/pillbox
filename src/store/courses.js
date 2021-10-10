@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 import nextId from 'react-id-generator';
 import moment from 'moment';
-import { InitialNewPillState } from './medicine';
 
 const CoursesContext = createContext(null);
 
@@ -53,7 +52,7 @@ const useProvideCoursesStore = () => {
     const data = courses.map((c) => (c.id === c.id ? Object.assign({}, c, course) : c));
     setCourses(data);
     setNewCourse(InitialNewCourseState);
-  }
+  };
 
   return { courses, addCourse, deleteCourse, updateCourse, newCourse, setNewCourse };
 };

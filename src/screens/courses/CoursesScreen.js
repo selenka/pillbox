@@ -11,9 +11,9 @@ import { useMedicine } from '../../store/medicine';
 import { useModal } from '../../store/modal';
 
 const CoursesScreen = ({ navigation }) => {
-  const { courses } = useCourses()
-  const { pills } = useMedicine()
-  const { setNotification } = useModal()
+  const { courses } = useCourses();
+  const { pills } = useMedicine();
+  const { setNotification } = useModal();
 
   const onListItemPress = (item) => {
     navigation.navigate('Courses', {
@@ -55,7 +55,8 @@ const CoursesScreen = ({ navigation }) => {
                 />
                 <Divider key={`divider-${course.id}`} style={s.divider} />
               </Pressable>
-            )})}
+            );
+          })}
         </List.Section>
       ) : (
         <EmptyMedicinePreview

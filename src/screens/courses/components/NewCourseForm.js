@@ -46,7 +46,7 @@ const NewCourseForm = ({ newCourse, setNewCourse }) => {
         </View>
       </View>
       <View style={{ flexDirection: 'row' }}>
-        <Text style={{ }}>{newCourse.timers.length}</Text>
+        <Text style={{}}>{newCourse.timers.length}</Text>
         <Text style={{ paddingLeft: 5 }}>раз(а) в сутки:</Text>
       </View>
       <TouchableOpacity
