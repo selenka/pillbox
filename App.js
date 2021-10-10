@@ -19,7 +19,8 @@ import { ProvideStore } from "./src/store/medicine";
 import { ProvideCoursesStore, useCourses } from './src/store/courses';
 import { ProvideModalStore, useModal } from './src/store/modal';
 import theme from "./src/utils/theme";
-import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/AntDesign';
+import IIcon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import ViewCourseScreen from './src/screens/courses/ViewCourseScreen';
 import Notification from './src/components/Notification';
@@ -245,7 +246,7 @@ const Tabs = () => {
         options={{
           tabBarLabel: 'Главная',
           tabBarIcon: ({ color }) => (
-            <Icon name="home" color={color} size={25} />
+            <IIcon name="home" color={color} size={25} />
           ),
         }}
         component={HomeStackScreen}
@@ -255,7 +256,7 @@ const Tabs = () => {
         options={{
           tabBarLabel: 'Аптечка',
           tabBarIcon: ({ color }) => (
-            <Icon name="ios-medkit-outline" color={color} size={25} />
+            <IIcon name="ios-medkit-outline" color={color} size={25} />
           ),
         }}
         component={MainMedicineStackScreen}
@@ -265,7 +266,7 @@ const Tabs = () => {
         options={{
           tabBarLabel: 'Расписание',
           tabBarIcon: ({ color }) => (
-            <Icon name="time-outline" color={color} size={24} />
+            <IIcon name="time-outline" color={color} size={24} />
           ),
         }}
         component={MainCoursesStackScreen}

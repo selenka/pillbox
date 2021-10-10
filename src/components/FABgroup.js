@@ -47,7 +47,7 @@ const FABgroup = ({ appRef }) => {
           },
           {
             icon: 'pill',
-            label: 'Принять лекарство не по расписанию',
+            label: 'Принять лекарство без расписания',
             onPress: () => alert('Таблетка из аптечки'),
             small: false,
           },
