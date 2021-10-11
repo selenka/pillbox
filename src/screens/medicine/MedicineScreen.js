@@ -24,7 +24,7 @@ const MedicineScreen = () => {
         setMedicine(medicine.data, medicineGroups.data);
       })
       .finally(() => setLoading(false));
-  }, []);
+  }, [setMedicine]);
 
   const onChangeSearch = (query) => {
     setSearchQuery(query);
