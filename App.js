@@ -27,6 +27,7 @@ import ViewCourseScreen from './src/screens/courses/ViewCourseScreen';
 import Notification from './src/components/Notification';
 import FABgroup from './src/components/FABgroup';
 import SettingsScreen from './src/screens/settings/SettingsScreen';
+import { Level } from './src/components/HealLevel';
 
 const Stack = createStackNavigator();
 
@@ -46,10 +47,17 @@ const HomeStackScreen = () => {
                 name="Home"
                 options={{
                   headerTitle:
-                    <Title style={{ color: theme.colors.disabled}}>
+                    <Title >
                       <Text style={{ color: theme.colors.accent}}>Heal</Text>
-                      <Text style={{ color: theme.colors.primary}}>Me</Text> - Домашняя Аптечка
-                    </Title>
+                      <Text style={{ color: theme.colors.primary}}>Me</Text>
+                      <Text style={{ fontSize: 17, color: theme.colors.disabled}}> - Домашняя Аптечка</Text>
+                    </Title>,
+                  // eslint-disable-next-line react/display-name
+                  headerLeft: () => (
+                    // <Pressable onPress={() => setVisible(true)}>
+                      <Level />
+                    // </Pressable>
+                  )
                 }}
                 component={HomeScreen}
             />
@@ -311,7 +319,7 @@ const Tabs = () => {
 
 const App = () => {
   const ref = useRef(null);
-  const isAuthorized = true
+  const isAuthorized = true;
     return (
         <PaperProvider theme={theme}>
             <ProvideStore>

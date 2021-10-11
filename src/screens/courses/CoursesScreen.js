@@ -46,7 +46,7 @@ const CoursesScreen = ({ navigation }) => {
           })}
         </List.Section>
       ) : (
-        <EmptyPreview text="Пусто...У вас пока нет назначеных курсов приема." page="courses" />
+        <EmptyPreview text="У вас пока нет назначеных курсов приема." page="courses" />
       )}
     </View>
   );

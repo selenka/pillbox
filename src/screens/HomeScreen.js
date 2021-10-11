@@ -4,6 +4,7 @@ import { PRIMARY_DARK, PRIMARY_LIGHT } from '../utils/constants';
 import { useModal } from '../store/modal';
 import { useMedicine } from '../store/medicine';
 import Calendar from '../components/calendar';
+import { Progress } from '../components/HealLevel';
 
 const { UIManager } = NativeModules;
 
@@ -49,8 +50,8 @@ const HomeScreen = () => {
 
   return (
     <View style={s.mainContainer}>
+      <Progress />
       <Calendar />
-
       <View style={s.mainButtonContainer}>
         {/*<TouchableOpacity style={[s.mainButton, size]} onPress={() => onTakePillPress()}>*/}
         {/*  <View style={s.mainButtonInner}>*/}

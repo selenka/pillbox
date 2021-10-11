@@ -9,9 +9,9 @@ export const INPUT_TEXT_COLOR = '#8f9494';
 export const PREVIEW_IMAGE_COLOR = '#e4e4e4';
 export const CANCEL_COLOR = '#f86a6a';
 
-export const STATUS_TAKEN = 'rgba(0,246,78,0.94)';
-export const STATUS_PENDING = 'rgb(255,164,0)';
-export const STATUS_MISSED = CANCEL_COLOR;
+export const GREEN_COLOR = 'rgba(81,192,41,0.94)';
+export const ORANGE_COLOR = 'rgb(255,164,0)';
+export const RED_COLOR = CANCEL_COLOR;
 
 export const pillTypes = [
   { label: 'Капсула', value: 'capsule', key: 'key-capsule' },
