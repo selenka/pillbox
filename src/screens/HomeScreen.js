@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  NativeModules,
-  LayoutAnimation,
-  View,
-  StyleSheet,
-} from 'react-native';
+import { NativeModules, LayoutAnimation, View, StyleSheet } from 'react-native';
 import { PRIMARY_DARK, PRIMARY_LIGHT } from '../utils/constants';
 import { useModal } from '../store/modal';
 import { useMedicine } from '../store/medicine';
@@ -24,8 +19,8 @@ const HomeScreen = () => {
   });
 
   useEffect(() => {
-    setFABVisible(true)
-  }, [])
+    setFABVisible(true);
+  }, []);
 
   const onTakePillPress = () => {
     // Animate the update

@@ -10,12 +10,12 @@ import { useModal } from '../../store/modal';
 
 const MedicineScreen = () => {
   const { pills, groups } = useMedicine();
-  const { setFABVisible } = useModal()
+  const { setFABVisible } = useModal();
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    setFABVisible(true)
-  }, [])
+    setFABVisible(true);
+  }, []);
 
   const onChangeSearch = (query) => {
     setSearchQuery(query);

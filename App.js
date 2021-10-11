@@ -1,10 +1,11 @@
 import React, { useRef }  from 'react';
-import { Pressable, Button } from 'react-native';
+import { Pressable, Button, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { Title, Subheading, Text, Provider as PaperProvider, FAB, Portal } from 'react-native-paper';
+import { Title, Subheading, Text, Provider as PaperProvider, Caption } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import Login from './src/screens/LoginScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import MedicineScreen from './src/screens/medicine/MedicineScreen';
 import MedicineItem from './src/screens/medicine/MedicineItem';
@@ -25,6 +26,7 @@ import moment from 'moment';
 import ViewCourseScreen from './src/screens/courses/ViewCourseScreen';
 import Notification from './src/components/Notification';
 import FABgroup from './src/components/FABgroup';
+import SettingsScreen from './src/screens/settings/SettingsScreen';
 
 const Stack = createStackNavigator();
 
@@ -33,6 +35,7 @@ const MedicineMainStack = createStackNavigator();
 const MedicineStack = createStackNavigator();
 const MainCoursesStack = createStackNavigator();
 const CoursesStack = createStackNavigator();
+const SettingsStack = createStackNavigator();
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -238,6 +241,27 @@ const CoursesStackScreen = () => {
   );
 }
 
+const SettingsStackScreen = () => {
+  return (
+    <SettingsStack.Navigator>
+      <SettingsStack.Screen
+        name="Settings"
+        options={{
+          headerTitle:
+          <View style={{ paddingTop: 7, alignItems: 'center' }}>
+            <Title style={{ color: theme.colors.disabled}}>
+              <Text style={{ color: theme.colors.accent}}>Heal</Text>
+              <Text style={{ color: theme.colors.primary}}>Me</Text> - Домашняя Аптечка
+            </Title>
+            <Caption>v. 1.0</Caption>
+          </View>
+        }}
+        component={SettingsScreen}
+      />
+    </SettingsStack.Navigator>
+  );
+};
+
 const Tabs = () => {
   return (
     <Tab.Navigator>
@@ -266,10 +290,20 @@ const Tabs = () => {
         options={{
           tabBarLabel: 'Расписание',
           tabBarIcon: ({ color }) => (
-            <IIcon name="time-outline" color={color} size={24} />
+            <IIcon name="time-outline" color={color} size={26} />
           ),
         }}
         component={MainCoursesStackScreen}
+      />
+      <Tab.Screen
+        name="SettingsTab"
+        options={{
+          tabBarLabel: 'Настройки',
+          tabBarIcon: ({ color }) => (
+            <IIcon name="cog-outline" color={color} size={26} />
+          ),
+        }}
+        component={SettingsStackScreen}
       />
     </Tab.Navigator>
   )
@@ -277,38 +311,45 @@ const Tabs = () => {
 
 const App = () => {
   const ref = useRef(null);
+  const isAuthorized = true
     return (
         <PaperProvider theme={theme}>
             <ProvideStore>
                 <ProvideModalStore>
                     <ProvideCoursesStore>
                       <SafeAreaProvider>
-                        <NavigationContainer ref={ref} theme={theme}>
-                          <Stack.Navigator
-                            initialRouteName='Home'
-                            screenOptions={{
-                              ...TransitionPresets.ModalSlideFromBottomIOS,
-                            }}
-                          >
-                            <Stack.Screen
-                              name="Home"
-                              component={Tabs}
-                              options={{ headerShown: false }}
-                            />
-                            <Stack.Screen
-                              name="Medicine"
-                              options={{ headerShown: false }}
-                              component={MedicineStackScreen}
-                            />
-                            <Stack.Screen
-                              name="Courses"
-                              options={{ headerShown: false }}
-                              component={CoursesStackScreen}
-                            />
-                          </Stack.Navigator>
-                        </NavigationContainer>
-                        <FABgroup appRef={ref}/>
-                        <Notification />
+                        {
+                          isAuthorized
+                            ? <>
+                              <NavigationContainer ref={ref} theme={theme}>
+                                <Stack.Navigator
+                                  initialRouteName='Home'
+                                  screenOptions={{
+                                    ...TransitionPresets.ModalSlideFromBottomIOS,
+                                  }}
+                                >
+                                  <Stack.Screen
+                                    name="Home"
+                                    component={Tabs}
+                                    options={{ headerShown: false }}
+                                  />
+                                  <Stack.Screen
+                                    name="Medicine"
+                                    options={{ headerShown: false }}
+                                    component={MedicineStackScreen}
+                                  />
+                                  <Stack.Screen
+                                    name="Courses"
+                                    options={{ headerShown: false }}
+                                    component={CoursesStackScreen}
+                                  />
+                                </Stack.Navigator>
+                              </NavigationContainer>
+                              <FABgroup appRef={ref}/>
+                              <Notification />
+                            </>
+                            : <Login />
+                        }
                       </SafeAreaProvider>
                     </ProvideCoursesStore>
                  </ProvideModalStore>

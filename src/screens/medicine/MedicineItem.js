@@ -11,17 +11,17 @@ const MedicineItemScreen = ({ route, navigation }) => {
   const {
     params: { pill, mode },
   } = route;
-  const { setFABVisible } = useModal()
+  const { setFABVisible } = useModal();
   const { pills, addPill, newPill, setNewPill, updatePill } = useMedicine();
 
   useEffect(() => {
-    setFABVisible(false)
-  }, [])
+    setFABVisible(false);
+  }, []);
 
   useEffect(() => {
     navigation.addListener('beforeRemove', () => {
       setNewPill(InitialNewPillState);
-      setFABVisible(true)
+      setFABVisible(true);
     });
   }, [navigation]);
 

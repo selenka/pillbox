@@ -30,7 +30,6 @@ export const InitialNewCourseState = {
   durationType: 'date',
   durationEndNumber: 1,
   durationEndType: 'week',
-  enableMedicineBoxSync: true,
 };
 
 const useProvideCoursesStore = () => {

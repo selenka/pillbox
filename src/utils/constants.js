@@ -9,8 +9,8 @@ export const INPUT_TEXT_COLOR = '#8f9494';
 export const PREVIEW_IMAGE_COLOR = '#e4e4e4';
 export const CANCEL_COLOR = '#f86a6a';
 
-export const STATUS_TAKEN = 'rgba(15,187,71,0.77)';
-export const STATUS_PENDING = 'rgba(255,161,20,0.85)';
+export const STATUS_TAKEN = 'rgba(0,246,78,0.94)';
+export const STATUS_PENDING = 'rgb(255,164,0)';
 export const STATUS_MISSED = CANCEL_COLOR;
 
 export const pillTypes = [

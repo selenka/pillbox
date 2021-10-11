@@ -46,7 +46,7 @@ export const AgendaItem = React.memo(function AgendaItem(props) {
   return (
     <TouchableOpacity onPress={itemPressed} style={styles.item}>
       <View style={styles.rightBlock}>
-        <Text>{moment(item.time).format('hh:mm')}</Text>
+        <Text style={styles.itemHourText}>{moment(item.time).format('hh:mm')}</Text>
         <Text style={styles.itemDurationText}>
           <Status item={item} />
         </Text>
@@ -69,9 +69,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
     marginBottom: 15,
     borderRadius: 6,
-    backgroundColor: theme.colors.background,
-    borderWidth: 1,
-    borderColor: theme.colors.accent,
+    backgroundColor: theme.colors.accent,
+    opacity: 0.7,
+    // borderWidth: 1,
+    // borderColor: theme.colors.accent,
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -79,13 +80,13 @@ const styles = StyleSheet.create({
     paddingRight: 10,
   },
   titleItem: {
-    color: theme.colors.primary,
+    color: theme.colors.background,
   },
   statusTaken: {
     opacity: 0.4,
   },
   itemHourText: {
-    color: 'black',
+    color: theme.colors.background,
   },
   itemDurationText: {
     color: 'grey',
@@ -106,6 +107,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   emptyItemText: {
+    opacity: 0.7,
     color: theme.colors.accent,
   },
 });

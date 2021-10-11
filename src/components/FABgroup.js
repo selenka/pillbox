@@ -12,9 +12,7 @@ const FABgroup = ({ appRef }) => {
 
   const onStateChange = ({ open }) => setState({ ...state, open });
 
-
   const { open } = state;
-
 
   return (
     <Portal>

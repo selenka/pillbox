@@ -18,7 +18,7 @@ const MedicineGroupScreen = ({ navigation }) => {
 
   useEffect(() => {
     navigation.addListener('beforeRemove', () => {
-      setFABVisible(true)
+      setFABVisible(true);
     });
   }, [navigation]);
 

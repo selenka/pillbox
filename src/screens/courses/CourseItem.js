@@ -11,7 +11,7 @@ import { useCourses, InitialNewCourseState } from '../../store/courses';
 import { useModal } from '../../store/modal';
 
 const CourseItem = ({ route, navigation }) => {
-  const { setFABVisible } = useModal()
+  const { setFABVisible } = useModal();
   const { pills } = useMedicine();
   const { courses, newCourse, setNewCourse, addCourse, updateCourse } = useCourses();
   const {
@@ -19,13 +19,13 @@ const CourseItem = ({ route, navigation }) => {
   } = route;
 
   useEffect(() => {
-    setFABVisible(false)
-  }, [])
+    setFABVisible(false);
+  }, []);
 
   useEffect(() => {
     navigation.addListener('beforeRemove', () => {
       setNewCourse(InitialNewCourseState);
-      setFABVisible(true)
+      setFABVisible(true);
     });
   }, [navigation]);
 
@@ -46,7 +46,7 @@ const CourseItem = ({ route, navigation }) => {
             mode="flat"
             editable={false}
             value={course.pill.label}
-            returnKeyType='done'
+            returnKeyType="done"
             underlineColor="transparent"
             outlineColor="transparent"
             style={Styles.input}

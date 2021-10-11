@@ -10,7 +10,7 @@ import { useModal } from '../../store/modal';
 
 const CoursesScreen = ({ navigation }) => {
   const { courses } = useCourses();
-  const { setFABVisible } = useModal()
+  const { setFABVisible } = useModal();
 
   const onListItemPress = (item) => {
     navigation.navigate('Courses', {
@@ -20,8 +20,8 @@ const CoursesScreen = ({ navigation }) => {
   };
 
   useEffect(() => {
-    setFABVisible(true)
-  }, [])
+    setFABVisible(true);
+  }, []);
 
   return (
     <View style={s.container}>
