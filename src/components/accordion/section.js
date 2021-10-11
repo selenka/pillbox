@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Pressable, StyleSheet } from 'react-native';
+import { LayoutAnimation, NativeModules, Pressable, StyleSheet } from 'react-native';
 import { Divider, List } from 'react-native-paper';
 import theme from '../../utils/theme';
-import { backgroundColor } from 'react-native-calendars/src/style';
+
+const { UIManager } = NativeModules;
+
+UIManager.setLayoutAnimationEnabledExperimental &&
+UIManager.setLayoutAnimationEnabledExperimental(true);
 
 const AccordionSection = ({ group, data, expandAll, onListItemPress }) => {
   const [expanded, setExpanded] = useState(false);
@@ -11,7 +15,10 @@ const AccordionSection = ({ group, data, expandAll, onListItemPress }) => {
     setExpanded(expandAll);
   }, [expandAll]);
 
-  const toggle = () => setExpanded(!expanded);
+  const toggle = () => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);;
+    setExpanded(!expanded);
+  }
 
   return (
     <List.Accordion
@@ -23,10 +30,10 @@ const AccordionSection = ({ group, data, expandAll, onListItemPress }) => {
       onPress={toggle}
       theme={{ colors: { text: theme.colors.background } }}
     >
-      {data.map((item) => (
+      {data.map((item, index) => (
         <Pressable key={`pressable-${item.id}`} onPress={() => onListItemPress(item)}>
           <List.Item key={item.id} title={item.label} />
-          <Divider key={`divider-${item.id}`} style={s.divider} />
+          {data.length !== (index + 1) && <Divider key={`divider-${item.id}`} style={s.divider} />}
         </Pressable>
       ))}
     </List.Accordion>

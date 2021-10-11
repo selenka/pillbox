@@ -12,6 +12,7 @@ const theme = {
   colors: {
     ...DefaultTheme.colors,
     primary: PRIMARY_DARK,
+    text: PRIMARY_DARK,
     primaryLight: PRIMARY_LIGHT,
     accent: ACCENT_COLOR,
     error: CANCEL_COLOR,

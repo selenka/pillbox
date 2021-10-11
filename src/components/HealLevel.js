@@ -27,7 +27,7 @@ export const Level = () => {
 
   return (
     <View style={s.iconContainer}>
-      {/*<Text style={s.level}>1</Text>*/}
+      <Text style={s.level}>ЛК</Text>
       <Animated.View
         style={[
           s.icon,
