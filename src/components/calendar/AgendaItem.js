@@ -69,7 +69,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
     marginBottom: 15,
     borderRadius: 6,
-    backgroundColor: theme.colors.accent,
+    borderWidth: 1,
+    borderColor: theme.colors.accent,
     opacity: 0.7,
     // borderWidth: 1,
     // borderColor: theme.colors.accent,
@@ -80,13 +81,13 @@ const styles = StyleSheet.create({
     paddingRight: 10,
   },
   titleItem: {
-    color: theme.colors.background,
+    color: theme.colors.primary,
   },
   statusTaken: {
     opacity: 0.4,
   },
   itemHourText: {
-    color: theme.colors.background,
+    color: theme.colors.primary,
   },
   itemDurationText: {
     color: 'grey',
