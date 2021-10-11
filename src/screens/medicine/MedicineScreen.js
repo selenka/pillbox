@@ -1,20 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Divider, Searchbar } from 'react-native-paper';
+import { Divider, Searchbar, ActivityIndicator } from 'react-native-paper';
 
 import { INPUT_TEXT_COLOR, PRIMARY_DARK } from '../../utils/constants';
 import EmptyPreview from '../../components/EmptyPreview';
 import { useMedicine } from '../../store/medicine';
 import AccordionList from '../../components/accordion';
 import { useModal } from '../../store/modal';
+import { getMedicine, getMedicineGroups } from '../../api';
+import theme from '../../utils/theme';
 
 const MedicineScreen = () => {
-  const { pills, groups } = useMedicine();
+  const [loading, setLoading] = useState(false);
+  const { pills, setMedicine, groups } = useMedicine();
   const { setFABVisible } = useModal();
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     setFABVisible(true);
+    setLoading(true);
+    Promise.all([getMedicine(), getMedicineGroups()])
+      .then(([medicine, medicineGroups]) => {
+        setMedicine(medicine.data, medicineGroups.data);
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   const onChangeSearch = (query) => {
@@ -23,12 +32,29 @@ const MedicineScreen = () => {
 
   return (
     <View style={s.container}>
-      <Divider />
-      <Searchbar placeholder="Поиск лекарств" onChangeText={onChangeSearch} value={searchQuery} />
-      {pills.length ? (
-        <AccordionList searchQuery={searchQuery} sections={groups} data={pills} />
+      {loading ? (
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <ActivityIndicator
+            size={60}
+            animating={true}
+            hidesWhenStopped={true}
+            color={theme.colors.accent}
+          />
+        </View>
       ) : (
-        <EmptyPreview text="Как-то тут пусто..." page="medicine" />
+        <>
+          <Divider />
+          <Searchbar
+            placeholder="Поиск лекарств"
+            onChangeText={onChangeSearch}
+            value={searchQuery}
+          />
+          {pills.length ? (
+            <AccordionList searchQuery={searchQuery} sections={groups} data={pills} />
+          ) : (
+            <EmptyPreview text="Как-то тут пусто..." page="medicine" />
+          )}
+        </>
       )}
     </View>
   );

@@ -41,7 +41,7 @@ LocaleConfig.locales['ru'] = {
   ],
   dayNames: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
   dayNamesShort: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-  today: 'Сегодня'
+  today: 'Сегодня',
 };
 
 LocaleConfig.defaultLocale = 'ru';
@@ -80,7 +80,7 @@ const Calendar = () => {
           selectedDayBackgroundColor: theme.colors.accent,
           todayTextColor: theme.colors.accent,
           dotColor: theme.colors.accent,
-          arrowColor: theme.colors.accent
+          arrowColor: theme.colors.accent,
         }}
       />
       <AgendaList

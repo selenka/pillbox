@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import nextId from 'react-id-generator';
+import axios from 'axios';
 
 const StoreContext = createContext(null);
 
@@ -23,6 +24,11 @@ const useProvideStore = () => {
   const [pills, setPills] = useState([]);
   const [groups, setGroups] = useState([]);
   const [newPill, setNewPill] = useState(InitialNewPillState);
+
+  const setMedicine = (medicine, groups) => {
+    setPills(medicine);
+    setGroups(groups);
+  };
 
   const addPill = () => {
     newPill.id = index;
@@ -59,9 +65,13 @@ const useProvideStore = () => {
     setGroups(groups.filter((g) => g.id !== id));
   };
 
+  console.log('pills', pills);
+  console.log('groups', groups);
+
   return {
     pills,
     groups,
+    setMedicine,
     addPill,
     deletePill,
     addGroup,

@@ -23,7 +23,7 @@ export const pillTypes = [
 ];
 
 export const pillQuantityTypes = [
-  { label: 'шт', value: 'pill', key: 'key-type-pill' },
+  { label: 'табл', value: 'pill', key: 'key-type-pill' },
   { label: 'мл', value: 'ml', key: 'key-type-ml' },
   { label: 'грамм', value: 'g', key: 'key-type-g' },
   { label: 'мг', value: 'mg', key: 'key-type-mg' },

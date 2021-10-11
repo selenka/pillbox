@@ -8,7 +8,7 @@ import { GREEN_COLOR } from '../utils/constants';
 const { UIManager } = NativeModules;
 
 UIManager.setLayoutAnimationEnabledExperimental &&
-UIManager.setLayoutAnimationEnabledExperimental(true);
+  UIManager.setLayoutAnimationEnabledExperimental(true);
 
 export const Level = () => {
   const startValue = new Animated.Value(1);
@@ -21,14 +21,15 @@ export const Level = () => {
         friction: 1,
         useNativeDriver: true,
       }),
-      {iterations: 1000},
+      { iterations: 1000 }
     ).start();
-  }, [startValue, endValue])
+  }, [startValue, endValue]);
 
   return (
     <View style={s.iconContainer}>
       <Text style={s.level}>1</Text>
-      <Animated.View style={[
+      <Animated.View
+        style={[
           s.icon,
           {
             transform: [
@@ -36,19 +37,18 @@ export const Level = () => {
                 scale: startValue,
               },
             ],
-          }
-      ]}>
-        <Icon name='heart-alt' size={30} color={GREEN_COLOR} />
+          },
+        ]}
+      >
+        <Icon name="heart-alt" size={30} color={GREEN_COLOR} />
       </Animated.View>
     </View>
-  )
-}
+  );
+};
 
 export const Progress = () => {
-  return (
-    <ProgressBar style={{ borderRadius: 6 }} progress={0.02} color={theme.colors.accent} />
-  )
-}
+  return <ProgressBar style={{ borderRadius: 6 }} progress={0.02} color={theme.colors.accent} />;
+};
 
 const s = StyleSheet.create({
   container: {
@@ -61,7 +61,7 @@ const s = StyleSheet.create({
     width: 35,
     height: 35,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   level: {
     color: theme.colors.accent,
@@ -69,11 +69,11 @@ const s = StyleSheet.create({
     alignItems: 'center',
   },
   icon: {
-    position: 'absolute'
+    position: 'absolute',
   },
   text: {
     color: theme.colors.accent,
     paddingLeft: 10,
-    paddingBottom: 5
-  }
-})
+    paddingBottom: 5,
+  },
+});

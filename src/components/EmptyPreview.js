@@ -12,7 +12,9 @@ const EmptyPreview = ({ text, page }) => {
       case 'group':
         return <SimpleLineIcon name="flag" size={200} color={PREVIEW_IMAGE_COLOR} />;
       case 'courses':
-        return <MaterialCommunityIcon name="calendar-clock" size={200} color={PREVIEW_IMAGE_COLOR} />;
+        return (
+          <MaterialCommunityIcon name="calendar-clock" size={200} color={PREVIEW_IMAGE_COLOR} />
+        );
       case 'calendar':
         return <FontAwesome5 name="pills" size={200} color={PREVIEW_IMAGE_COLOR} />;
       case 'medicine':
@@ -32,9 +34,7 @@ const EmptyPreview = ({ text, page }) => {
         alignItems: 'center',
       }}
     >
-      {text && (
-        <Caption style={{ textAlign: 'center' }}>{text}</Caption>
-      )}
+      {text && <Caption style={{ textAlign: 'center' }}>{text}</Caption>}
       {getIcon(page)}
     </View>
   );
