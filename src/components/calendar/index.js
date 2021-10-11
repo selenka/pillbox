@@ -41,6 +41,7 @@ LocaleConfig.locales['ru'] = {
   ],
   dayNames: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
   dayNamesShort: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+  today: 'Сегодня'
 };
 
 LocaleConfig.defaultLocale = 'ru';
@@ -55,6 +56,11 @@ const Calendar = () => {
     <CalendarProvider
       date={today}
       disabledOpacity={0.6}
+      showTodayButton={true}
+      todayButtonStyle={{ top: 25 }}
+      theme={{
+        todayButtonTextColor: theme.colors.accent,
+      }}
       onDateChanged={(day) => updateEventData(day)}
       onMonthChange={(month) => {
         // {
@@ -74,7 +80,7 @@ const Calendar = () => {
           selectedDayBackgroundColor: theme.colors.accent,
           todayTextColor: theme.colors.accent,
           dotColor: theme.colors.accent,
-          arrowColor: theme.colors.accent,
+          arrowColor: theme.colors.accent
         }}
       />
       <AgendaList

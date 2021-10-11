@@ -46,7 +46,7 @@ export const Level = () => {
 
 export const Progress = () => {
   return (
-    <ProgressBar style={{ borderRadius: 6 }} progress={0.1} color={theme.colors.accent} />
+    <ProgressBar style={{ borderRadius: 6 }} progress={0.02} color={theme.colors.accent} />
   )
 }
 
