@@ -61,6 +61,9 @@ const MedicineGroupScreen = ({ navigation }) => {
           editGroup ? updateGroup(editGroup, value) : addGroup(value);
           setEditGroup(undefined);
         }}
+        onCancel={() => {
+          setEditGroup(undefined);
+        }}
       />
     </View>
   );

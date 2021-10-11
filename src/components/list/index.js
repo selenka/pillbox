@@ -1,72 +1,37 @@
-import React, { Fragment, useRef } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { List, Divider, Button } from 'react-native-paper';
-import Swipeable from 'react-native-swipeable';
-import theme from '../../utils/theme';
-import { CANCEL_COLOR } from '../../utils/constants';
+import React, { useMemo } from 'react';
+import { View } from 'react-native';
 import EmptyPreview from '../EmptyPreview';
-import nextId from 'react-id-generator';
-import SimpleLineIcon from 'react-native-vector-icons/SimpleLineIcons';
+import { SwipeListView } from 'react-native-swipe-list-view';
+import { SwipeHiddenItem, SwipeListItem } from './Swipe';
 
-let buttonId = nextId('button');
 const DefaultList = ({ data, onEditPress, onDeletePress }) => {
-  let swipe = useRef(null);
-
-  const getButtons = (id) => {
-    return [
-      <Button
-        key={buttonId}
-        mode="contained"
-        style={[s.button, { backgroundColor: theme.colors.accent }]}
-        labelStyle={{
-          fontSize: 10,
-          width: 70,
-        }}
-        onPress={() => {
-          console.log('onOnpress', id);
-          onEditPress(id);
-          swipe.current.recenter();
-        }}
-      >
-        Редакт
-      </Button>,
-      <Button
-        mode="contained"
-        key={buttonId}
-        style={[s.button, { backgroundColor: CANCEL_COLOR }]}
-        labelStyle={{
-          fontSize: 10,
-          width: 70,
-        }}
-        onPress={() => {
-          onDeletePress(id);
-          swipe.current.recenter();
-        }}
-      >
-        Удалить
-      </Button>,
-    ];
-  };
+  const list = useMemo(() => {
+    return data.map((item, i) => ({ ...item, key: `${i}` }));
+  }, [data]);
 
   return (
     <View>
       {data.length ? (
-        <List.Section key="default-list-section">
-          {data.map((item) => (
-            <Fragment key={`fragment-${item.id}`}>
-              <Swipeable ref={swipe} key={`swipe-${item.id}`} rightButtons={getButtons(item.id)}>
-                <List.Item
-                  key={`default-list-${item.id}`}
-                  title={item.label}
-                  right={() => (
-                    <SimpleLineIcon name="arrow-left" size={30} color={theme.colors.accent} />
-                  )}
-                />
-                <Divider key={`divider-${item.id}`} style={s.divider} />
-              </Swipeable>
-            </Fragment>
-          ))}
-        </List.Section>
+        <SwipeListView
+          disableRightSwipe
+          data={list}
+          renderItem={({ item }) => <SwipeListItem item={item} />}
+          renderHiddenItem={({ item }, rowMap) => {
+            return (
+              <SwipeHiddenItem
+                item={item}
+                rowMap={rowMap}
+                onLeftSwipeRightButton={(id) => onDeletePress(id)}
+                onLeftSwipeLeftButton={(id) => onEditPress(id)}
+              />
+            );
+          }}
+          leftOpenValue={75}
+          rightOpenValue={-150}
+          previewRowKey={'0'}
+          previewOpenValue={-40}
+          previewOpenDelay={3000}
+        />
       ) : (
         <EmptyPreview
           key="default-list-preview"
@@ -79,21 +44,3 @@ const DefaultList = ({ data, onEditPress, onDeletePress }) => {
 };
 
 export default DefaultList;
-
-const s = StyleSheet.create({
-  button: {
-    alignItems: 'center',
-    flex: 1,
-    width: 80,
-    justifyContent: 'center',
-    borderRadius: 0,
-  },
-  text: {
-    color: theme.colors.primary,
-  },
-  divider: {
-    marginRight: 10,
-    marginLeft: 10,
-    backgroundColor: theme.colors.primary,
-  },
-});

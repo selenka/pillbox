@@ -5,7 +5,7 @@ import { useModal } from '../store/modal';
 
 const FABgroup = ({ appRef }) => {
   const navigation = appRef.current;
-  const { pills } = useMedicine();
+  const { loading, pills } = useMedicine();
   const { fab, setNotification } = useModal();
 
   const [state, setState] = useState({ open: false });
@@ -18,7 +18,7 @@ const FABgroup = ({ appRef }) => {
     <Portal>
       <FAB.Group
         style={{ paddingBottom: 100 }}
-        visible={fab}
+        visible={loading ? false : fab}
         open={open}
         icon={open ? 'close' : 'plus'}
         actions={[

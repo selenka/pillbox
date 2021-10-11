@@ -16,16 +16,12 @@ const CatchError = (error) => {
     // Something happened in setting up the request that triggered an Error
     console.log('Error', error.message);
   }
-}
+};
 
 export const getMedicine = async () => {
-  return await axios
-    .get('/medicine')
-    .catch((err) => CatchError(err));
+  return await axios.get('/medicine').catch((err) => CatchError(err));
 };
 
 export const getMedicineGroups = async () => {
-  return await axios
-    .get('/group')
-    .catch((err) => CatchError(err));
+  return await axios.get('/group').catch((err) => CatchError(err));
 };

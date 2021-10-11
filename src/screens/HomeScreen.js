@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { NativeModules, LayoutAnimation, View, StyleSheet } from 'react-native';
+import React, { useEffect } from 'react';
+import { NativeModules, View, StyleSheet } from 'react-native';
 import { PRIMARY_DARK, PRIMARY_LIGHT } from '../utils/constants';
 import { useModal } from '../store/modal';
 import { useMedicine } from '../store/medicine';
 import Calendar from '../components/calendar';
-import { Progress } from '../components/HealLevel';
+// import { Progress } from '../components/HealLevel';
 import { useNavigation } from '@react-navigation/native';
+import { ActivityIndicator } from 'react-native-paper';
+import theme from '../utils/theme';
 
 const { UIManager } = NativeModules;
 
@@ -14,12 +16,8 @@ UIManager.setLayoutAnimationEnabledExperimental &&
 
 const HomeScreen = () => {
   const navigation = useNavigation();
-  const { setVisible, setNotification, setFABVisible } = useModal();
-  const { pills } = useMedicine();
-  const [size, setSize] = useState({
-    width: 100,
-    height: 100,
-  });
+  const { setFABVisible } = useModal();
+  const { loading } = useMedicine();
 
   useEffect(() => {
     navigation.addListener('focus', () => {
@@ -27,43 +25,30 @@ const HomeScreen = () => {
     });
   }, [navigation]);
 
-  const onTakePillPress = () => {
-    // Animate the update
-    LayoutAnimation.spring();
-    setSize({
-      width: size.width + 15,
-      height: size.height + 15,
-    });
-    setTimeout(() => {
-      setSize({
-        width: size.width,
-        height: size.height,
-      });
-    }, 10);
-    setTimeout(() => {
-      if (pills.length) {
-        setVisible(true);
-      } else {
-        setNotification({
-          open: true,
-          text: 'Ваша аптечка пустая',
-        });
-      }
-    }, 500);
-  };
-
   return (
     <View style={s.mainContainer}>
+      {loading ? (
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <ActivityIndicator
+            size={60}
+            animating={true}
+            hidesWhenStopped={true}
+            color={theme.colors.accent}
+          />
+        </View>
+      ) : (
+        <Calendar />
+      )}
       {/*<Progress />*/}
-      <Calendar />
-      <View style={s.mainButtonContainer}>
-        {/*<TouchableOpacity style={[s.mainButton, size]} onPress={() => onTakePillPress()}>*/}
-        {/*  <View style={s.mainButtonInner}>*/}
-        {/*    <Icon name="pill" size={50} color={theme.colors.accent} />*/}
-        {/*  </View>*/}
-        {/*</TouchableOpacity>*/}
-        {/*<ModalWithAutocomplete open={open} setVisible={setVisible} />*/}
-      </View>
+      {/*<Calendar />*/}
+      {/*<View style={s.mainButtonContainer}>*/}
+      {/*  /!*<TouchableOpacity style={[s.mainButton, size]} onPress={() => onTakePillPress()}>*!/*/}
+      {/*  /!*  <View style={s.mainButtonInner}>*!/*/}
+      {/*  /!*    <Icon name="pill" size={50} color={theme.colors.accent} />*!/*/}
+      {/*  /!*  </View>*!/*/}
+      {/*  /!*</TouchableOpacity>*!/*/}
+      {/*  /!*<ModalWithAutocomplete open={open} setVisible={setVisible} />*!/*/}
+      {/*</View>*/}
     </View>
   );
 };

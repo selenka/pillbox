@@ -6,7 +6,7 @@ import theme from '../../utils/theme';
 const { UIManager } = NativeModules;
 
 UIManager.setLayoutAnimationEnabledExperimental &&
-UIManager.setLayoutAnimationEnabledExperimental(true);
+  UIManager.setLayoutAnimationEnabledExperimental(true);
 
 const AccordionSection = ({ group, data, expandAll, onListItemPress }) => {
   const [expanded, setExpanded] = useState(false);
@@ -16,9 +16,9 @@ const AccordionSection = ({ group, data, expandAll, onListItemPress }) => {
   }, [expandAll]);
 
   const toggle = () => {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);;
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     setExpanded(!expanded);
-  }
+  };
 
   return (
     <List.Accordion
@@ -33,7 +33,7 @@ const AccordionSection = ({ group, data, expandAll, onListItemPress }) => {
       {data.map((item, index) => (
         <Pressable key={`pressable-${item.id}`} onPress={() => onListItemPress(item)}>
           <List.Item key={item.id} title={item.label} />
-          {data.length !== (index + 1) && <Divider key={`divider-${item.id}`} style={s.divider} />}
+          {data.length !== index + 1 && <Divider key={`divider-${item.id}`} style={s.divider} />}
         </Pressable>
       ))}
     </List.Accordion>
@@ -51,7 +51,7 @@ const s = StyleSheet.create({
   },
   title: {
     fontWeight: 'bold',
-    color: theme.colors.background
+    color: theme.colors.background,
   },
   divider: {
     marginRight: 10,

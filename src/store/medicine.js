@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import nextId from 'react-id-generator';
+import { getMedicine, getMedicineGroups } from '../api';
 
 const StoreContext = createContext(null);
 
@@ -23,6 +24,16 @@ const useProvideStore = () => {
   const [pills, setPills] = useState([]);
   const [groups, setGroups] = useState([]);
   const [newPill, setNewPill] = useState(InitialNewPillState);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    Promise.all([getMedicine(), getMedicineGroups()])
+      .then(([medicine, medicineGroups]) => {
+        setMedicine(medicine.data, medicineGroups.data);
+      })
+      .finally(() => setLoading(false));
+  }, []);
 
   const setMedicine = (medicine, groups) => {
     setPills(medicine);
@@ -76,6 +87,7 @@ const useProvideStore = () => {
     setNewPill,
     updatePill,
     updateGroup,
+    loading,
   };
 };
 

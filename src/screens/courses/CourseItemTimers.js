@@ -1,17 +1,14 @@
-import React, { useRef } from 'react';
-import { View, StyleSheet } from 'react-native';
-import Swipeable from 'react-native-swipeable';
+import React, { useMemo } from 'react';
+import { View } from 'react-native';
 import { useCourses } from '../../store/courses';
-import { Button, Divider, Subheading } from 'react-native-paper';
+import { Subheading } from 'react-native-paper';
 import { Styles } from '../../utils/styles';
 import RNPickerSelect from 'react-native-picker-select';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import theme from '../../utils/theme';
-import { CANCEL_COLOR } from '../../utils/constants';
-import nextId from 'react-id-generator';
-
-let buttonId = nextId('button-timer');
+import { SwipeHiddenItem, SwipeItem } from '../../components/list/Swipe';
+import { SwipeListView } from 'react-native-swipe-list-view';
 
 const Timer = ({ index, timer, handleTimerChange }) => {
   return (
@@ -52,34 +49,12 @@ const Timer = ({ index, timer, handleTimerChange }) => {
           />
         </View>
       </View>
-      <Divider style={s.divider} />
     </>
   );
 };
 
 const CourseItemTimers = () => {
-  let swipe = useRef(null);
   const { newCourse, setNewCourse } = useCourses();
-
-  const getButtons = (id) => {
-    return [
-      <Button
-        mode="contained"
-        key={buttonId}
-        style={[s.button, { backgroundColor: CANCEL_COLOR }]}
-        labelStyle={{
-          fontSize: 10,
-          width: 70,
-        }}
-        onPress={() => {
-          handleTimerDelete(id);
-          swipe.current.recenter();
-        }}
-      >
-        Удалить
-      </Button>,
-    ];
-  };
 
   const handleTimerChange = (id, data) => {
     let timers = newCourse.timers.map((t) => ({ ...t }));
@@ -93,35 +68,44 @@ const CourseItemTimers = () => {
     setNewCourse({ ...newCourse, timers });
   };
 
+  const list = useMemo(() => {
+    return newCourse.timers.map((item, i) => ({ ...item, key: `${i}` }));
+  }, [newCourse.timers]);
+
   return (
     <View>
-      {newCourse.timers.map((timer, index) => (
-        <Swipeable ref={swipe} key={`swipe-${timer.id}`} rightButtons={getButtons(timer.id)}>
-          <Timer
-            key={`timer-${index}`}
-            timer={timer}
-            index={index}
-            handleTimerChange={handleTimerChange}
-          />
-        </Swipeable>
-      ))}
+      <SwipeListView
+        disableRightSwipe
+        data={list}
+        renderItem={({ item, index }) => {
+          return (
+            <SwipeItem key={item.key} itemKey={item.key}>
+              <Timer
+                key={`timer-${item.key}`}
+                timer={item}
+                index={index}
+                handleTimerChange={handleTimerChange}
+              />
+            </SwipeItem>
+          );
+        }}
+        renderHiddenItem={({ item }, rowMap) => {
+          return (
+            <SwipeHiddenItem
+              item={item}
+              rowMap={rowMap}
+              onLeftSwipeRightButton={(id) => handleTimerDelete(id)}
+            />
+          );
+        }}
+        leftOpenValue={75}
+        rightOpenValue={-150}
+        previewRowKey={'0'}
+        previewOpenValue={-40}
+        previewOpenDelay={3000}
+      />
     </View>
   );
 };
 
 export default CourseItemTimers;
-
-const s = StyleSheet.create({
-  divider: {
-    marginRight: 10,
-    marginLeft: 10,
-    backgroundColor: theme.colors.primary,
-  },
-  button: {
-    alignItems: 'center',
-    flex: 1,
-    width: 80,
-    justifyContent: 'center',
-    borderRadius: 0,
-  },
-});

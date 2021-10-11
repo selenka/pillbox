@@ -4,10 +4,13 @@ import { CANCEL_COLOR } from '../../utils/constants';
 import { Styles } from '../../utils/styles';
 import theme from '../../utils/theme';
 
-const DialogModal = ({ mode, open, value, setVisible, title, onConfirm }) => {
+const DialogModal = ({ mode, open, value, setVisible, title, onConfirm, onCancel }) => {
   const [text, setText] = useState('');
 
-  const hideDialog = () => setVisible(false);
+  const hideDialog = () => {
+    onCancel && onCancel();
+    setVisible(false);
+  };
 
   return (
     <Portal>
