@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { Pressable, StyleSheet } from 'react-native';
+import { Pressable, ScrollView, StyleSheet } from 'react-native';
 import { Divider, List } from 'react-native-paper';
 import AccordionSection from './section';
 import theme from '../../utils/theme';
@@ -39,7 +39,7 @@ const AccordionList = ({ searchQuery, data, sections }) => {
   };
 
   return (
-    <>
+    <ScrollView>
       <List.Section>
         {sections.map((group) =>
           getSectionItems(group.id).length ? (
@@ -65,7 +65,7 @@ const AccordionList = ({ searchQuery, data, sections }) => {
           </Pressable>
         ))}
       </List.Section>
-    </>
+    </ScrollView>
   );
 };
 

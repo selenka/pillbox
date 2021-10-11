@@ -1,6 +1,5 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import nextId from 'react-id-generator';
-import axios from 'axios';
 
 const StoreContext = createContext(null);
 
@@ -64,9 +63,6 @@ const useProvideStore = () => {
   const deleteGroup = (id) => {
     setGroups(groups.filter((g) => g.id !== id));
   };
-
-  console.log('pills', pills);
-  console.log('groups', groups);
 
   return {
     pills,

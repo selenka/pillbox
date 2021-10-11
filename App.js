@@ -151,6 +151,7 @@ const MedicineStackScreen = () => {
         options={({ route, navigation }) => (
           {
             headerTitle: <Title>{route.params.name}</Title>,
+            headerBackTitle: <Subheading>Аптечка</Subheading>,
             // eslint-disable-next-line react/display-name
             headerRight: () => (
               <Pressable

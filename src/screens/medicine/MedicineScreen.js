@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Divider, Searchbar, ActivityIndicator } from 'react-native-paper';
 
-import { INPUT_TEXT_COLOR, PRIMARY_DARK } from '../../utils/constants';
+import { FORM_COLOR, INPUT_TEXT_COLOR, PRIMARY_DARK } from '../../utils/constants';
 import EmptyPreview from '../../components/EmptyPreview';
 import { useMedicine } from '../../store/medicine';
 import AccordionList from '../../components/accordion';
 import { useModal } from '../../store/modal';
 import { getMedicine, getMedicineGroups } from '../../api';
 import theme from '../../utils/theme';
+import { Styles } from '../../utils/styles';
 
 const MedicineScreen = () => {
   const [loading, setLoading] = useState(false);
@@ -24,7 +25,7 @@ const MedicineScreen = () => {
         setMedicine(medicine.data, medicineGroups.data);
       })
       .finally(() => setLoading(false));
-  }, [setMedicine]);
+  }, []);
 
   const onChangeSearch = (query) => {
     setSearchQuery(query);
@@ -45,7 +46,14 @@ const MedicineScreen = () => {
         <>
           <Divider />
           <Searchbar
-            placeholder="Поиск лекарств"
+            inputStyle={Styles.input}
+            style={{
+              marginHorizontal: 10,
+              borderRadius: 6,
+              backgroundColor: FORM_COLOR,
+              shadowOpacity: 0
+            }}
+            placeholder="Поиск"
             onChangeText={onChangeSearch}
             value={searchQuery}
           />
