@@ -1,15 +1,45 @@
-import React from 'react'
+import React, { useEffect } from 'react';
 import { Text, ProgressBar } from 'react-native-paper';
 import theme from '../utils/theme';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, NativeModules, Animated } from 'react-native';
 import Icon from 'react-native-vector-icons/Fontisto';
 import { GREEN_COLOR } from '../utils/constants';
 
+const { UIManager } = NativeModules;
+
+UIManager.setLayoutAnimationEnabledExperimental &&
+UIManager.setLayoutAnimationEnabledExperimental(true);
+
 export const Level = () => {
+  const startValue = new Animated.Value(1);
+  const endValue = 1.2;
+
+  useEffect(() => {
+    Animated.loop(
+      Animated.spring(startValue, {
+        toValue: endValue,
+        friction: 1,
+        useNativeDriver: true,
+      }),
+      {iterations: 1000},
+    ).start();
+  }, [startValue, endValue])
+
   return (
     <View style={s.iconContainer}>
       <Text style={s.level}>1</Text>
-      <Icon style={s.icon} name='heart-alt' size={30} color={GREEN_COLOR} />
+      <Animated.View style={[
+          s.icon,
+          {
+            transform: [
+              {
+                scale: startValue,
+              },
+            ],
+          }
+      ]}>
+        <Icon name='heart-alt' size={30} color={GREEN_COLOR} />
+      </Animated.View>
     </View>
   )
 }
