@@ -5,6 +5,7 @@ import { useModal } from '../store/modal';
 import { useMedicine } from '../store/medicine';
 import Calendar from '../components/calendar';
 import { Progress } from '../components/HealLevel';
+import { useNavigation } from '@react-navigation/native';
 
 const { UIManager } = NativeModules;
 
@@ -12,6 +13,7 @@ UIManager.setLayoutAnimationEnabledExperimental &&
   UIManager.setLayoutAnimationEnabledExperimental(true);
 
 const HomeScreen = () => {
+  const navigation = useNavigation();
   const { setVisible, setNotification, setFABVisible } = useModal();
   const { pills } = useMedicine();
   const [size, setSize] = useState({
@@ -20,8 +22,10 @@ const HomeScreen = () => {
   });
 
   useEffect(() => {
-    setFABVisible(true);
-  }, []);
+    navigation.addListener('focus', () => {
+      setFABVisible(true);
+    });
+  }, [navigation]);
 
   const onTakePillPress = () => {
     // Animate the update
@@ -50,7 +54,7 @@ const HomeScreen = () => {
 
   return (
     <View style={s.mainContainer}>
-      <Progress />
+      {/*<Progress />*/}
       <Calendar />
       <View style={s.mainButtonContainer}>
         {/*<TouchableOpacity style={[s.mainButton, size]} onPress={() => onTakePillPress()}>*/}

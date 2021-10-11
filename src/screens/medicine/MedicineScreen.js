@@ -4,28 +4,32 @@ import { Divider, Searchbar, ActivityIndicator } from 'react-native-paper';
 
 import { FORM_COLOR, INPUT_TEXT_COLOR, PRIMARY_DARK } from '../../utils/constants';
 import EmptyPreview from '../../components/EmptyPreview';
-import { useMedicine } from '../../store/medicine';
+import { InitialNewPillState, useMedicine } from '../../store/medicine';
 import AccordionList from '../../components/accordion';
 import { useModal } from '../../store/modal';
 import { getMedicine, getMedicineGroups } from '../../api';
 import theme from '../../utils/theme';
 import { Styles } from '../../utils/styles';
+import { useNavigation } from '@react-navigation/native';
 
 const MedicineScreen = () => {
+  const navigation = useNavigation()
   const [loading, setLoading] = useState(false);
   const { pills, setMedicine, groups } = useMedicine();
   const { setFABVisible } = useModal();
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    setFABVisible(true);
+    navigation.addListener('focus', () => {
+      setFABVisible(true);
+    });
     setLoading(true);
     Promise.all([getMedicine(), getMedicineGroups()])
       .then(([medicine, medicineGroups]) => {
         setMedicine(medicine.data, medicineGroups.data);
       })
       .finally(() => setLoading(false));
-  }, []);
+  }, [navigation]);
 
   const onChangeSearch = (query) => {
     setSearchQuery(query);

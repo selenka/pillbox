@@ -15,13 +15,11 @@ const MedicineItemScreen = ({ route, navigation }) => {
   const { pills, addPill, newPill, setNewPill, updatePill } = useMedicine();
 
   useEffect(() => {
-    setFABVisible(false);
-  }, []);
-
-  useEffect(() => {
+    navigation.addListener('focus', () => {
+      setFABVisible(false);
+    });
     navigation.addListener('beforeRemove', () => {
       setNewPill(InitialNewPillState);
-      setFABVisible(true);
     });
   }, [navigation]);
 

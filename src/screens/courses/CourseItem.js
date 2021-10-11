@@ -19,13 +19,11 @@ const CourseItem = ({ route, navigation }) => {
   } = route;
 
   useEffect(() => {
-    setFABVisible(false);
-  }, []);
-
-  useEffect(() => {
+    navigation.addListener('focus', () => {
+      setFABVisible(false);
+    });
     navigation.addListener('beforeRemove', () => {
       setNewCourse(InitialNewCourseState);
-      setFABVisible(true);
     });
   }, [navigation]);
 

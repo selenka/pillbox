@@ -17,8 +17,8 @@ const MedicineGroupScreen = ({ navigation }) => {
   const [editGroup, setEditGroup] = useState(undefined);
 
   useEffect(() => {
-    navigation.addListener('beforeRemove', () => {
-      setFABVisible(true);
+    navigation.addListener('focus', () => {
+      setFABVisible(false);
     });
   }, [navigation]);
 

@@ -20,8 +20,10 @@ const CoursesScreen = ({ navigation }) => {
   };
 
   useEffect(() => {
-    setFABVisible(true);
-  }, []);
+    navigation.addListener('focus', () => {
+      setFABVisible(true);
+    });
+  }, [navigation]);
 
   return (
     <View style={s.container}>

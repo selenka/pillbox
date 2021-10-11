@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import moment from 'moment';
 import { View, StyleSheet } from 'react-native';
 import { Button, List, Chip } from 'react-native-paper';
@@ -6,15 +6,23 @@ import { pillQuantityTypes, pillTypes, PRIMARY_DARK, PRIMARY_LIGHT } from '../..
 import { useMedicine } from '../../store/medicine';
 import { Styles } from '../../utils/styles';
 import theme from '../../utils/theme';
+import { useModal } from '../../store/modal';
 
 const ViewPillScreen = ({ route, navigation }) => {
   const {
     params: { pill },
   } = route;
   const { deletePill } = useMedicine();
+  const { setFABVisible } = useModal();
 
   const quantity = pillQuantityTypes.find((q) => q.value === pill.quantityType);
   const type = pillTypes.find((p) => p.value === pill.type);
+
+  useEffect(() => {
+    navigation.addListener('focus', () => {
+      setFABVisible(false);
+    });
+  }, [navigation]);
 
   return (
     <View style={s.container}>
